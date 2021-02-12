@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/libft" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libft/ftprintf" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libft/gnl" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/minilibx" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/minilibx-linux" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/minilibx-linux.off" vcs="Git" />
+  </component>
+</project>

@@ -1,0 +1,1 @@
+/usr/bin/clang --coverage -g   CMakeFiles/cub3d.dir/srcs/main.c.o CMakeFiles/cub3d.dir/srcs/parsing/parse.c.o CMakeFiles/cub3d.dir/srcs/cvec/cvec_0.c.o  -o cub3d   -L/usr/local/lib  -L/home/ftinkere/Prs/cub3d/libft  -Wl,-rpath,/usr/local/lib:/home/ftinkere/Prs/cub3d/libft -lmlx -lXext -lpthread -lxcb -lXau -lX11 -lXdmcp -lbsd -lm -lz -lft 

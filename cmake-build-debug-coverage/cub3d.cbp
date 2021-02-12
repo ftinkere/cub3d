@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="cub3d"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cub3d">
+				<Option output="/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/cub3d" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ftinkere/Prs/cub3d/libft"/>
+					<Add directory="/home/ftinkere/Prs/cub3d/includes"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 cub3d"/>
+					<CompileFile command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cub3d/fast">
+				<Option output="/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/cub3d" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ftinkere/Prs/cub3d/libft"/>
+					<Add directory="/home/ftinkere/Prs/cub3d/includes"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 cub3d/fast"/>
+					<CompileFile command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="libft">
+				<Option working_dir="/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 libft"/>
+					<CompileFile command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/sbin/make -j8 -f &quot;/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/ftinkere/Prs/cub3d/includes/cvec.h">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/includes/parse.h">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/cvec/cvec_0.c">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/main.c">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/parsing/parse.c">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

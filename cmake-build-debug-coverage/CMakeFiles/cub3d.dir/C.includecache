@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ftinkere/Prs/cub3d/main.c
+stdio.h
+-
+mlx.h
+/home/ftinkere/Prs/cub3d/mlx.h
+

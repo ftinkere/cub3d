@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../includes/cvec.h
+
+../includes/parse.h
+libft.h
+../includes/libft.h
+cvec.h
+../includes/cvec.h
+
+../libft/libft.h
+stddef.h
+-
+
+/home/ftinkere/Prs/cub3d/srcs/parsing/parse.c
+errno.h
+-
+fcntl.h
+-
+unistd.h
+-
+stdlib.h
+-
+stdio.h
+-
+libft.h
+/home/ftinkere/Prs/cub3d/srcs/parsing/libft.h
+parse.h
+/home/ftinkere/Prs/cub3d/srcs/parsing/parse.h
+mlx.h
+/home/ftinkere/Prs/cub3d/srcs/parsing/mlx.h
+
