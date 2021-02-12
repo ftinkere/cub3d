@@ -1,0 +1,94 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ftinkere <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/10/28 16:43:51 by ftinkere          #+#    #+#              #
+#    Updated: 2020/11/10 16:45:08 by ftinkere         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+.SUFFIXES: .c .o
+
+# Naming
+NAME			=	libft.a
+NAME_SO			:=	$(NAME:.a=.so)
+NAME_H			:=	$(NAME:.a=.h)
+
+# External tools
+SHELL			=	/bin/sh
+CC				=	clang
+AR				=	ar
+RANLIB			=	ranlib
+
+# Project Files
+SOURCE_RAW		=	ft_memset ft_bzero ft_memcpy ft_memccpy ft_memmove \
+	ft_memchr ft_memcmp ft_strlen ft_strlcpy ft_strlcat ft_strchr ft_strrchr \
+	ft_strnstr ft_strncmp ft_atoi ft_isalpha ft_isdigit ft_isalnum ft_isascii \
+	ft_isprint ft_toupper ft_tolower ft_calloc ft_strdup ft_substr ft_strjoin \
+	ft_strtrim ft_split ft_itoa ft_strmapi ft_putchar_fd ft_putstr_fd \
+	ft_putendl_fd ft_putnbr_fd
+SOURCES	:=	$(addsuffix .c, $(SOURCE_RAW))
+
+BONUS_SRCS_RAW	=	ft_lstnew ft_lstadd_front ft_lstsize ft_lstlast \
+	ft_lstadd_back ft_lstdelone ft_lstclear ft_lstiter ft_lstmap
+BONUSES			:=	$(addsuffix .c, $(BONUS_SRCS_RAW))
+
+# Object files
+OBJS			:=	$(SOURCES:.c=.o)
+BONUS_OBJS		:=	$(BONUSES:.c=.o)
+ALL_OBJS		=	$(OBJS) $(BONUS_OBJS)
+
+# Flags
+CFLAGS			:=	-Wextra -Wall -Werror -I.
+ARFLAGS			=	rc
+
+################################################################################
+# Targets																	   #
+################################################################################
+all: $(NAME)
+
+allc: all clean
+
+so: $(NAME_SO)
+
+soc: so clean
+
+bonus: $(NAME) $(BONUS_OBJS)
+	@$(AR) r $(NAME) $(BONUS_OBJS)
+	@$(RANLIB) $(NAME)
+	@echo "\x1b[38;5;6m""Maked libft.a with bonuses""\x1b[0m"
+
+$(NAME): $(OBJS)
+	@$(AR) $(ARFLAGS) $(NAME) $(OBJS)
+	@$(RANLIB) $(NAME)
+	@echo "\x1b[38;5;6m""Maked $@""\x1b[0m"
+
+# Make shared
+$(NAME_SO): $(SOURCES) $(BONUSES)
+	@$(CC) $(CFLAGS) -shared -o $@ -fPIC $(SOURCES) $(BONUSES)
+	@echo "\x1b[38;5;2m""\x1b[38;5;2m""Shared library compiled"
+
+# Just compile files
+$(ALL_OBJS): %.o: %.c $(NAME_H)
+	@$(CC) -c $(CFLAGS) $*.c
+	@echo "\x1b[38;5;2m""Compiled $*"
+
+# Check normes with colorful output (script in folder)
+norm: $(SOURCES) $(BONUS_SRC)
+	@norm $(SOURCES) $(BONUSES) $(NAME_H)
+
+fclean: clean
+	@rm -f $(NAME) $(NAME_SO)
+	@echo "\x1b[38;5;3m""FCleaned""\x1b[0m"
+
+clean:
+	@-rm -f $(ALL_OBJS)
+	@echo "\x1b[38;5;3m""Cleaned""\x1b[0m"
+
+re: fclean all
+
+beep:
+	@echo "\07"
