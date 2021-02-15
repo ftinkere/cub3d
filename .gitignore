@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### C template
 cmake-build*
-
+.idea
 
 # Prerequisites
 *.d
