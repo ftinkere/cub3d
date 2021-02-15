@@ -87,7 +87,7 @@ int			parse_map(t_map *map, t_lines_v *lines, int i)
 	set_dims_map(map, lines, i);
 	map->tiles = ft_calloc(map->height * map->width, sizeof(t_tile));
 	leg = ft_split(map->legend, " ");
-	if (leg == NULL || leg == NULL)
+	if (leg == NULL || map->tiles == NULL)
 		errex(42, "Error allocated memory while parse map");
 	k = 0;
 	while (k < map->height)

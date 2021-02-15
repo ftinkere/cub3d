@@ -30,20 +30,6 @@ enum e_param	get_param(t_line line)
 	return (res);
 }
 
-int				add_conf_1(t_config *conf, t_lines lines, enum e_param param)
-{
-	if (param == P_S)
-		add_p_s(conf, lines);
-	else if (param == P_F)
-		add_p_f(conf, lines);
-	else if (param == P_C)
-		add_p_c(conf, lines);
-	else if (param == P_EA)
-		add_p_ea(conf, lines);
-	else if (param == P_UP)
-		add_p_up(conf, lines);
-}
-
 int				add_conf(t_config *conf, t_line line)
 {
 	t_lines			lines;
@@ -57,16 +43,16 @@ int				add_conf(t_config *conf, t_line line)
 		return (P_E);
 	else if (param == P_R)
 		add_p_r(conf, lines);
-	else if (param == P_NO)
-		add_p_no(conf, lines);
-	else if (param == P_SO)
-		add_p_so(conf, lines);
-	else if (param == P_WE)
-		add_p_we(conf, lines);
+	else if (param >= P_NO && param <= P_UP)
+		add_p_side(conf, lines, param);
 	else if (param == P_L)
 		add_p_l(conf, line);
-	else
-		add_conf_1(conf, lines, param);
+	else if (param == P_S)
+		add_p_s(conf, lines);
+	else if (param == P_F)
+		add_p_f(conf, lines);
+	else if (param == P_C)
+		add_p_c(conf, lines);
 	free_split(lines);
 	return (param);
 }
@@ -75,9 +61,7 @@ void			conf_init(t_config *conf)
 {
 	conf->h_res = 42;
 	conf->w_res = 42;
-	conf->block_types = 0;
 	conf->blocks_texs = cvec_new();
-	conf->sprite_types = 0;
 	conf->sprites_texs = cvec_new();
 	conf->ceil_color = 0x00000000;
 	conf->floor_color = 0x00000000;

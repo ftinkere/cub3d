@@ -21,7 +21,7 @@ int		main(void) // add to read conf
 	int			h;
 
 	g_mlx = mlx_init();
-	conf = parse_cub("../conf.cub");
+	conf = parse_cub("../maps/conf.cub");
 	print_conf(&conf);
 	mlx_win = mlx_new_window(g_mlx, conf.w_res, conf.h_res, "Cub3d");
 	img.img = mlx_new_image(g_mlx, conf.w_res, conf.h_res);

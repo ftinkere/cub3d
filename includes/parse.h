@@ -65,9 +65,9 @@ typedef struct	s_config {
 	int		h_res;
 
 	t_cvec 	blocks_texs;
-	size_t	block_types;
+//	size_t	btypes_count;
 	t_cvec 	sprites_texs;
-	size_t	sprite_types;
+//	size_t	stypes_count;
 
 	t_color	floor_color;
 	t_color	ceil_color;
