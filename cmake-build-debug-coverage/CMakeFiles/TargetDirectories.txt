@@ -1,4 +1,0 @@
-/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/rebuild_cache.dir
-/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir
-/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/edit_cache.dir
-/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/libft.dir
