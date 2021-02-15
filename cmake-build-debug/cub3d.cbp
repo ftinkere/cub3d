@@ -90,19 +90,64 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/ftinkere/Prs/cub3d/includes/adders_p.h">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/includes/conf.h">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/includes/cub3d_utils.h">
+			<Option target="cub3d"/>
+		</Unit>
 		<Unit filename="/home/ftinkere/Prs/cub3d/includes/cvec.h">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/includes/debug.h">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/includes/intmlx.h">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/includes/map_validates.h">
 			<Option target="cub3d"/>
 		</Unit>
 		<Unit filename="/home/ftinkere/Prs/cub3d/includes/parse.h">
 			<Option target="cub3d"/>
 		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/cub3d_debug.c">
+			<Option target="cub3d"/>
+		</Unit>
 		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/cvec/cvec_0.c">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/cvec/cvec_1.c">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/img/img_0.c">
 			<Option target="cub3d"/>
 		</Unit>
 		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/main.c">
 			<Option target="cub3d"/>
 		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/parsing/adders_p_0.c">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/parsing/adders_p_1.c">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/parsing/conf.c">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/parsing/newers.c">
+			<Option target="cub3d"/>
+		</Unit>
 		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/parsing/parse.c">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/parsing/utils_0.c">
+			<Option target="cub3d"/>
+		</Unit>
+		<Unit filename="/home/ftinkere/Prs/cub3d/srcs/parsing/validate.c">
 			<Option target="cub3d"/>
 		</Unit>
 		<Unit filename="/home/ftinkere/Prs/cub3d/CMakeLists.txt">

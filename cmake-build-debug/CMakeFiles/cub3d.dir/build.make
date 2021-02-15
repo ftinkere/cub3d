@@ -116,11 +116,137 @@ CMakeFiles/cub3d.dir/srcs/cvec/cvec_0.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cub3d.dir/srcs/cvec/cvec_0.c.s"
 	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ftinkere/Prs/cub3d/srcs/cvec/cvec_0.c -o CMakeFiles/cub3d.dir/srcs/cvec/cvec_0.c.s
 
+CMakeFiles/cub3d.dir/srcs/parsing/validate.c.o: CMakeFiles/cub3d.dir/flags.make
+CMakeFiles/cub3d.dir/srcs/parsing/validate.c.o: ../srcs/parsing/validate.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ftinkere/Prs/cub3d/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/cub3d.dir/srcs/parsing/validate.c.o"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/cub3d.dir/srcs/parsing/validate.c.o   -c /home/ftinkere/Prs/cub3d/srcs/parsing/validate.c
+
+CMakeFiles/cub3d.dir/srcs/parsing/validate.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cub3d.dir/srcs/parsing/validate.c.i"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ftinkere/Prs/cub3d/srcs/parsing/validate.c > CMakeFiles/cub3d.dir/srcs/parsing/validate.c.i
+
+CMakeFiles/cub3d.dir/srcs/parsing/validate.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cub3d.dir/srcs/parsing/validate.c.s"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ftinkere/Prs/cub3d/srcs/parsing/validate.c -o CMakeFiles/cub3d.dir/srcs/parsing/validate.c.s
+
+CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.o: CMakeFiles/cub3d.dir/flags.make
+CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.o: ../srcs/parsing/utils_0.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ftinkere/Prs/cub3d/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.o"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.o   -c /home/ftinkere/Prs/cub3d/srcs/parsing/utils_0.c
+
+CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.i"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ftinkere/Prs/cub3d/srcs/parsing/utils_0.c > CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.i
+
+CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.s"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ftinkere/Prs/cub3d/srcs/parsing/utils_0.c -o CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.s
+
+CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.o: CMakeFiles/cub3d.dir/flags.make
+CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.o: ../srcs/parsing/adders_p_0.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ftinkere/Prs/cub3d/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.o"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.o   -c /home/ftinkere/Prs/cub3d/srcs/parsing/adders_p_0.c
+
+CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.i"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ftinkere/Prs/cub3d/srcs/parsing/adders_p_0.c > CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.i
+
+CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.s"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ftinkere/Prs/cub3d/srcs/parsing/adders_p_0.c -o CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.s
+
+CMakeFiles/cub3d.dir/srcs/parsing/newers.c.o: CMakeFiles/cub3d.dir/flags.make
+CMakeFiles/cub3d.dir/srcs/parsing/newers.c.o: ../srcs/parsing/newers.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ftinkere/Prs/cub3d/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/cub3d.dir/srcs/parsing/newers.c.o"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/cub3d.dir/srcs/parsing/newers.c.o   -c /home/ftinkere/Prs/cub3d/srcs/parsing/newers.c
+
+CMakeFiles/cub3d.dir/srcs/parsing/newers.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cub3d.dir/srcs/parsing/newers.c.i"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ftinkere/Prs/cub3d/srcs/parsing/newers.c > CMakeFiles/cub3d.dir/srcs/parsing/newers.c.i
+
+CMakeFiles/cub3d.dir/srcs/parsing/newers.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cub3d.dir/srcs/parsing/newers.c.s"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ftinkere/Prs/cub3d/srcs/parsing/newers.c -o CMakeFiles/cub3d.dir/srcs/parsing/newers.c.s
+
+CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.o: CMakeFiles/cub3d.dir/flags.make
+CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.o: ../srcs/parsing/adders_p_1.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ftinkere/Prs/cub3d/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.o"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.o   -c /home/ftinkere/Prs/cub3d/srcs/parsing/adders_p_1.c
+
+CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.i"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ftinkere/Prs/cub3d/srcs/parsing/adders_p_1.c > CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.i
+
+CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.s"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ftinkere/Prs/cub3d/srcs/parsing/adders_p_1.c -o CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.s
+
+CMakeFiles/cub3d.dir/srcs/parsing/conf.c.o: CMakeFiles/cub3d.dir/flags.make
+CMakeFiles/cub3d.dir/srcs/parsing/conf.c.o: ../srcs/parsing/conf.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ftinkere/Prs/cub3d/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/cub3d.dir/srcs/parsing/conf.c.o"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/cub3d.dir/srcs/parsing/conf.c.o   -c /home/ftinkere/Prs/cub3d/srcs/parsing/conf.c
+
+CMakeFiles/cub3d.dir/srcs/parsing/conf.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cub3d.dir/srcs/parsing/conf.c.i"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ftinkere/Prs/cub3d/srcs/parsing/conf.c > CMakeFiles/cub3d.dir/srcs/parsing/conf.c.i
+
+CMakeFiles/cub3d.dir/srcs/parsing/conf.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cub3d.dir/srcs/parsing/conf.c.s"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ftinkere/Prs/cub3d/srcs/parsing/conf.c -o CMakeFiles/cub3d.dir/srcs/parsing/conf.c.s
+
+CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.o: CMakeFiles/cub3d.dir/flags.make
+CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.o: ../srcs/cvec/cvec_1.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ftinkere/Prs/cub3d/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.o"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.o   -c /home/ftinkere/Prs/cub3d/srcs/cvec/cvec_1.c
+
+CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.i"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ftinkere/Prs/cub3d/srcs/cvec/cvec_1.c > CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.i
+
+CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.s"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ftinkere/Prs/cub3d/srcs/cvec/cvec_1.c -o CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.s
+
+CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.o: CMakeFiles/cub3d.dir/flags.make
+CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.o: ../srcs/cub3d_debug.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ftinkere/Prs/cub3d/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.o"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.o   -c /home/ftinkere/Prs/cub3d/srcs/cub3d_debug.c
+
+CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.i"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ftinkere/Prs/cub3d/srcs/cub3d_debug.c > CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.i
+
+CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.s"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ftinkere/Prs/cub3d/srcs/cub3d_debug.c -o CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.s
+
+CMakeFiles/cub3d.dir/srcs/img/img_0.c.o: CMakeFiles/cub3d.dir/flags.make
+CMakeFiles/cub3d.dir/srcs/img/img_0.c.o: ../srcs/img/img_0.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ftinkere/Prs/cub3d/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/cub3d.dir/srcs/img/img_0.c.o"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/cub3d.dir/srcs/img/img_0.c.o   -c /home/ftinkere/Prs/cub3d/srcs/img/img_0.c
+
+CMakeFiles/cub3d.dir/srcs/img/img_0.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cub3d.dir/srcs/img/img_0.c.i"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ftinkere/Prs/cub3d/srcs/img/img_0.c > CMakeFiles/cub3d.dir/srcs/img/img_0.c.i
+
+CMakeFiles/cub3d.dir/srcs/img/img_0.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cub3d.dir/srcs/img/img_0.c.s"
+	/usr/bin/clang $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ftinkere/Prs/cub3d/srcs/img/img_0.c -o CMakeFiles/cub3d.dir/srcs/img/img_0.c.s
+
 # Object files for target cub3d
 cub3d_OBJECTS = \
 "CMakeFiles/cub3d.dir/srcs/main.c.o" \
 "CMakeFiles/cub3d.dir/srcs/parsing/parse.c.o" \
-"CMakeFiles/cub3d.dir/srcs/cvec/cvec_0.c.o"
+"CMakeFiles/cub3d.dir/srcs/cvec/cvec_0.c.o" \
+"CMakeFiles/cub3d.dir/srcs/parsing/validate.c.o" \
+"CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.o" \
+"CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.o" \
+"CMakeFiles/cub3d.dir/srcs/parsing/newers.c.o" \
+"CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.o" \
+"CMakeFiles/cub3d.dir/srcs/parsing/conf.c.o" \
+"CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.o" \
+"CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.o" \
+"CMakeFiles/cub3d.dir/srcs/img/img_0.c.o"
 
 # External object files for target cub3d
 cub3d_EXTERNAL_OBJECTS =
@@ -128,9 +254,18 @@ cub3d_EXTERNAL_OBJECTS =
 cub3d: CMakeFiles/cub3d.dir/srcs/main.c.o
 cub3d: CMakeFiles/cub3d.dir/srcs/parsing/parse.c.o
 cub3d: CMakeFiles/cub3d.dir/srcs/cvec/cvec_0.c.o
+cub3d: CMakeFiles/cub3d.dir/srcs/parsing/validate.c.o
+cub3d: CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.o
+cub3d: CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.o
+cub3d: CMakeFiles/cub3d.dir/srcs/parsing/newers.c.o
+cub3d: CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.o
+cub3d: CMakeFiles/cub3d.dir/srcs/parsing/conf.c.o
+cub3d: CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.o
+cub3d: CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.o
+cub3d: CMakeFiles/cub3d.dir/srcs/img/img_0.c.o
 cub3d: CMakeFiles/cub3d.dir/build.make
 cub3d: CMakeFiles/cub3d.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ftinkere/Prs/cub3d/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable cub3d"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ftinkere/Prs/cub3d/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking C executable cub3d"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cub3d.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

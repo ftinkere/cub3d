@@ -8,6 +8,12 @@
 
 ../includes/cvec.h
 
+../includes/debug.h
+parse.h
+../includes/parse.h
+
+../includes/intmlx.h
+
 ../includes/parse.h
 libft.h
 ../includes/libft.h
@@ -18,21 +24,27 @@ cvec.h
 stddef.h
 -
 
-/home/ftinkere/Prs/cub3d/srcs/parsing/parse.c
-errno.h
+/home/ftinkere/Prs/cub3d/srcs/main.c
+stdio.h
+-
+math.h
 -
 fcntl.h
 -
-unistd.h
--
 stdlib.h
 -
-stdio.h
+debug.h
 -
-libft.h
-/home/ftinkere/Prs/cub3d/srcs/parsing/libft.h
-parse.h
-/home/ftinkere/Prs/cub3d/srcs/parsing/parse.h
+unistd.h
+/home/ftinkere/Prs/cub3d/srcs/unistd.h
 mlx.h
-/home/ftinkere/Prs/cub3d/srcs/parsing/mlx.h
+/home/ftinkere/Prs/cub3d/srcs/mlx.h
+libft.h
+/home/ftinkere/Prs/cub3d/srcs/libft.h
+cvec.h
+/home/ftinkere/Prs/cub3d/srcs/cvec.h
+parse.h
+/home/ftinkere/Prs/cub3d/srcs/parse.h
+intmlx.h
+/home/ftinkere/Prs/cub3d/srcs/intmlx.h
 

@@ -3,20 +3,6 @@
 # include "libft.h"
 # include "cvec.h"
 
-//# define P_E -1
-//# define P_M 0
-//# define P_R 1
-//# define P_NO 2
-//# define P_SO 3
-//# define P_WE 4
-//# define P_EA 5
-//# define P_UP 6
-//# define P_S 7
-//# define P_F 8
-//# define P_C 9
-//# define P_FOV 10
-
-
 typedef unsigned int		t_u32;
 typedef int					t_i32;
 typedef unsigned long long	t_u64;
@@ -61,7 +47,7 @@ typedef struct	s_tile {
 
 typedef struct	s_map {
 	t_legend	legend;
-	size_t		weight;
+	size_t		width;
 	size_t		height;
 	t_tile		*tiles;
 }				t_map;
@@ -91,6 +77,7 @@ typedef struct	s_config {
 }				t_config;
 
 t_config	parse_cub(t_path conf_path);
+int			validate_circ(t_map *map);
 t_lines_v	read_file(t_file file);
 
 #endif

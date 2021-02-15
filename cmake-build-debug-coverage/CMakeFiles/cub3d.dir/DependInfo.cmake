@@ -4,9 +4,18 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/home/ftinkere/Prs/cub3d/srcs/cub3d_debug.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/cub3d_debug.c.o"
   "/home/ftinkere/Prs/cub3d/srcs/cvec/cvec_0.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/cvec/cvec_0.c.o"
+  "/home/ftinkere/Prs/cub3d/srcs/cvec/cvec_1.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/cvec/cvec_1.c.o"
+  "/home/ftinkere/Prs/cub3d/srcs/img/img_0.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/img/img_0.c.o"
   "/home/ftinkere/Prs/cub3d/srcs/main.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/main.c.o"
+  "/home/ftinkere/Prs/cub3d/srcs/parsing/adders_p_0.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/parsing/adders_p_0.c.o"
+  "/home/ftinkere/Prs/cub3d/srcs/parsing/adders_p_1.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/parsing/adders_p_1.c.o"
+  "/home/ftinkere/Prs/cub3d/srcs/parsing/conf.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/parsing/conf.c.o"
+  "/home/ftinkere/Prs/cub3d/srcs/parsing/newers.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/parsing/newers.c.o"
   "/home/ftinkere/Prs/cub3d/srcs/parsing/parse.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/parsing/parse.c.o"
+  "/home/ftinkere/Prs/cub3d/srcs/parsing/utils_0.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/parsing/utils_0.c.o"
+  "/home/ftinkere/Prs/cub3d/srcs/parsing/validate.c" "/home/ftinkere/Prs/cub3d/cmake-build-debug-coverage/CMakeFiles/cub3d.dir/srcs/parsing/validate.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

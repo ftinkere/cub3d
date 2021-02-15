@@ -4,7 +4,7 @@
 #include "mlx.h"
 
 
-void *mlx;
+void *g_mlx;
 void *win1;
 void *win2;
 

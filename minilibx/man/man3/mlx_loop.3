@@ -60,7 +60,7 @@ an event, and then calls a user-defined function associated with this event.
 A single parameter is needed, the connection identifier
 .I mlx_ptr
 (see the
-.B mlx manual).
+.B g_mlx manual).
 
 You can assign different functions to the three following events:
 .br
@@ -125,7 +125,7 @@ tells you which mouse button was pressed.
 
 .SH GOING FURTHER WITH EVENTS
 The MiniLibX provides a much generic access to all X-Window events. The
-.I mlx.h
+.I g_mlx.h
 include define
 .B mlx_hook()
 in the same manner mlx_*_hook functions work. The event and mask values
@@ -135,7 +135,7 @@ See source code of mlx_int_param_event.c to find out how the MiniLibX will
 call your own function for a specific event.
 
 .SH SEE ALSO
-mlx(3), mlx_new_window(3), mlx_pixel_put(3), mlx_new_image(3)
+g_mlx(3), mlx_new_window(3), mlx_pixel_put(3), mlx_new_image(3)
 
 .SH AUTHOR
 Copyright ol@ - 2002-2014 - Olivier Crouzet

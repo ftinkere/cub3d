@@ -10,14 +10,14 @@ CC=clang
 
 CFLAGS= -I$(INC) -O3 -I..
 
-NAME= mlx-test
+NAME= g_mlx-test
 SRC = main.c
 OBJ = $(SRC:.c=.o)
 
 all	:$(NAME)
 
 $(NAME)	:$(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(shell pkg-config --libs --static mlx)
+	$(CC) -o $(NAME) $(OBJ) $(shell pkg-config --libs --static g_mlx)
 
 clean	:
 	rm -f $(NAME) $(OBJ) *~ core *.core

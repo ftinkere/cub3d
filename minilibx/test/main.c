@@ -9,7 +9,7 @@
 #define	IM3_SX		242
 #define	IM3_SY		242
 
-void	*mlx;
+void	*g_mlx;
 void	*win1;
 void    *win2;
 void    *win3;
