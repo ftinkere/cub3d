@@ -56,5 +56,6 @@ void	print_conf(t_config *conf)
 	ft_printf("Ceil: %3d, r: %3d, g: %3d, b: %3d\n", a, r, g, b);
 	ft_printf("\nMAP:\n");
 	print_map(&conf->map);
-	ft_printf("Map is %s\n", validate_circ(&conf->map) ? "valid" : "invalid");
+	ft_printf("Virtual res: w: %3d h: %3d\n", conf->w_vres, conf->h_vres);
+	ft_printf("Distance to projection plane: %f\n", conf->dist_proj);
 }

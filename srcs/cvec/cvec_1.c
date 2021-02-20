@@ -12,3 +12,28 @@ int		cveci_push(t_cveci *vec, int e)
 	vec->siz++;
 	return (e);
 }
+
+int		cvec_free_all(t_cvec *vec)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < vec->siz)
+		free(vec->arr[i]);
+	free(vec->arr);
+}
+
+int		cvec_clear(t_cvec *vec)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < vec->siz)
+		free(vec->arr[i++]);
+	vec->siz = 0;
+}
+
+void	*cvec_last(t_cvec *cvec)
+{
+
+}

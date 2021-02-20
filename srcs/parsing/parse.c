@@ -27,8 +27,14 @@ void		tile_set(t_tile *tile, t_line leg, char c)
 			tile->type = TILE_TYPE_SPRITE;
 		else
 			errex(42, "Legend not found right char");
-		if (tile->type == TILE_TYPE_SPAWN)
-			tile->num = ft_atoi(&leg[3]);
+		if (tile->type == TILE_TYPE_SPAWN && leg[1] == 'N')
+			tile->num = 0;
+		else if (tile->type == TILE_TYPE_SPAWN && leg[1] == 'E')
+			tile->num = 1;
+		else if (tile->type == TILE_TYPE_SPAWN && leg[1] == 'S')
+			tile->num = 2;
+		else if (tile->type == TILE_TYPE_SPAWN && leg[1] == 'W')
+			tile->num = 3;
 		else if (tile->type != TILE_TYPE_EMPTY)
 			tile->num = ft_atoi(&leg[2]);
 	}
@@ -128,6 +134,8 @@ t_config	parse_cub(t_path conf_path)
 		parse_map(&conf.map, &lines, i - 1);
 	else
 		errex(42, "Map not found in .cub");
+	if (!validate_circ(&conf.map))
+		errex(42, "Map not valid. Player can go to end of map");
 	free(lines.arr);
 	return (conf);
 }

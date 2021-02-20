@@ -1,5 +1,6 @@
 #ifndef ADDERS_P_H
 # define ADDERS_P_H
+# include "types.h"
 
 t_btexs		*btexs_new();
 int			add_p_r(t_config *conf, t_lines sline);
