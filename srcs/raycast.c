@@ -17,14 +17,14 @@
 // k = (y - m) / x = tgα
 // m = y - kx
 
-double	straight_x(double k, double m, double y)
+double	straight_x(t_caster *caster, double y)
 {
-	return ((y - m) / k);
+	return ((y - caster->m) * caster->p);
 }
 
-double	straight_y(double k, double m, double x)
+double	straight_y(t_caster *caster, double x)
 {
-	return (k * x + m);
+	return (caster->k * x + caster->m);
 }
 
 void	set_to(t_caster *caster, double ray)
@@ -60,7 +60,7 @@ double	dist_points_ab(t_point a, t_point b)
 
 double	dist_points_abr(t_point a, t_point b, double ray)
 {
-	return (fabs(a.x - b.x) / cos(ray));
+	return (fabs((a.x - b.x) / cos(ray)));
 }
 
 void	get_ij_bypoint(t_caster *caster, t_point point, size_t *i, size_t *j)
@@ -89,18 +89,30 @@ t_point	get_hor_wall(t_caster *caster, t_vars *vars)
 	t_point	fir;
 	double	dx;
 
-	if (caster->x_to == 0) // TODO inf-inf
+	if (caster->y_to == 0) // TODO inf-inf
 	{
-		fir.y = INFINITY * (double)caster->y_to;
+		fir.x = INFINITY * (double)caster->x_to;
 		return (fir);
 	}
 	fir.y = angle_round(vars->player.cord.y, caster->y_to);
-	fir.x = straight_x(caster->k, caster->m, fir.y);
-	dx = straight_x(caster->k, caster->m, fir.y + 1) - fir.x;
+	fir.x = straight_x(caster, fir.y);
+	dx = straight_x(caster, fir.y + 1) - fir.x;
+	if (fir.y < 1 || fir.y > vars->conf->map.height
+		|| fir.x < 1 || fir.x > vars->conf->map.width)
+	{
+		fir.x = INFINITY * (double)caster->x_to;
+		return (fir);
+	}
 	while (get_tile_bycord(caster, vars, fir)->type != TILE_TYPE_WALL)
 	{
 		fir.x += dx;
 		fir.y += 1;
+		if (fir.y < 1 || fir.y > vars->conf->map.height
+			|| fir.x < 1 || fir.x > vars->conf->map.width)
+		{
+			fir.y = INFINITY * (double)caster->y_to;
+			return (fir);
+		}
 	}
 	return (fir);
 }
@@ -112,16 +124,28 @@ t_point	get_ver_wall(t_caster *caster, t_vars *vars)
 
 	if (caster->x_to == 0) // TODO inf-inf
 	{
-		fir.x = INFINITY * (double)caster->x_to;
+		fir.y = INFINITY * (double)caster->y_to;
 		return (fir);
 	}
 	fir.x = angle_round(vars->player.cord.x, caster->x_to);
-	fir.y = straight_y(caster->k, caster->m, fir.x);
-	dy = straight_y(caster->k, caster->m, fir.x + 1) - fir.y;
+	fir.y = straight_y(caster, fir.x);
+	dy = straight_y(caster, fir.x + 1) - fir.y;
+	if (fir.y < 1 || fir.y > vars->conf->map.height
+	|| fir.x < 1 || fir.x > vars->conf->map.width)
+	{
+		fir.y = INFINITY * (double)caster->y_to;
+		return (fir);
+	}
 	while (get_tile_bycord(caster, vars, fir)->type != TILE_TYPE_WALL)
 	{
 		fir.y += dy;
 		fir.x += 1;
+		if (fir.y < 1 || fir.y > vars->conf->map.height
+			|| fir.x < 1 || fir.x > vars->conf->map.width)
+		{
+			fir.y = INFINITY * (double)caster->y_to;
+			return (fir);
+		}
 	}
 	return (fir);
 }
@@ -141,7 +165,7 @@ int		step_cast(t_caster *caster, t_vars *vars, t_cvec *obst, double ray)
 		obs->cross = hor;
 	get_ij_bypoint(caster, obs->cross, &obs->i, &obs->j);
 	obs->tile = &vars->conf->map.tiles[obs->i * vars->conf->map.width + obs->j];
-	cvec_push(obst, obs); // Отсчёт с конца
+	cvec_push(obst, obs);
 }
 
 double	cast_ray(t_vars *vars, t_cvec *obst, double ray)
@@ -149,9 +173,10 @@ double	cast_ray(t_vars *vars, t_cvec *obst, double ray)
 	t_caster	caster;
 
 	cvec_clear(obst);
-	caster.k = tan(vars->player.angle);
+	caster.k = tan(ray);
+	caster.p = tan(M_PI_2 - ray);
 	caster.m = (vars->player.cord.y - caster.k * vars->player.cord.x);
 	set_to(&caster, ray);
-	step_cast(&caster, vars, obst, ray); // стена самая первая
-	return (dist_points_abr(((t_obst*)obst->arr[0])->cross, vars->player.cord, ray));
+	step_cast(&caster, vars, obst, ray);
+	return (dist_points_abr(((t_obst*)obst->arr[0])->cross, vars->player.cord, ray)); // потом брать последний
 }

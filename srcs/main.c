@@ -32,7 +32,6 @@ t_color	shadow_dist(t_color color, double dist)
 	double g;
 	double b;
 
-	ft_printf("%f\n", dist);
 	dist = pow(dist, 1 / 1.5);
 	a = ((color >> 24) & 0xFF);
 	r = ((color >> 16) & 0xFF) - dist * 40;
@@ -60,6 +59,10 @@ int		render_ray(t_vars *vars, t_cvec *obst, double dist, int i)
 		if ((double)j * vars->conf->dh / vars->conf->h_vres > vars->conf->dh / 2 - pr_h / 2
 		&& (double)j * vars->conf->dh / vars->conf->h_vres < vars->conf->dh / 2 + pr_h / 2)
 			img_pixel_put(&vars->img, j, i, shadow_dist(0x00FFFFFF, dist));
+		else if (j < vars->conf->h_vres / 2)
+			img_pixel_put(&vars->img, j, i, vars->conf->ceil_color);
+		else if (j > vars->conf->h_vres / 2)
+			img_pixel_put(&vars->img, j, i, vars->conf->floor_color);
 		j++;
 	}
 }
@@ -77,18 +80,16 @@ int		next_render(t_vars *vars)
 	while(i > 0)
 	{
 		dist = cast_ray(vars, &obst, ray + i * vars->conf->fov / vars->conf->w_vres);
-		render_ray(vars, &obst, dist, vars->conf->w_vres - i);
+		render_ray(vars, &obst, dist, i);
+//		render_ray(vars, &obst, dist, vars->conf->w_vres - i);
 		i--;
 	}
-/*	while (ray <= vars->player.angle + vars->conf->fov / 2)
-	{
-		dist = cast_ray(vars, &obst, ray);
-		render_ray(vars, &obst, dist, ray - vars->player.angle + vars->conf->fov / 2.);
-		ray += vars->conf->fov / vars->conf->w_vres; // Виртуальное разрешение 320
-	}*/
 	mlx_put_image_to_window(g_mlx, vars->win, vars->img.img, 0, 0);
 	vars->tim++;
-//	ft_printf("%d\n", vars->tim);
+	vars->player.angle += M_PI_4 / 1000;
+	if (vars->player.angle >= M_PI * 2)
+		vars->player.angle -= M_PI * 2;
+	ft_printf("t: %d\na: %f\n\n", vars->tim, vars->player.angle);
 }
 
 void	player_init(t_player *player, t_map *map)
@@ -128,7 +129,7 @@ int		main(void)
 								&vars.img.endian);
 	vars.tim = 0;
 	player_init(&vars.player, &conf.map);
-	vars.player.angle = M_PI / 4;
+	vars.player.angle = M_PI_2;
 	w = 0;
 	while (w < conf.w_res)
 	{
@@ -136,13 +137,9 @@ int		main(void)
 		while (h < conf.h_res)
 		{
 			if (h > conf.h_res / 2)
-			{
 				img_pixel_put(&vars.img, h, w, conf.floor_color);
-			}
 			else
-			{
 				img_pixel_put(&vars.img, h, w, conf.ceil_color);
-			}
 			h++;
 		}
 		w++;

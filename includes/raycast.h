@@ -4,8 +4,8 @@
 
 typedef struct	s_caster {
 	double	k;
+	double	p;
 	double	m;
-//	t_point	last;
 	int		x_to;
 	int		y_to;
 }				t_caster;

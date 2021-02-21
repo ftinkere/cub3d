@@ -73,7 +73,7 @@ void			conf_init(t_config *conf)
 	conf->map.width = 0;
 	conf->map.legend = "0E 1W0 2S0 DD0 NNS0 EES1 SSS2 WWS3";
 	conf->fov = M_PI / 3;
-	conf->scale = 128;
+	conf->scale = 64;
 	conf->dw = conf->w_vres / conf->scale;
 	conf->dh = conf->h_vres / conf->scale;
 	conf->dist_proj = conf->dw / (2 * tan(conf->fov / 2));
