@@ -52,7 +52,7 @@ int		render_ray(t_vars *vars, double dist, int i)
 	while (j < vars->conf->h_vres)
 	{
 		if ((double)j * vars->conf->h_vres / vars->conf->h_vres > vars->conf->h_vres / 2. - pr_h / 2.
-		&& (double)j * vars->conf->h_vres / vars->conf->h_vres < vars->conf->h_vres / 2. + pr_h / 2.)
+		&& (double)j < vars->conf->h_vres / 2. + pr_h / 2.)
 			img_pixel_put(&vars->img, j, i, shadow_dist(0x00FFFFFF, dist));
 		else if (j < vars->conf->h_vres / 2.)
 			img_pixel_put(&vars->img, j, i, vars->conf->ceil_color);
@@ -122,7 +122,7 @@ int		main(void)
 								&vars.img.endian);
 	vars.tim = 0;
 	player_init(&vars.player, &conf.map);
-	vars.player.angle = 6.195796;
+//	vars.player.angle = 6.195796;
 	vars.obst = cvec_new();
 	w = 0;
 	while (w < conf.w_res)

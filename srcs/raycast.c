@@ -65,11 +65,11 @@ double	dist_points_abr(t_point a, t_point b, double ray)
 
 void	get_ij_bypoint(t_caster *caster, t_point point, size_t *i, size_t *j)
 {
-	if (caster->y_to < 0)
+	if (caster->y_to < 0 && floor(point.x) != point.x)
 		*i = floor(point.y - 1);
 	else
 		*i = floor(point.y);
-	if (caster->x_to < 0)
+	if (caster->x_to < 0 && floor(point.y) != point.y)
 		*j = floor(point.x - 1);
 	else
 		*j = floor(point.x);
@@ -96,9 +96,9 @@ t_point	get_hor_wall(t_caster *caster, t_vars *vars)
 	}
 	fir.y = angle_round(vars->player.cord.y, caster->y_to);
 	fir.x = straight_x(caster, fir.y);
-	dx = straight_x(caster, fir.y + 1) - fir.x;
-	if (fir.y < 1 || fir.y > vars->conf->map.height
-		|| fir.x < 1 || fir.x > vars->conf->map.width)
+	dx = straight_x(caster, fir.y + caster->y_to) - fir.x;
+	if (fir.y < 1 || fir.y >= vars->conf->map.height
+		|| fir.x < 1 || fir.x >= vars->conf->map.width)
 	{
 		fir.x = INFINITY * (double)caster->x_to;
 		return (fir);
@@ -106,9 +106,9 @@ t_point	get_hor_wall(t_caster *caster, t_vars *vars)
 	while (get_tile_bycord(caster, vars, fir)->type != TILE_TYPE_WALL)
 	{
 		fir.x += dx;
-		fir.y += 1;
-		if (fir.y < 1 || fir.y > vars->conf->map.height
-			|| fir.x < 1 || fir.x > vars->conf->map.width)
+		fir.y += caster->y_to;
+		if (fir.y < 1 || fir.y >= vars->conf->map.height
+			|| fir.x < 1 || fir.x >= vars->conf->map.width)
 		{
 			fir.y = INFINITY * (double)caster->y_to;
 			return (fir);
@@ -129,9 +129,9 @@ t_point	get_ver_wall(t_caster *caster, t_vars *vars)
 	}
 	fir.x = angle_round(vars->player.cord.x, caster->x_to);
 	fir.y = straight_y(caster, fir.x);
-	dy = straight_y(caster, fir.x + 1) - fir.y;
-	if (fir.y < 1 || fir.y > vars->conf->map.height
-	|| fir.x < 1 || fir.x > vars->conf->map.width)
+	dy = straight_y(caster, fir.x + caster->x_to) - fir.y;
+	if (fir.y < 1 || fir.y >= vars->conf->map.height
+	|| fir.x < 1 || fir.x >= vars->conf->map.width)
 	{
 		fir.y = INFINITY * (double)caster->y_to;
 		return (fir);
@@ -139,9 +139,9 @@ t_point	get_ver_wall(t_caster *caster, t_vars *vars)
 	while (get_tile_bycord(caster, vars, fir)->type != TILE_TYPE_WALL)
 	{
 		fir.y += dy;
-		fir.x += 1;
-		if (fir.y < 1 || fir.y > vars->conf->map.height
-			|| fir.x < 1 || fir.x > vars->conf->map.width)
+		fir.x += caster->x_to;
+		if (fir.y < 1 || fir.y >= vars->conf->map.height
+			|| fir.x < 1 || fir.x >= vars->conf->map.width)
 		{
 			fir.y = INFINITY * (double)caster->y_to;
 			return (fir);

@@ -18,7 +18,5 @@ add_custom_target(minilibx
         )
 
 add_executable(cub3d srcs/main.c srcs/parsing/parse.c includes/parse.h srcs/cvec/cvec_0.c includes/cvec.h srcs/parsing/validate.c srcs/parsing/utils_0.c includes/cub3d_utils.h srcs/parsing/adders_p_0.c includes/adders_p.h srcs/parsing/newers.c srcs/parsing/adders_p_1.c includes/map_validates.h srcs/parsing/conf.c includes/conf.h srcs/cvec/cvec_1.c srcs/cub3d_debug.c includes/intmlx.h srcs/img/img_0.c includes/debug.h includes/types.h srcs/raycast.c includes/raycast.h)
-#add_executable(testsplit libft/srcs/main.c libft/srcs/ft_split.c libft/srcs/ft_strchr.c libft/srcs/ft_strlen.c libft/srcs/ft_substr.c libft/srcs/ft_memchr.c
-#        libft/srcs/ft_memcpy.c libft/srcs/ft_memccpy.c)
-target_link_libraries(cub3d mlx Xext pthread xcb Xau X11 Xdmcp bsd m z ft)
 add_dependencies(cub3d libft minilibx)
+target_link_libraries(cub3d mlx Xext pthread xcb Xau X11 Xdmcp bsd m z ft)

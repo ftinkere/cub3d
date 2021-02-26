@@ -53,13 +53,13 @@ CFLAGS	=	-O3 -I$(INC)
 
 DESTDIR	=	/usr/local
 
-all: $(NAME) $(DOCP)
+all: $(DOCP)
 
 $(NAME): $(OBJ)
 	ar -r $(NAME) $(OBJ)
 	ranlib $(NAME)
 
-do_cp:
+do_cp: $(NAME)
 	cp $(NAME) libmlx_$(HT).a
 
 clean:
