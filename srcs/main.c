@@ -83,7 +83,7 @@ int		next_render(t_vars *vars)
 	vars->player.angle += M_PI_4 / 100;
 	if (vars->player.angle >= M_PI * 2)
 		vars->player.angle -= M_PI * 2;
-//	ft_printf("t: %d\na: %f\n\n", vars->tim, vars->player.angle);
+	ft_printf("%d:a: %f\n", vars->tim, vars->player.angle);
 
 }
 
@@ -122,7 +122,7 @@ int		main(void)
 								&vars.img.endian);
 	vars.tim = 0;
 	player_init(&vars.player, &conf.map);
-	vars.player.angle = 4.405088;
+	vars.player.angle = 6.195796;
 	vars.obst = cvec_new();
 	w = 0;
 	while (w < conf.w_res)
