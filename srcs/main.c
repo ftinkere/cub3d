@@ -42,12 +42,11 @@ t_color	shadow_dist(t_color color, double dist)
 	return (color_rgba((int)r, (int)g, (int)b, (int)a));
 }
 
-int		render_ray(t_vars *vars, double dist, int i, double ray)
+int		render_ray(t_vars *vars, double dist, int i)
 {
 	double	pr_h;
 	int		j;
 
-	dist *= cos(ray);
 	pr_h = vars->conf->dist_proj / dist;
 	j = 0;
 	while (j < vars->conf->h_vres)
@@ -63,16 +62,6 @@ int		render_ray(t_vars *vars, double dist, int i, double ray)
 	}
 }
 
-double	get_i_ray(t_vars *vars, int i)
-{
-	double	ray;
-
-	ray = atan2(fabs((double)i - vars->conf->w_vres / 2.), vars->conf->dist_proj);
-	if (i < vars->conf->w_vres / 2.)
-		ray *= -1;
-	return (ray);
-}
-
 int		next_render(t_vars *vars)
 {
 	double	ray;
@@ -83,9 +72,10 @@ int		next_render(t_vars *vars)
 	i = 0;
 	while(i < vars->conf->w_vres)
 	{
-		ray = get_i_ray(vars, i);
+		ray = atan2((double)i - vars->conf->w_vres / 2., vars->conf->dist_proj);
 		dist = cast_ray(vars, &vars->obst, ray + vars->player.angle);
-		render_ray(vars, dist, i, ray);
+		dist *= cos(ray);
+		render_ray(vars, dist, i);
 		i++;
 	}
 	mlx_put_image_to_window(g_mlx, vars->win, vars->img.img, 0, 0);
