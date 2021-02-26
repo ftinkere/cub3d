@@ -1,9 +1,11 @@
+#include <unistd.h>
 #include <stdio.h>
 #include <math.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <debug.h>
 #include <raycast.h>
+#include <glob.h>
 #include "unistd.h"
 #include "mlx.h"
 #include "libft.h"
@@ -32,64 +34,67 @@ t_color	shadow_dist(t_color color, double dist)
 	double g;
 	double b;
 
-	dist = pow(dist, 1 / 1.5);
 	a = ((color >> 24) & 0xFF);
-	r = ((color >> 16) & 0xFF) - dist * 40;
-	g = ((color >> 8) & 0xFF) - dist * 40;
-	b = (color & 0xFF) - dist * 40;
-	if (r < 0)
-		r = 0;
-	if (g < 0)
-		g = 0;
-	if (b < 0)
-		b = 0;
+	r = ((color >> 16) & 0xFF) * pow(0.8, dist);
+	g = ((color >> 8) & 0xFF) * pow(0.8, dist);
+	b = (color & 0xFF) * pow(0.8, dist);
+
 	return (color_rgba((int)r, (int)g, (int)b, (int)a));
 }
 
-int		render_ray(t_vars *vars, t_cvec *obst, double dist, int i)
+int		render_ray(t_vars *vars, double dist, int i, double ray)
 {
 	double	pr_h;
 	int		j;
 
-	dist *= cos(fabs(i * vars->conf->fov / vars->conf->w_vres - vars->conf->fov / 2.));
+	dist *= cos(ray);
 	pr_h = vars->conf->dist_proj / dist;
 	j = 0;
 	while (j < vars->conf->h_vres)
 	{
-		if ((double)j * vars->conf->dh / vars->conf->h_vres > vars->conf->dh / 2 - pr_h / 2
-		&& (double)j * vars->conf->dh / vars->conf->h_vres < vars->conf->dh / 2 + pr_h / 2)
+		if ((double)j * vars->conf->h_vres / vars->conf->h_vres > vars->conf->h_vres / 2. - pr_h / 2.
+		&& (double)j * vars->conf->h_vres / vars->conf->h_vres < vars->conf->h_vres / 2. + pr_h / 2.)
 			img_pixel_put(&vars->img, j, i, shadow_dist(0x00FFFFFF, dist));
-		else if (j < vars->conf->h_vres / 2)
+		else if (j < vars->conf->h_vres / 2.)
 			img_pixel_put(&vars->img, j, i, vars->conf->ceil_color);
-		else if (j > vars->conf->h_vres / 2)
+		else if (j > vars->conf->h_vres / 2.)
 			img_pixel_put(&vars->img, j, i, vars->conf->floor_color);
 		j++;
 	}
 }
 
+double	get_i_ray(t_vars *vars, int i)
+{
+	double	ray;
+
+	ray = atan2(fabs((double)i - vars->conf->w_vres / 2.), vars->conf->dist_proj);
+	if (i < vars->conf->w_vres / 2.)
+		ray *= -1;
+	return (ray);
+}
+
 int		next_render(t_vars *vars)
 {
-	t_cvec	obst;
 	double	ray;
 	double	dist;
 	int		i;
 
-	obst = cvec_new();
-	ray = vars->player.angle - vars->conf->fov / 2.;
-	i = vars->conf->w_vres;
-	while(i > 0)
+//	ray = vars->player.angle - vars->conf->fov / 2.;
+	i = 0;
+	while(i < vars->conf->w_vres)
 	{
-		dist = cast_ray(vars, &obst, ray + i * vars->conf->fov / vars->conf->w_vres);
-		render_ray(vars, &obst, dist, i);
-//		render_ray(vars, &obst, dist, vars->conf->w_vres - i);
-		i--;
+		ray = get_i_ray(vars, i);
+		dist = cast_ray(vars, &vars->obst, ray + vars->player.angle);
+		render_ray(vars, dist, i, ray);
+		i++;
 	}
 	mlx_put_image_to_window(g_mlx, vars->win, vars->img.img, 0, 0);
 	vars->tim++;
-	vars->player.angle += M_PI_4 / 1000;
+	vars->player.angle += M_PI_4 / 100;
 	if (vars->player.angle >= M_PI * 2)
 		vars->player.angle -= M_PI * 2;
-	ft_printf("t: %d\na: %f\n\n", vars->tim, vars->player.angle);
+//	ft_printf("t: %d\na: %f\n\n", vars->tim, vars->player.angle);
+
 }
 
 void	player_init(t_player *player, t_map *map)
@@ -110,8 +115,6 @@ void	player_init(t_player *player, t_map *map)
 		player->angle = M_PI;
 }
 
-double	dist_points_ab(t_point a, t_point b);
-
 int		main(void)
 {
 	t_config	conf;
@@ -129,7 +132,8 @@ int		main(void)
 								&vars.img.endian);
 	vars.tim = 0;
 	player_init(&vars.player, &conf.map);
-	vars.player.angle = M_PI_2;
+	vars.player.angle = 4.405088;
+	vars.obst = cvec_new();
 	w = 0;
 	while (w < conf.w_res)
 	{

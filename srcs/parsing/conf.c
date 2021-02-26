@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <pth.h>
 #include "libft.h"
 #include "parse.h"
 #include "cub3d_utils.h"
@@ -62,8 +63,8 @@ void			conf_init(t_config *conf)
 {
 	conf->h_res = 42;
 	conf->w_res = 42;
-	conf->w_vres = 320;
-	conf->h_vres = 200;
+	conf->w_vres = 800;
+	conf->h_vres = 600;
 	conf->blocks_texs = cvec_new();
 	conf->sprites_texs = cvec_new();
 	conf->ceil_color = 0x00000000;
@@ -72,9 +73,9 @@ void			conf_init(t_config *conf)
 	conf->map.height = 0;
 	conf->map.width = 0;
 	conf->map.legend = "0E 1W0 2S0 DD0 NNS0 EES1 SSS2 WWS3";
-	conf->fov = M_PI / 3;
+	conf->fov = M_PI / 2;
 	conf->scale = 64;
-	conf->dw = conf->w_vres / conf->scale;
-	conf->dh = conf->h_vres / conf->scale;
-	conf->dist_proj = conf->dw / (2 * tan(conf->fov / 2));
+//	conf->dw = conf->w_vres / conf->scale;
+//	conf->dh = conf->h_vres / conf->scale;
+	conf->dist_proj = (double)conf->w_vres / (2 * tan(conf->fov / 2));
 }

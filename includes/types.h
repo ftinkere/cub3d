@@ -64,8 +64,8 @@ typedef struct	s_config {
 	int		h_res;
 	int		w_vres;
 	int		h_vres;
-	double	dw;
-	double	dh;
+//	double	dw;
+//	double	dh;
 	double	scale;
 
 	t_cvec 	blocks_texs;
@@ -101,6 +101,7 @@ typedef struct	s_img {
 typedef struct	s_vars {
 	t_img		img;
 	t_player	player;
+	t_cvec		obst;
 	t_u64		tim;
 	void		*win;
 	t_config	*conf;
