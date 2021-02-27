@@ -15,6 +15,8 @@
 #include "cub3d_utils.h"
 #include "map_validates.h"
 
+#define GUI_TEXES 1
+
 void *g_mlx;
 
 int		move_by_key(int keycode, t_vars *vars)
@@ -88,7 +90,8 @@ enum e_side	get_side_cross(t_obst *obst)
 		return (SIDE_SOUTH);
 	if (obst->j == obst->cross.x)
 		return (SIDE_WEST);
-	errex(42, "Side not found error");
+//	errex(42, "Side not found error");
+	return (-1);
 }
 
 t_color		get_pix_color(t_vars *vars, t_point	tex_p, double dist)
@@ -100,6 +103,8 @@ t_color		get_pix_color(t_vars *vars, t_point	tex_p, double dist)
 
 	obs = vars->obst.arr[vars->obst.siz - 1];
 	side = get_side_cross(obs);
+	if (side == -1)
+		return (shadow_dist(0x00FFFFFF, dist));
 	img = &vars->texs[obs->tile->num * 4 + side];
 	if (side == SIDE_NORTH || side == SIDE_EAST)
 		tex_p.x = 1 - tex_p.x;
@@ -133,20 +138,20 @@ int		render_ray(t_vars *vars, double dist, int i)
 	{
 		if (p.j > vars->conf->h_vres / 2. - pr_h / 2.
 		&& p.j < vars->conf->h_vres / 2. + pr_h / 2.)
-		{
-			if (p.i == vars->conf->w_vres / 2)
-				img_pixel_put(&vars->img, p.j, p.i,
-					shadow_dist(0x00FF0000, dist));
-			else
-				img_pixel_put(&vars->img, p.j, p.i,
-					get_pix_color(vars, get_tex_p(vars, p, pr_h), dist));
-		}
+			img_pixel_put(&vars->img, p.j, p.i,
+				get_pix_color(vars, get_tex_p(vars, p, pr_h), dist));
 		else if (p.j < vars->conf->h_vres / 2.)
 			img_pixel_put(&vars->img, p.j, p.i, vars->conf->ceil_color);
 		else
 			img_pixel_put(&vars->img, p.j, p.i, vars->conf->floor_color);
 		p.j++;
 	}
+}
+
+int		add_gui_img(t_vars *vars, enum e_gui_tex elem, int x, int y)
+{
+	mlx_put_image_to_window(g_mlx, vars->win,
+					&vars->texs[vars->gui_offset + elem], x, y);
 }
 
 int		next_render(t_vars *vars)
@@ -166,6 +171,10 @@ int		next_render(t_vars *vars)
 	}
 	mlx_put_image_to_window(g_mlx, vars->win, vars->img.img, 0, 0);
 	vars->tim++;
+	mlx_put_image_to_window(g_mlx, vars->win,
+		vars->texs[vars->gui_offset + GUI_CROSS].img,
+		vars->conf->w_vres / 2 - vars->texs[vars->gui_offset + GUI_CROSS].w / 2,
+		vars->conf->h_vres / 2 - vars->texs[vars->gui_offset + GUI_CROSS].h / 2);
 //	ft_printf("%d:a: %f\n", vars->tim, vars->player.angle);
 }
 
@@ -225,6 +234,8 @@ int		load_texs(t_vars *vars)
 			((char*)vars->conf->sprites_texs.arr[i]));
 		i++;
 	}
+	vars->gui_offset = vars->sprite_offset + i;
+	img_load(&vars->texs[vars->gui_offset + 0], "../texs/gui/cross.xpm"); // ВЫНЕСТИ В КОНФИГИ
 	cvec_free_all(&vars->conf->blocks_texs);
 	cvec_free_all(&vars->conf->sprites_texs);
 }
@@ -247,7 +258,7 @@ int		main(void)
 //	vars.player.angle = 6.195796;
 	vars.obst = cvec_new();
 	vars.texs = ft_calloc(vars.conf->blocks_texs.siz * 4
-			+ vars.conf->sprites_texs.siz, sizeof(t_img));
+			+ vars.conf->sprites_texs.siz + GUI_TEXES, sizeof(t_img));
 	load_texs(&vars);
 	mlx_do_key_autorepeaton(g_mlx);
 	mlx_put_image_to_window(g_mlx, vars.win, vars.img.img, 0, 0);

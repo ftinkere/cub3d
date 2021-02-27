@@ -2,6 +2,8 @@
 # define TYPES_H
 # include "cvec.h"
 
+
+
 typedef unsigned int		t_u32;
 typedef int					t_i32;
 typedef unsigned long long	t_u64;
@@ -44,6 +46,10 @@ enum			e_side {
 	SIDE_EAST,
 	SIDE_SOUTH,
 	SIDE_WEST
+};
+
+enum			e_gui_tex {
+	GUI_CROSS = 0
 };
 
 typedef struct	s_tile {
@@ -121,6 +127,7 @@ typedef struct	s_vars {
 	t_config	*conf;
 	t_img		*texs;
 	int			sprite_offset;
+	int			gui_offset;
 }				t_vars;
 
 #endif

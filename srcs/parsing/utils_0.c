@@ -9,7 +9,7 @@
 
 void		errex(int e, const char *message)
 {
-	ft_printf("Exit: %d: %s\n", message);
+	ft_printf("Exit: %d: %s\n", e, message);
 	exit(e);
 }
 
