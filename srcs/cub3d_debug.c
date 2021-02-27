@@ -29,16 +29,14 @@ void	print_conf(t_config *conf)
 {
 	ft_printf("w: %4d\nh: %4d\n", conf->w_res, conf->h_res);
 	ft_printf("btexs: %d\n", conf->blocks_texs.siz);
-	ft_printf("NO0: %s\n", ((t_btexs*)conf->blocks_texs.arr[0])->north);
-	ft_printf("SO0: %s\n", ((t_btexs*)conf->blocks_texs.arr[0])->south);
-	ft_printf("WE0: %s\n", ((t_btexs*)conf->blocks_texs.arr[0])->west);
-	ft_printf("EA0: %s\n", ((t_btexs*)conf->blocks_texs.arr[0])->east);
-	ft_printf("UP0: %s\n", ((t_btexs*)conf->blocks_texs.arr[0])->up);
-	ft_printf("NO1: %s\n", ((t_btexs*)conf->blocks_texs.arr[1])->north);
-	ft_printf("SO1: %s\n", ((t_btexs*)conf->blocks_texs.arr[1])->south);
-	ft_printf("WE1: %s\n", ((t_btexs*)conf->blocks_texs.arr[1])->west);
-	ft_printf("EA1: %s\n", ((t_btexs*)conf->blocks_texs.arr[1])->east);
-	ft_printf("UP1: %s\n", ((t_btexs*)conf->blocks_texs.arr[1])->up);
+	ft_printf("NO0: %s\n", ((char**)conf->blocks_texs.arr[0])[SIDE_NORTH]);
+	ft_printf("SO0: %s\n", ((char**)conf->blocks_texs.arr[0])[SIDE_SOUTH]);
+	ft_printf("WE0: %s\n", ((char**)conf->blocks_texs.arr[0])[SIDE_WEST]);
+	ft_printf("EA0: %s\n", ((char**)conf->blocks_texs.arr[0])[SIDE_EAST]);
+	ft_printf("NO1: %s\n", ((char**)conf->blocks_texs.arr[1])[SIDE_NORTH]);
+	ft_printf("SO1: %s\n", ((char**)conf->blocks_texs.arr[1])[SIDE_SOUTH]);
+	ft_printf("WE1: %s\n", ((char**)conf->blocks_texs.arr[1])[SIDE_WEST]);
+	ft_printf("EA1: %s\n", ((char**)conf->blocks_texs.arr[1])[SIDE_EAST]);
 	ft_printf("S0: %s\n", conf->sprites_texs.arr[0]);
 	ft_printf("S1: %s\n", conf->sprites_texs.arr[1]);
 

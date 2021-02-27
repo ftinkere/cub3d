@@ -10,8 +10,8 @@ typedef struct	s_cveci {
 
 typedef struct	s_cvec {
 	void	**arr;
-	size_t	siz;
-	size_t	cap;
+	int		siz;
+	int		cap;
 }				t_cvec;
 
 t_cvec	cvec_new();

@@ -19,7 +19,7 @@ int		cvec_free_all(t_cvec *vec)
 
 	i = 0;
 	while (i < vec->siz)
-		free(vec->arr[i]);
+		free(vec->arr[i++]);
 	free(vec->arr);
 }
 

@@ -83,20 +83,18 @@ int			add_p_c(t_config *conf, t_lines lines)
 void		add_p_side(t_config *conf, t_lines lines, enum e_param param)
 {
 	size_t	index;
-	t_btexs	*btexs;
+	char	**btexs;
 
 	index = ft_isdigit(lines[0][2]) ? ft_atoi(lines[0] + 2) : 0;
 	while (conf->blocks_texs.siz <= index)
 		cvec_push(&conf->blocks_texs, btexs_new());
-	btexs = (t_btexs*)conf->blocks_texs.arr[index];
+	btexs = (char**)conf->blocks_texs.arr[index];
 	if (param == P_NO)
-		btexs->north = ft_strdup(lines[1]);
+		btexs[SIDE_NORTH] = ft_strdup(lines[1]);
 	else if (param == P_SO)
-		btexs->south = ft_strdup(lines[1]);
+		btexs[SIDE_SOUTH] = ft_strdup(lines[1]);
 	else if (param == P_WE)
-		btexs->west = ft_strdup(lines[1]);
+		btexs[SIDE_WEST] = ft_strdup(lines[1]);
 	else if (param == P_EA)
-		btexs->east = ft_strdup(lines[1]);
-	else if (param == P_UP)
-		btexs->up = ft_strdup(lines[1]);
+		btexs[SIDE_EAST] = ft_strdup(lines[1]);
 }

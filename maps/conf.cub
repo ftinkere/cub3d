@@ -1,28 +1,26 @@
 R 800 600
 
-NO /path/to/no
-SO /path/to/so
-WE /path/to/we
-EA /path/to/ea
-UP /path/to/up
+NO ../texs/no0.xpm
+SO ../texs/so0.xpm
+WE ../texs/we0.xpm
+EA ../texs/ea0.xpm
 
-NO1 /path/to/no1
-SO1 /path/to/so1
-WE1 /path/to/we1
-EA1 /path/to/ea1
-UP1 /path/to/up1
+NO1 ../texs/no1.xpm
+SO1 ../texs/so1.xpm
+WE1 ../texs/we1.xpm
+EA1 ../texs/ea1.xpm
 
-S  /path/to/s0
-S1 /path/to/s1
+S  ../texs/s0.xpm
+S1 ../texs/s1.xpm
 
 F 100,100,100
 C 0,128,200
 
-L 0E 1W0 2S0 DD0 NNS EES SSS WWS
+L 0E 1W0 2W1 3S0 DD0 NNS EES SSS WWS
 
 1111111111111111111
 1010000000000000001
-1000001000S00000001
-1000001000000000001
-1000000000100000001
+1000002000N00000021
+1000002000000000101
+1000000000200002001
 1111111111111111111

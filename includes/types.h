@@ -39,6 +39,13 @@ enum			e_tile_type {
 	TILE_TYPE_SPAWN
 };
 
+enum			e_side {
+	SIDE_NORTH,
+	SIDE_EAST,
+	SIDE_SOUTH,
+	SIDE_WEST
+};
+
 typedef struct	s_tile {
 	enum e_tile_type	type;
 	int					num;
@@ -91,11 +98,13 @@ typedef struct	s_player {
 }				t_player;
 
 typedef struct	s_img {
-	void *img;
-	char *addr;
-	int bits_per_pixel;
-	int line_length;
-	int endian;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		w;
+	int		h;
 }				t_img;
 
 typedef struct	s_vars {
@@ -105,6 +114,8 @@ typedef struct	s_vars {
 	t_u64		tim;
 	void		*win;
 	t_config	*conf;
+	t_img		*texs;
+	int			sprite_offset;
 }				t_vars;
 
 #endif

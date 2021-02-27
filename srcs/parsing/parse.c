@@ -15,14 +15,14 @@ void		tile_set(t_tile *tile, t_line leg, char c)
 {
 	if (c == leg[0])
 	{
-		if (leg[1] == 'W')
+		if (ft_strchr("NESW", leg[1]) && leg[2] == 'S')
+			tile->type = TILE_TYPE_SPAWN;
+		else if (leg[1] == 'W')
 			tile->type = TILE_TYPE_WALL;
 		else if (leg[1] == 'E')
 			tile->type = TILE_TYPE_EMPTY;
 		else if (leg[1] == 'D')
 			tile->type = TILE_TYPE_DOOR;
-		else if (ft_strchr("NESW", leg[1]) && leg[2] == 'S')
-			tile->type = TILE_TYPE_SPAWN;
 		else if (leg[1] == 'S')
 			tile->type = TILE_TYPE_SPRITE;
 		else

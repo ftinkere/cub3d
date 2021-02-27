@@ -3,7 +3,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <debug.h>
-#include <raycast.h>
+#include <float.h>
+#include "raycast.h"
 #include "unistd.h"
 #include "mlx.h"
 #include "libft.h"
@@ -14,6 +15,7 @@
 
 // y = kx + m
 // x = (y - m) / k
+// x = p(y - m)
 // k = (y - m) / x = tgα
 // m = y - kx
 
@@ -29,16 +31,16 @@ double	straight_y(t_caster *caster, double x)
 
 void	set_to(t_caster *caster, double ray)
 {
-	if (ray > 0 && ray < M_PI)
-		caster->y_to = 1;
-	else if (ray == 0 || ray == M_PI)
+	if (fabs(ray) < 0.00001 || fabs(ray - M_PI) < 0.00001)
 		caster->y_to = 0;
+	else if (ray > 0 && ray < M_PI)
+		caster->y_to = 1;
 	else
 		caster->y_to = -1;
-	if (ray > M_PI_2 && ray < 3 * M_PI_2)
-		caster->x_to = -1;
-	else if (ray == M_PI_2 || ray == 3 * M_PI_2)
+	if (fabs(ray - M_PI_2) < 0.00001 || fabs(ray - 3 * M_PI_2) < 0.00001)
 		caster->x_to = 0;
+	else if (ray > M_PI_2 && ray < 3 * M_PI_2)
+		caster->x_to = -1;
 	else
 		caster->x_to = 1;
 }
@@ -60,6 +62,10 @@ double	dist_points_ab(t_point a, t_point b)
 
 double	dist_points_abr(t_point a, t_point b, double ray)
 {
+	if (fabs(a.x - b.x) < 0.0001)
+		return (fabs(a.y - b.y));
+	else if (fabs(a.y - b.y) < 0.0001)
+		return (fabs(a.x - b.x));
 	return (fabs((a.x - b.x) / cos(ray)));
 }
 
@@ -97,6 +103,8 @@ t_point	get_hor_wall(t_caster *caster, t_vars *vars)
 	fir.y = angle_round(vars->player.cord.y, caster->y_to);
 	fir.x = straight_x(caster, fir.y);
 	dx = straight_x(caster, fir.y + caster->y_to) - fir.x;
+	if (caster->x_to == 0)
+		fir.x = vars->player.cord.x;
 	if (fir.y < 1 || fir.y >= vars->conf->map.height
 		|| fir.x < 1 || fir.x >= vars->conf->map.width)
 	{
@@ -130,6 +138,8 @@ t_point	get_ver_wall(t_caster *caster, t_vars *vars)
 	fir.x = angle_round(vars->player.cord.x, caster->x_to);
 	fir.y = straight_y(caster, fir.x);
 	dy = straight_y(caster, fir.x + caster->x_to) - fir.y;
+	if (caster->y_to == 0)
+		fir.y = vars->player.cord.y;
 	if (fir.y < 1 || fir.y >= vars->conf->map.height
 	|| fir.x < 1 || fir.x >= vars->conf->map.width)
 	{
@@ -150,33 +160,42 @@ t_point	get_ver_wall(t_caster *caster, t_vars *vars)
 	return (fir);
 }
 
-int		step_cast(t_caster *caster, t_vars *vars, t_cvec *obst, double ray)
+double		step_cast(t_caster *caster, t_vars *vars, t_cvec *obst, double ray)
 {
 	t_point	hor;
 	t_point	ver;
+	t_point	dists;
 	t_obst	*obs;
 
 	hor = get_hor_wall(caster, vars);
 	ver = get_ver_wall(caster, vars);
 	obs = ft_calloc(1, sizeof(t_obst));
-	if (dist_points_abr(vars->player.cord, ver, ray) < dist_points_abr(vars->player.cord, hor, ray))
+	dists.x = dist_points_abr(vars->player.cord, hor, ray);
+	dists.y = dist_points_abr(vars->player.cord, ver, ray);
+
+	if (dists.y < dists.x)
 		obs->cross = ver;
 	else
 		obs->cross = hor;
 	get_ij_bypoint(caster, obs->cross, &obs->i, &obs->j);
 	obs->tile = &vars->conf->map.tiles[obs->i * vars->conf->map.width + obs->j];
 	cvec_push(obst, obs);
+	if (dists.y < dists.x)
+		return (dists.y);
+	else
+		return (dists.x);
 }
 
 double	cast_ray(t_vars *vars, t_cvec *obst, double ray)
 {
 	t_caster	caster;
 
+	while (ray >= 2 * M_PI)
+		ray -= 2 * M_PI;
 	cvec_clear(obst);
 	caster.k = tan(ray);
 	caster.p = tan(M_PI_2 - ray);
 	caster.m = (vars->player.cord.y - caster.k * vars->player.cord.x);
 	set_to(&caster, ray);
-	step_cast(&caster, vars, obst, ray);
-	return (dist_points_abr(((t_obst*)obst->arr[0])->cross, vars->player.cord, ray)); // потом брать последний
+	return (step_cast(&caster, vars, obst, ray));
 }
