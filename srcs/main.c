@@ -240,6 +240,22 @@ int		load_texs(t_vars *vars)
 	cvec_free_all(&vars->conf->sprites_texs);
 }
 
+/*
+** TODO: Чистое закрытие программы через крестик окна
+** TODO: Показ спрайтов
+** TODO: Управление мышкой
+** TODO: Коллизии
+** TODO: Улучшенный конфиг: сбор путей для гуишных текстур, параметры fov и т.п.
+** TODO: Разное разрешение виртуальное и реальное
+** TODO: Затемнение пола с расстоянием
+** TODO TOO FAR: Двери и секретки
+** TODO TOO FAR: Ловушки и хилки
+** TODO TOO FAR: Звуки и музыка
+** TODO TOO FAR: Предметы и инвентарь
+** TODO TOO FAR: Меню
+** TODO TOO FAR: Уровни
+*/
+
 int		main(void)
 {
 	t_config	conf;
