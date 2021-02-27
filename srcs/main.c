@@ -58,6 +58,8 @@ int		key_handler(int keycode, t_vars *vars)
 		vars->player.angle += M_PI_4 / 20;
 	while (vars->player.angle >= M_PI * 2)
 		vars->player.angle -= M_PI * 2;
+	while (vars->player.angle < 0)
+		vars->player.angle += M_PI * 2;
 	move_by_key(keycode, vars);
 }
 
@@ -76,40 +78,74 @@ t_color	shadow_dist(t_color color, double dist)
 	return (color_rgba((int)r, (int)g, (int)b, (int)a));
 }
 
-t_color	get_pix_color(t_vars *vars)
+enum e_side	get_side_cross(t_obst *obst)
 {
-	t_obst	*obs;
-
-	obs = (t_obst *)vars->obst.arr[vars->obst.siz - 1];
+	if (obst->i == obst->cross.y)
+		return (SIDE_NORTH);
+	if (obst->j + 1 == obst->cross.x)
+		return (SIDE_EAST);
+	if (obst->i + 1 == obst->cross.y)
+		return (SIDE_SOUTH);
+	if (obst->j == obst->cross.x)
+		return (SIDE_WEST);
+	errex(42, "Side not found error");
 }
 
-int		render_block_pix(t_vars *vars, double dist, int i, int j)
+t_color		get_pix_color(t_vars *vars, t_point	tex_p, double dist)
 {
-	int		color;
+	t_obst		*obs;
+	t_img		*img;
+	t_color		color;
+	enum e_side	side;
 
-	if (i == vars->conf->w_vres / 2)
-		color = shadow_dist(0x00FF0000, dist);
+	obs = vars->obst.arr[vars->obst.siz - 1];
+	side = get_side_cross(obs);
+	img = &vars->texs[obs->tile->num * 4 + side];
+	if (side == SIDE_NORTH || side == SIDE_EAST)
+		tex_p.x = 1 - tex_p.x;
+	color = *img_pixel_get(img, (int)(tex_p.y * img->h), (int)(tex_p.x * img->w));
+	return (shadow_dist(color, dist));
+}
+
+t_point	get_tex_p(t_vars *vars, t_ipoint p, double pr_h)
+{
+	t_point		tex_p;
+	t_obst		*obs;
+
+	obs = vars->obst.arr[vars->obst.siz - 1];
+	if (obs->cross.x == floor(obs->cross.x))
+		tex_p.x = obs->cross.y - floor(obs->cross.y);
 	else
-		color = shadow_dist(0x00FFFFFF, dist);
-	img_pixel_put(&vars->img, j, i, color);
+		tex_p.x = obs->cross.x - floor(obs->cross.x);
+	tex_p.y = (p.j + (pr_h - (double)(vars->conf->h_vres) / 2)) / pr_h - 0.5;
+	return (tex_p);
 }
 
 int		render_ray(t_vars *vars, double dist, int i)
 {
-	int		j;
-	double	pr_h;
+	t_ipoint	p;
+	double		pr_h;
 
+	p.i = i;
 	pr_h = vars->conf->dist_proj / dist;
-		j = 0;
-	while (j < vars->conf->h_vres)
+	p.j = 0;
+	while (p.j < vars->conf->h_vres)
 	{
-		if (j > vars->conf->h_vres / 2. - pr_h / 2. && j < vars->conf->h_vres / 2. + pr_h / 2.)
-			render_block_pix(vars, dist, i, j);
-		else if (j < vars->conf->h_vres / 2.)
-			img_pixel_put(&vars->img, j, i, vars->conf->ceil_color);
+		if (p.j > vars->conf->h_vres / 2. - pr_h / 2.
+		&& p.j < vars->conf->h_vres / 2. + pr_h / 2.)
+		{
+			if (p.i == vars->conf->w_vres / 2)
+				img_pixel_put(&vars->img, p.j, p.i,
+					shadow_dist(0x00FF0000, dist));
+			else
+				img_pixel_put(&vars->img, p.j, p.i,
+					get_pix_color(vars, get_tex_p(vars, p, pr_h), dist));
+		}
+		else if (p.j < vars->conf->h_vres / 2.)
+			img_pixel_put(&vars->img, p.j, p.i, vars->conf->ceil_color);
 		else
-			img_pixel_put(&vars->img, j, i, vars->conf->floor_color);
-		j++;
+			img_pixel_put(&vars->img, p.j, p.i, vars->conf->floor_color);
+		p.j++;
 	}
 }
 
@@ -119,7 +155,6 @@ int		next_render(t_vars *vars)
 	double	dist;
 	int		i;
 
-//	ray = vars->player.angle - vars->conf->fov / 2.;
 	i = 0;
 	while(i < vars->conf->w_vres)
 	{
@@ -132,7 +167,6 @@ int		next_render(t_vars *vars)
 	mlx_put_image_to_window(g_mlx, vars->win, vars->img.img, 0, 0);
 	vars->tim++;
 //	ft_printf("%d:a: %f\n", vars->tim, vars->player.angle);
-
 }
 
 void	player_init(t_player *player, t_map *map)

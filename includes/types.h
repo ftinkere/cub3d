@@ -92,6 +92,11 @@ typedef struct	s_point {
 	double	y;
 }				t_point;
 
+typedef struct	s_ipoint {
+	int		i;
+	int		j;
+}				t_ipoint;
+
 typedef struct	s_player {
 	t_point	cord;
 	double	angle;

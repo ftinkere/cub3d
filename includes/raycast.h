@@ -14,8 +14,8 @@ typedef struct	s_caster {
 
 typedef struct	s_obst {
 	t_tile	*tile;
-	size_t	i;
-	size_t	j;
+	int		i; // y
+	int		j; // x
 	t_point	cross;
 }				t_obst;
 
