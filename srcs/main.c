@@ -132,16 +132,19 @@ int		render_spite_ray(t_vars *vars, int i)
 
 	img = &vars->texs[vars->sprite_offset];
 	sprite = (t_sprite*)vars->sprites.arr[vars->sprites.siz - 1];
-	pr_h = vars->conf->dist_proj ;// / (sprite->dist * cos(vars->player.angle));
+	pr_h = vars->conf->dist_proj / sprite->dist;
 	j = 0;
 	while (j < vars->conf->h_vres)
 	{
-		color = *img_pixel_get(img, (int)round(img->h *
-											   (j + (pr_h - (double)(vars->conf->h_vres) / 2)) / pr_h),
-							   (int)round(img->w * sprite->dist_tex));
 		if (j > vars->conf->h_vres / 2. - pr_h / 2.
-		&& j < vars->conf->h_vres / 2. + pr_h / 2. && (color & 0xFF000000) == 0)
-			img_pixel_put(&vars->img, j, i, color);
+		&& j < vars->conf->h_vres / 2. + pr_h / 2.)
+		{
+			color = *img_pixel_get(img,
+				(int)round(img->h * ((j + (pr_h - (double)(vars->conf->h_vres) / 2)) / pr_h - 0.5)),
+				(int)round(img->w * sprite->dist_tex));
+			if ((color & 0xFF000000) == 0)
+				img_pixel_put(&vars->img, j, i, color);
+		}
 		j++;
 	}
 }
@@ -157,7 +160,9 @@ int		render_ray(t_vars *vars, t_wall wall, int i)
 	while (p.j < vars->conf->h_vres)
 	{
 		if (p.j > vars->conf->h_vres / 2. - pr_h / 2.
-		&& p.j < vars->conf->h_vres / 2. + pr_h / 2.)
+		&& p.j < vars->conf->h_vres / 2. + pr_h / 2.
+		&& (fabs(wall.cross.y) != INFINITY && fabs(wall.cross.x) != INFINITY)
+		&& (wall.cross.y == wall.cross.y && wall.cross.x == wall.cross.x))
 			img_pixel_put(&vars->img, p.j, p.i,
 				get_pix_color(vars, get_tex_p(vars, wall, p, pr_h), wall));
 		else if (p.j < vars->conf->h_vres / 2.)

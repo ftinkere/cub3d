@@ -103,23 +103,22 @@ void		add_sprite(t_caster *caster, t_vars *vars, t_ipoint pos, double ray)
 	t_point		tmp;
 	double		g;
 	double		n;
+	double		angle;
 
 	sprite = ft_calloc(1, sizeof(t_sprite));
 //	g = tan(vars->player.angle + M_PI_2);
 	tmp.x = pos.j + 0.5;
 	tmp.y = pos.i + 0.5;
-	g = (tmp.y - vars->player.cord.y) / (tmp.x - vars->player.cord.x);
+	angle = atan2((tmp.y - vars->player.cord.y), (tmp.x - vars->player.cord.x));
+	g = tan(angle + M_PI_2);
 	n = (pos.i + 0.5) - (pos.j + 0.5) * g;
-	if (vars->player.angle == M_PI || vars->player.angle == 0)
+	if (angle == M_PI || angle == 0)
 		sprite->cross.x = pos.j + 0.5;
 	else
 		sprite->cross.x = (n - caster->m) / (caster->k - g);
 //		sprite->cross.y = sprite->cross.x * g + n;
 	sprite->cross.y = caster->k * sprite->cross.x + caster->m;
-	sprite->dist_tex = dist_points_abr(tmp, sprite->cross,
-		vars->player.angle + M_PI_2) *
-		sign(ray - atan2(tmp.y - vars->player.cord.y,
-			tmp.x - vars->player.cord.x)) + 0.5;
+	sprite->dist_tex = dist_points_ab(tmp, sprite->cross) * sign(ray - angle) + 0.5;
 	if (sprite->dist_tex < 0 || sprite->dist_tex > 1)
 	{
 		free(sprite);
