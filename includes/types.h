@@ -121,7 +121,7 @@ typedef struct	s_img {
 typedef struct	s_vars {
 	t_img		img;
 	t_player	player;
-	t_cvec		obst;
+	t_cvec		sprites;
 	t_u64		tim;
 	void		*win;
 	t_config	*conf;

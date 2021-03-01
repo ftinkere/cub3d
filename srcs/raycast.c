@@ -69,28 +69,69 @@ double	dist_points_abr(t_point a, t_point b, double ray)
 	return (fabs((a.x - b.x) / cos(ray)));
 }
 
-void	get_ij_bypoint(t_caster *caster, t_point point, size_t *i, size_t *j)
+t_ipoint	get_ij_bypoint(t_caster *caster, t_point point)
 {
+	t_ipoint	res;
+
 	if (caster->y_to < 0 && floor(point.x) != point.x)
-		*i = floor(point.y - 1);
+		res.i = floor(point.y - 1);
 	else
-		*i = floor(point.y);
+		res.i = floor(point.y);
 	if (caster->x_to < 0 && floor(point.y) != point.y)
-		*j = floor(point.x - 1);
+		res.j = floor(point.x - 1);
 	else
-		*j = floor(point.x);
+		res.j = floor(point.x);
+	return (res);
 }
 
-t_tile	*get_tile_bycord(t_caster *caster, t_vars *vars, t_point point)
+t_tile		*get_tile_bycord(t_caster *caster, t_vars *vars, t_point point)
 {
-	size_t	i;
-	size_t	j;
+	t_ipoint	pos;
 
-	get_ij_bypoint(caster, point, &i, &j);
-	return (&vars->conf->map.tiles[i * vars->conf->map.width + j]);
+	pos = get_ij_bypoint(caster, point);
+	return (&vars->conf->map.tiles[pos.i * vars->conf->map.width + pos.j]);
 }
 
-t_point	get_hor_wall(t_caster *caster, t_vars *vars)
+double		sign(double a)
+{
+	return (a / fabs(a));
+}
+
+void		add_sprite(t_caster *caster, t_vars *vars, t_ipoint pos, double ray)
+{
+	t_sprite	*sprite;
+	t_point		tmp;
+	double		g;
+	double		n;
+
+	sprite = ft_calloc(1, sizeof(t_sprite));
+//	g = tan(vars->player.angle + M_PI_2);
+	tmp.x = pos.j + 0.5;
+	tmp.y = pos.i + 0.5;
+	g = (tmp.y - vars->player.cord.y) / (tmp.x - vars->player.cord.x);
+	n = (pos.i + 0.5) - (pos.j + 0.5) * g;
+	if (vars->player.angle == M_PI || vars->player.angle == 0)
+		sprite->cross.x = pos.j + 0.5;
+	else
+		sprite->cross.x = (n - caster->m) / (caster->k - g);
+//		sprite->cross.y = sprite->cross.x * g + n;
+	sprite->cross.y = caster->k * sprite->cross.x + caster->m;
+	sprite->dist_tex = dist_points_abr(tmp, sprite->cross,
+		vars->player.angle + M_PI_2) *
+		sign(ray - atan2(tmp.y - vars->player.cord.y,
+			tmp.x - vars->player.cord.x)) + 0.5;
+	if (sprite->dist_tex < 0 || sprite->dist_tex > 1)
+	{
+		free(sprite);
+		return ;
+	}
+	sprite->dist = dist_points_ab(tmp, vars->player.cord);
+	sprite->pos = pos;
+	sprite->tile = get_tile_bycord(caster, vars, tmp);
+	cvec_push(&vars->sprites, sprite);
+}
+
+t_point		get_hor_wall(t_caster *caster, t_vars *vars, double ray)
 {
 	t_point	fir;
 	double	dx;
@@ -113,6 +154,8 @@ t_point	get_hor_wall(t_caster *caster, t_vars *vars)
 	}
 	while (get_tile_bycord(caster, vars, fir)->type != TILE_TYPE_WALL)
 	{
+		if (get_tile_bycord(caster, vars, fir)->type == TILE_TYPE_SPRITE)
+			add_sprite(caster, vars, get_ij_bypoint(caster, fir), ray);
 		fir.x += dx;
 		fir.y += caster->y_to;
 		if (fir.y < 1 || fir.y >= vars->conf->map.height
@@ -125,12 +168,12 @@ t_point	get_hor_wall(t_caster *caster, t_vars *vars)
 	return (fir);
 }
 
-t_point	get_ver_wall(t_caster *caster, t_vars *vars)
+t_point	get_ver_wall(t_caster *caster, t_vars *vars, double ray)
 {
 	t_point	fir;
 	double	dy;
 
-	if (caster->x_to == 0) // TODO inf-inf
+	if (caster->x_to == 0)
 	{
 		fir.y = INFINITY * (double)caster->y_to;
 		return (fir);
@@ -148,6 +191,8 @@ t_point	get_ver_wall(t_caster *caster, t_vars *vars)
 	}
 	while (get_tile_bycord(caster, vars, fir)->type != TILE_TYPE_WALL)
 	{
+		if (get_tile_bycord(caster, vars, fir)->type == TILE_TYPE_SPRITE)
+			add_sprite(caster, vars, get_ij_bypoint(caster, fir), ray);
 		fir.y += dy;
 		fir.x += caster->x_to;
 		if (fir.y < 1 || fir.y >= vars->conf->map.height
@@ -160,42 +205,41 @@ t_point	get_ver_wall(t_caster *caster, t_vars *vars)
 	return (fir);
 }
 
-double		step_cast(t_caster *caster, t_vars *vars, t_cvec *obst, double ray)
+t_wall		step_cast(t_caster *caster, t_vars *vars, double ray)
 {
 	t_point	hor;
 	t_point	ver;
 	t_point	dists;
-	t_obst	*obs;
+	t_wall	w;
 
-	hor = get_hor_wall(caster, vars);
-	ver = get_ver_wall(caster, vars);
-	obs = ft_calloc(1, sizeof(t_obst));
+	hor = get_hor_wall(caster, vars, ray);
+	ver = get_ver_wall(caster, vars, ray);
 	dists.x = dist_points_abr(vars->player.cord, hor, ray);
 	dists.y = dist_points_abr(vars->player.cord, ver, ray);
-
 	if (dists.y < dists.x)
-		obs->cross = ver;
+		w.cross = ver;
 	else
-		obs->cross = hor;
-	get_ij_bypoint(caster, obs->cross, &obs->i, &obs->j);
-	obs->tile = &vars->conf->map.tiles[obs->i * vars->conf->map.width + obs->j];
-	cvec_push(obst, obs);
+		w.cross = hor;
+	w.pos = get_ij_bypoint(caster, w.cross);
+	w.tile = &vars->conf->map.tiles[w.pos.i * vars->conf->map.width + w.pos.j];
+//	cvec_push(sprs, obs);
 	if (dists.y < dists.x)
-		return (dists.y);
+		w.dist = dists.y;
 	else
-		return (dists.x);
+		w.dist = dists.x;
+	return (w);
 }
 
-double	cast_ray(t_vars *vars, t_cvec *obst, double ray)
+t_wall		cast_ray(t_vars *vars, double ray)
 {
 	t_caster	caster;
 
 	while (ray >= 2 * M_PI)
 		ray -= 2 * M_PI;
-	cvec_clear(obst);
+	cvec_clear(&vars->sprites);
 	caster.k = tan(ray);
 	caster.p = tan(M_PI_2 - ray);
 	caster.m = (vars->player.cord.y - caster.k * vars->player.cord.x);
 	set_to(&caster, ray);
-	return (step_cast(&caster, vars, obst, ray));
+	return (step_cast(&caster, vars, ray));
 }

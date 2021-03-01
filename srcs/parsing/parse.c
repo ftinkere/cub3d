@@ -130,6 +130,8 @@ t_config	parse_cub(t_path conf_path)
 		param = add_conf(&conf, lines.arr[i]);
 		i++;
 	}
+	conf.w_vres = conf.w_res;
+	conf.h_vres = conf.h_res; // Временно
 	if (param == P_M)
 		parse_map(&conf.map, &lines, i - 1);
 	else

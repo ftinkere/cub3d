@@ -12,14 +12,22 @@ typedef struct	s_caster {
 	int		y_to;
 }				t_caster;
 
-typedef struct	s_obst {
-	t_tile	*tile;
-	int		i; // y
-	int		j; // x
-	t_point	cross;
-}				t_obst;
+typedef struct	s_wall {
+	t_tile		*tile;
+	t_ipoint	pos;
+	t_point		cross;
+	double		dist;
+}				t_wall;
 
-double	cast_ray(t_vars *vars, t_cvec *obst, double ray);
+typedef struct	s_sprite {
+	t_tile		*tile;
+	t_ipoint	pos;
+	t_point		cross;
+	double		dist;
+	double		dist_tex;
+}				t_sprite;
+
+t_wall	cast_ray(t_vars *vars, double ray);
 double	dist_points_ab(t_point a, t_point b);
 
 #endif
