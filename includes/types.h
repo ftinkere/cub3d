@@ -128,6 +128,7 @@ typedef struct	s_vars {
 	t_img		*texs;
 	int			sprite_offset;
 	int			gui_offset;
+	double		*z_buf;
 }				t_vars;
 
 #endif

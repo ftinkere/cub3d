@@ -122,16 +122,20 @@ t_point	get_tex_p(t_vars *vars, t_wall wall, t_ipoint p, double pr_h)
 	return (tex_p);
 }
 
-int		render_spite_ray(t_vars *vars, int i)
+double	*get_z_buf(t_vars *vars, int j, int i)
+{
+	return (&vars->z_buf[j * vars->img.line_length + i]);
+}
+
+int		render_spite_ray(t_vars *vars, t_sprite *sprite, int i, double ray)
 {
 	t_img		*img;
-	t_sprite	*sprite;
 	int			j;
 	double		pr_h;
 	t_color		color;
 
-	img = &vars->texs[vars->sprite_offset];
-	sprite = (t_sprite*)vars->sprites.arr[vars->sprites.siz - 1];
+	img = &vars->texs[vars->sprite_offset + sprite->tile->num];
+	sprite->dist *= cos(ray);
 	pr_h = vars->conf->dist_proj / sprite->dist;
 	j = 0;
 	while (j < vars->conf->h_vres)
@@ -142,8 +146,13 @@ int		render_spite_ray(t_vars *vars, int i)
 			color = *img_pixel_get(img,
 				(int)round(img->h * ((j + (pr_h - (double)(vars->conf->h_vres) / 2)) / pr_h - 0.5)),
 				(int)round(img->w * sprite->dist_tex));
-			if ((color & 0xFF000000) == 0)
-				img_pixel_put(&vars->img, j, i, color);
+			if (//(color & 0xFF000000 >> 24) != 0
+			//&&
+			(*get_z_buf(vars, j, i) >= sprite->dist || *get_z_buf(vars, j, i) == 0))
+			{
+				*get_z_buf(vars, j, i) = sprite->dist;
+				img_pixel_put(&vars->img, j, i, shadow_dist(color, sprite->dist / 2.));
+			}
 		}
 		j++;
 	}
@@ -162,9 +171,13 @@ int		render_ray(t_vars *vars, t_wall wall, int i)
 		if (p.j > vars->conf->h_vres / 2. - pr_h / 2.
 		&& p.j < vars->conf->h_vres / 2. + pr_h / 2.
 		&& (fabs(wall.cross.y) != INFINITY && fabs(wall.cross.x) != INFINITY)
-		&& (wall.cross.y == wall.cross.y && wall.cross.x == wall.cross.x))
+		&& (wall.cross.y == wall.cross.y && wall.cross.x == wall.cross.x)
+		&& (*get_z_buf(vars, p.j, p.i) >= wall.dist || *get_z_buf(vars, p.j, p.i) == 0))
+		{
 			img_pixel_put(&vars->img, p.j, p.i,
 				get_pix_color(vars, get_tex_p(vars, wall, p, pr_h), wall));
+			*get_z_buf(vars, p.j, p.i) = wall.dist;
+		}
 		else if (p.j < vars->conf->h_vres / 2.)
 			img_pixel_put(&vars->img, p.j, p.i, vars->conf->ceil_color);
 		else
@@ -184,6 +197,7 @@ int		next_render(t_vars *vars)
 	t_wall	wall;
 	double	ray;
 	int		i;
+	int		s;
 
 	i = 0;
 	while(i < vars->conf->w_vres)
@@ -192,8 +206,9 @@ int		next_render(t_vars *vars)
 		wall = cast_ray(vars, ray + vars->player.angle);
 		wall.dist *= cos(ray);
 		render_ray(vars, wall, i);
-		if (vars->sprites.siz > 0)
-			render_spite_ray(vars, i);
+		s = 0;
+		while (s < vars->sprites.siz)
+			render_spite_ray(vars,(t_sprite*)vars->sprites.arr[s++], i, ray);
 		i++;
 	}
 	mlx_put_image_to_window(g_mlx, vars->win, vars->img.img, 0, 0);
@@ -202,6 +217,8 @@ int		next_render(t_vars *vars)
 		vars->texs[vars->gui_offset + GUI_CROSS].img,
 		vars->conf->w_vres / 2 - vars->texs[vars->gui_offset + GUI_CROSS].w / 2,
 		vars->conf->h_vres / 2 - vars->texs[vars->gui_offset + GUI_CROSS].h / 2);
+	ft_bzero(vars->z_buf, vars->conf->h_vres * vars->img.line_length
+				* sizeof(double));
 //	ft_printf("%d:a: %f\n", vars->tim, vars->player.angle);
 }
 
@@ -303,6 +320,7 @@ int		main(void)
 	vars.texs = ft_calloc(vars.conf->blocks_texs.siz * 4
 			+ vars.conf->sprites_texs.siz + GUI_TEXES, sizeof(t_img));
 	load_texs(&vars);
+	vars.z_buf = ft_calloc(vars.conf->h_vres * vars.img.line_length, sizeof(double));
 	mlx_do_key_autorepeaton(g_mlx);
 	mlx_put_image_to_window(g_mlx, vars.win, vars.img.img, 0, 0);
 	mlx_hook(vars.win, 2, 1L << 0, key_handler, &vars);

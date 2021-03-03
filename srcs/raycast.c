@@ -94,7 +94,10 @@ t_tile		*get_tile_bycord(t_caster *caster, t_vars *vars, t_point point)
 
 double		sign(double a)
 {
-	return (a / fabs(a));
+	if (a < 0)
+		return (-1);
+	else
+		return (1);
 }
 
 void		add_sprite(t_caster *caster, t_vars *vars, t_ipoint pos, double ray)
@@ -113,12 +116,21 @@ void		add_sprite(t_caster *caster, t_vars *vars, t_ipoint pos, double ray)
 	g = tan(angle + M_PI_2);
 	n = (pos.i + 0.5) - (pos.j + 0.5) * g;
 	if (angle == M_PI || angle == 0)
-		sprite->cross.x = pos.j + 0.5;
+		sprite->cross.x = tmp.x;
 	else
 		sprite->cross.x = (n - caster->m) / (caster->k - g);
 //		sprite->cross.y = sprite->cross.x * g + n;
-	sprite->cross.y = caster->k * sprite->cross.x + caster->m;
-	sprite->dist_tex = dist_points_ab(tmp, sprite->cross) * sign(ray - angle) + 0.5;
+	if (angle == M_PI_2 || angle == 3 * M_PI_2)
+		sprite->cross.y = tmp.y;
+	else
+		sprite->cross.y = caster->k * sprite->cross.x + caster->m;
+	sprite->dist_tex = dist_points_ab(tmp, sprite->cross);
+	n = ray - angle;
+	while (n > vars->conf->fov)
+		n = (n - M_PI) * -1;
+	while (n < -vars->conf->fov)
+		n = (n + M_PI) * -1;
+	sprite->dist_tex = sprite->dist_tex * sign(n) + 0.5;
 	if (sprite->dist_tex < 0 || sprite->dist_tex > 1)
 	{
 		free(sprite);
@@ -235,6 +247,8 @@ t_wall		cast_ray(t_vars *vars, double ray)
 
 	while (ray >= 2 * M_PI)
 		ray -= 2 * M_PI;
+	while (ray < 0)
+		ray += 2 * M_PI;
 	cvec_clear(&vars->sprites);
 	caster.k = tan(ray);
 	caster.p = tan(M_PI_2 - ray);

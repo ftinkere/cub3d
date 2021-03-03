@@ -3,6 +3,7 @@ project(cub3d C)
 
 set(CMAKE_C_STANDARD 99)
 SET (CMAKE_C_COMPILER "/usr/bin/clang")
+set(CMAKE_C_FLAGS "-o3")
 
 link_directories(/usr/local/lib ${CMAKE_CURRENT_SOURCE_DIR}/libft ${CMAKE_CURRENT_SOURCE_DIR}/minilibx)
 include_directories(/usr/local/include ${CMAKE_CURRENT_SOURCE_DIR}/libft ${CMAKE_CURRENT_SOURCE_DIR}/minilibx ${CMAKE_CURRENT_SOURCE_DIR}/includes)
