@@ -134,8 +134,8 @@ int		render_spite_ray(t_vars *vars, t_sprite *sprite, int i, double ray)
 	double		pr_h;
 	t_color		color;
 
-	img = &vars->texs[vars->sprite_offset + sprite->tile->num];
-	sprite->dist *= cos(ray);
+
+	img = &vars->texs[vars->sprite_offset + sprite->tile->num];;
 	pr_h = vars->conf->dist_proj / sprite->dist;
 	j = 0;
 	while (j < vars->conf->h_vres)
@@ -208,7 +208,7 @@ int		next_render(t_vars *vars)
 		render_ray(vars, wall, i);
 		s = 0;
 		while (s < vars->sprites.siz)
-			render_spite_ray(vars,(t_sprite*)vars->sprites.arr[s++], i, ray);
+			render_spite_ray(vars, (t_sprite *) vars->sprites.arr[s++], i, ray);
 		i++;
 	}
 	mlx_put_image_to_window(g_mlx, vars->win, vars->img.img, 0, 0);

@@ -100,6 +100,19 @@ double		sign(double a)
 		return (1);
 }
 
+double		normilize(t_vars *vars, double ang)
+{
+	if (ang > vars->conf->fov)
+		while (ang > vars->conf->fov)
+			ang = (ang - M_PI) * -1;
+	if (ang < -vars->conf->fov)
+		while (ang < -vars->conf->fov)
+			ang = (ang + M_PI) * -1;
+	if (ang > vars->conf->fov)
+		return (normilize(vars, ang));
+	return (ang);
+}
+
 void		add_sprite(t_caster *caster, t_vars *vars, t_ipoint pos, double ray)
 {
 	t_sprite	*sprite;
@@ -126,10 +139,6 @@ void		add_sprite(t_caster *caster, t_vars *vars, t_ipoint pos, double ray)
 		sprite->cross.y = caster->k * sprite->cross.x + caster->m;
 	sprite->dist_tex = dist_points_ab(tmp, sprite->cross);
 	n = ray - angle;
-	while (n > vars->conf->fov)
-		n = (n - M_PI) * -1;
-	while (n < -vars->conf->fov)
-		n = (n + M_PI) * -1;
 	sprite->dist_tex = sprite->dist_tex * sign(n) + 0.5;
 	if (sprite->dist_tex < 0 || sprite->dist_tex > 1)
 	{
@@ -137,8 +146,10 @@ void		add_sprite(t_caster *caster, t_vars *vars, t_ipoint pos, double ray)
 		return ;
 	}
 	sprite->dist = dist_points_ab(tmp, vars->player.cord);
+//	sprite->dist = dist_points_abr(tmp, vars->player.cord, angle);
+	sprite->dist *= cos(vars->player.angle - ray);
 	sprite->pos = pos;
-	sprite->tile = get_tile_bycord(caster, vars, tmp);
+	sprite->tile = &vars->conf->map.tiles[pos.i * vars->conf->map.width + pos.j];
 	cvec_push(&vars->sprites, sprite);
 }
 
