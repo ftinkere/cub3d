@@ -98,8 +98,8 @@ typedef struct	s_config {
 
 	t_map	map;
 
-	double	fov;
 	double	dist_proj;
+	double	fov;
 }				t_config;
 
 typedef struct	s_point {
@@ -141,5 +141,7 @@ typedef struct	s_vars {
 	double		*z_buf;
 	t_keybuf	keybuff;
 }				t_vars;
+
+int				closed_win(void *mlx, void *win);
 
 #endif

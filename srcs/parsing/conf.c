@@ -28,7 +28,7 @@ enum e_param	get_param(t_line line)
 	res = !ft_memcmp(line, "F", 1) ? P_F : res;
 	res = !ft_memcmp(line, "C", 1) ? P_C : res;
 	res = !ft_memcmp(line, "L", 1) ? P_L : res;
-	res = !ft_memcmp(line, "FOV", 3) ? P_FOV : res;
+	res = !ft_memcmp(line, "FOV", 3) ? P_FOV : res; // TODO: Решить без тернарника(
 	return (res);
 }
 

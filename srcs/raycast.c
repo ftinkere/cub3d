@@ -100,12 +100,21 @@ double		sign(double a)
 		return (1);
 }
 
-double		normilize(t_vars *vars, double ang)
+double		normilize(double ang)
 {
 	while (ang > M_PI)
 		ang = (ang - M_PI) * -1;
 	while (ang < -M_PI)
 		ang = (ang + M_PI) * -1;
+	return (ang);
+}
+
+double		normilize2(double ang)
+{
+	while (ang > 2 * M_PI)
+		ang = ang - 2 * M_PI;
+	while (ang < 0)
+		ang = ang + 2 * M_PI;
 	return (ang);
 }
 
@@ -136,7 +145,7 @@ void		add_sprite(t_caster *caster, t_vars *vars, t_ipoint pos, double ray)
 	else
 		sprite->cross.y = caster->k * sprite->cross.x + caster->m;
 	sprite->dist_tex = dist_points_ab(tmp, sprite->cross);
-	sprite->dist_tex = sprite->dist_tex * sign(normilize(vars, ray - angle)) + 0.5;
+	sprite->dist_tex = sprite->dist_tex * sign(normilize(ray - angle)) + 0.5;
 	if (sprite->dist_tex < 0 || sprite->dist_tex > 1)
 	{
 		free(sprite);

@@ -29,5 +29,8 @@ typedef struct	s_sprite {
 
 t_wall	cast_ray(t_vars *vars, double ray);
 double	dist_points_ab(t_point a, t_point b);
-
+void	set_to(t_caster *caster, double ray);
+t_tile	*get_tile_bycord(t_caster *caster, t_vars *vars, t_point point);
+double	normilize(double ang);
+double	normilize2(double ang);
 #endif

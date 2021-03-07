@@ -20,28 +20,41 @@
 
 int		move_by_key(t_vars *vars)
 {
-	double	dist;
+	double		dist;
+	t_point		new;
 
 	dist = 0.2;
 	if (vars->keybuff.w)
 	{
-		vars->player.cord.y += dist * sin(vars->player.angle);
-		vars->player.cord.x += dist * cos(vars->player.angle);
+		new = vars->player.cord;
+		new.y += dist * sin(vars->player.angle);
+		new.x += dist * cos(vars->player.angle);
+		if (vars->conf->map.tiles[(int)new.y * vars->conf->map.width + (int)new.x].type != TILE_TYPE_WALL)
+			vars->player.cord = new;
 	}
 	if (vars->keybuff.a)
 	{
-		vars->player.cord.y -= dist * cos(vars->player.angle);
-		vars->player.cord.x += dist * sin(vars->player.angle);
+		new = vars->player.cord;
+		new.y += dist * -cos(vars->player.angle);
+		new.x += dist * sin(vars->player.angle);
+		if (vars->conf->map.tiles[(int)new.y * vars->conf->map.width + (int)new.x].type != TILE_TYPE_WALL)
+			vars->player.cord = new;
 	}
 	if (vars->keybuff.s)
 	{
-		vars->player.cord.y -= dist * sin(vars->player.angle);
-		vars->player.cord.x -= dist * cos(vars->player.angle);
+		new = vars->player.cord;
+		new.y += dist * -sin(vars->player.angle);
+		new.x += dist * -cos(vars->player.angle);
+		if (vars->conf->map.tiles[(int)new.y * vars->conf->map.width + (int)new.x].type != TILE_TYPE_WALL)
+			vars->player.cord = new;
 	}
 	if (vars->keybuff.d)
 	{
-		vars->player.cord.y += dist * cos(vars->player.angle);
-		vars->player.cord.x -= dist * sin(vars->player.angle);
+		new = vars->player.cord;
+		new.y += dist * cos(vars->player.angle);
+		new.x += dist *-sin(vars->player.angle);
+		if (vars->conf->map.tiles[(int)new.y * vars->conf->map.width + (int)new.x].type != TILE_TYPE_WALL)
+			vars->player.cord = new;
 	}
 }
 
@@ -49,6 +62,8 @@ int		exit_handler(t_vars *vars)
 {
 	// TODO: ДА ЗАРАБОТАЙ СУКА
 	// TODO:::: FREEEEEEEEEEEEEEEEEEEEEEE
+	ft_printf("Exited\n");
+	mlx_do_key_autorepeaton(vars->mlx);
 	mlx_destroy_window(vars->mlx, vars->win);
 	exit(0);
 }
@@ -324,9 +339,9 @@ int		load_texs(t_vars *vars)
 /*
 ** TODO: Переделать спрайты с нуля?
 ** TODO: Аргумент --save
-** TODO: Буфер кнопок
+** TODO: Буфер кнопок +
 ** TODO: Чистое закрытие программы через крестик окна
-** TODO: Показ спрайтов
+** TODO: Показ спрайтов +
 ** TODO: Управление мышкой
 ** TODO: Коллизии
 ** TODO: Улучшенный конфиг: сбор путей для гуишных текстур, параметры fov и т.п.
@@ -350,6 +365,7 @@ int		main(void)
 	vars.conf = &conf;
 	print_conf(&conf);
 	vars.win = mlx_new_window(vars.mlx, conf.w_res, conf.h_res, "Cub3d");
+	closed_win(vars.mlx, vars.win);
 	vars.img.img = mlx_new_image(vars.mlx, conf.w_res, conf.h_res);
 	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel, &vars.img.line_length,
 								&vars.img.endian);
@@ -363,9 +379,11 @@ int		main(void)
 	load_texs(&vars);
 	vars.z_buf = ft_calloc(vars.conf->h_vres * vars.img.line_length, sizeof(double));
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img.img, 0, 0);
+//	mlx_do_key_autorepeatoff(vars.mlx);
+	mlx_do_key_autorepeaton(vars.mlx);
 	mlx_hook(vars.win, 2, 1L << 0, press_key_handler, &vars);
 	mlx_hook(vars.win, 3, 1L << 1, press_realease_handler, &vars);
-	mlx_hook(vars.win, 17, 1L << 17, exit_handler, &vars);
+	mlx_hook(vars.win, 33, 0, exit_handler, &vars);
 	mlx_loop_hook(vars.mlx, next_render, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
