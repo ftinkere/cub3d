@@ -14,55 +14,92 @@
 #include "intmlx.h"
 #include "cub3d_utils.h"
 #include "map_validates.h"
+#include "conf.h"
 
 #define GUI_TEXES 1
 
-void *g_mlx;
-
-int		move_by_key(int keycode, t_vars *vars)
+int		move_by_key(t_vars *vars)
 {
 	double	dist;
 
-	dist = 0.1;
-	if (keycode == 119) // W
+	dist = 0.2;
+	if (vars->keybuff.w)
 	{
 		vars->player.cord.y += dist * sin(vars->player.angle);
 		vars->player.cord.x += dist * cos(vars->player.angle);
 	}
-	else if (keycode == 97) // A
+	if (vars->keybuff.a)
 	{
 		vars->player.cord.y -= dist * cos(vars->player.angle);
 		vars->player.cord.x += dist * sin(vars->player.angle);
 	}
-	else if (keycode == 115) // S
+	if (vars->keybuff.s)
 	{
 		vars->player.cord.y -= dist * sin(vars->player.angle);
 		vars->player.cord.x -= dist * cos(vars->player.angle);
 	}
-	else if (keycode == 100) // D
+	if (vars->keybuff.d)
 	{
 		vars->player.cord.y += dist * cos(vars->player.angle);
 		vars->player.cord.x -= dist * sin(vars->player.angle);
 	}
 }
 
-int		key_handler(int keycode, t_vars *vars)
+int		exit_handler(t_vars *vars)
 {
-	ft_printf("Key: %d\n", keycode);
-	if (keycode == 65307)
-	{
-		mlx_destroy_window(g_mlx, vars->win);
-		exit(0);
-	}
-	if (keycode == 113) // Q
-		vars->player.angle -= M_PI_4 / 15;
-	else if (keycode == 101) // E
-		vars->player.angle += M_PI_4 / 15;
-	while (vars->player.angle >= M_PI * 2)
-		vars->player.angle -= M_PI * 2;
+	// TODO: ДА ЗАРАБОТАЙ СУКА
+	// TODO:::: FREEEEEEEEEEEEEEEEEEEEEEE
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+}
+
+int		key_handler(t_vars *vars)
+{
+	if (vars->keybuff.q)
+		vars->player.angle -= M_PI_4 / 4;
 	while (vars->player.angle < 0)
 		vars->player.angle += M_PI * 2;
-	move_by_key(keycode, vars);
+	if (vars->keybuff.e)
+		vars->player.angle += M_PI_4 / 4;
+	while (vars->player.angle >= M_PI * 2)
+		vars->player.angle -= M_PI * 2;
+	move_by_key(vars);
+}
+
+int		press_key_handler(int key, t_vars *vars)
+{
+	if (key == 65307) // ESC
+		exit_handler(vars);
+	else if (key == 101) // E
+		vars->keybuff.e = 1;
+	else if (key == 113) // Q
+		vars->keybuff.q = 1;
+	else if (key == 119) // W
+		vars->keybuff.w = 1;
+	else if (key == 97) // A
+		vars->keybuff.a = 1;
+	else if (key == 115) // S
+		vars->keybuff.s = 1;
+	else if (key == 100) // D
+		vars->keybuff.d = 1;
+}
+
+int		press_realease_handler(int key, t_vars *vars)
+{
+	if (key == 65307) // ESC
+		exit_handler(vars);
+	else if (key == 101) // E
+		vars->keybuff.e = 0;
+	else if (key == 113) // Q
+		vars->keybuff.q = 0;
+	else if (key == 119) // W
+		vars->keybuff.w = 0;
+	else if (key == 97) // A
+		vars->keybuff.a = 0;
+	else if (key == 115) // S
+		vars->keybuff.s = 0;
+	else if (key == 100) // D
+		vars->keybuff.d = 0;
 }
 
 t_color	shadow_dist(t_color color, double dist)
@@ -146,9 +183,8 @@ int		render_spite_ray(t_vars *vars, t_sprite *sprite, int i, double ray)
 			color = *img_pixel_get(img,
 				(int)round(img->h * ((j + (pr_h - (double)(vars->conf->h_vres) / 2)) / pr_h - 0.5)),
 				(int)round(img->w * sprite->dist_tex));
-			if (//(color & 0xFF000000 >> 24) != 0
-			//&&
-			(*get_z_buf(vars, j, i) >= sprite->dist || *get_z_buf(vars, j, i) == 0))
+			if (color != 0
+			&& (*get_z_buf(vars, j, i) >= sprite->dist || *get_z_buf(vars, j, i) == 0))
 			{
 				*get_z_buf(vars, j, i) = sprite->dist;
 				img_pixel_put(&vars->img, j, i, shadow_dist(color, sprite->dist / 2.));
@@ -188,7 +224,7 @@ int		render_ray(t_vars *vars, t_wall wall, int i)
 
 int		add_gui_img(t_vars *vars, enum e_gui_tex elem, int x, int y)
 {
-	mlx_put_image_to_window(g_mlx, vars->win,
+	mlx_put_image_to_window(vars->mlx, vars->win,
 					&vars->texs[vars->gui_offset + elem], x, y);
 }
 
@@ -211,14 +247,15 @@ int		next_render(t_vars *vars)
 			render_spite_ray(vars, (t_sprite *) vars->sprites.arr[s++], i, ray);
 		i++;
 	}
-	mlx_put_image_to_window(g_mlx, vars->win, vars->img.img, 0, 0);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 	vars->tim++;
-	mlx_put_image_to_window(g_mlx, vars->win,
+	mlx_put_image_to_window(vars->mlx, vars->win,
 		vars->texs[vars->gui_offset + GUI_CROSS].img,
 		vars->conf->w_vres / 2 - vars->texs[vars->gui_offset + GUI_CROSS].w / 2,
 		vars->conf->h_vres / 2 - vars->texs[vars->gui_offset + GUI_CROSS].h / 2);
 	ft_bzero(vars->z_buf, vars->conf->h_vres * vars->img.line_length
 				* sizeof(double));
+	key_handler(vars);
 //	ft_printf("%d:a: %f\n", vars->tim, vars->player.angle);
 }
 
@@ -240,9 +277,9 @@ void	player_init(t_player *player, t_map *map)
 		player->angle = M_PI;
 }
 
-int		img_load(t_img *img, t_path path)
+int		img_load(t_vars *vars, t_img *img, t_path path)
 {
-	img->img = mlx_xpm_file_to_image(g_mlx, path, &img->w, &img->h);
+	img->img = mlx_xpm_file_to_image(vars->mlx, path, &img->w, &img->h);
 	if (!img->img)
 	{
 		ft_printf("Cannot load texture by path %s\n", path);
@@ -265,7 +302,7 @@ int		load_texs(t_vars *vars)
 		j = 0;
 		while (j < 4)
 		{
-			img_load(&vars->texs[i * 4 + j], btexs[j]);
+			img_load(vars, &vars->texs[i * 4 + j], btexs[j]);
 			j++;
 		}
 		i++;
@@ -274,17 +311,20 @@ int		load_texs(t_vars *vars)
 	i = 0;
 	while (i < vars->conf->sprites_texs.siz)
 	{
-		img_load(&vars->texs[vars->sprite_offset + i],
+		img_load(vars, &vars->texs[vars->sprite_offset + i],
 			((char*)vars->conf->sprites_texs.arr[i]));
 		i++;
 	}
 	vars->gui_offset = vars->sprite_offset + i;
-	img_load(&vars->texs[vars->gui_offset + 0], "../texs/gui/cross.xpm"); // ВЫНЕСТИ В КОНФИГИ
+	img_load(vars, &vars->texs[vars->gui_offset + 0], "../texs/gui/cross.xpm");
 	cvec_free_all(&vars->conf->blocks_texs);
 	cvec_free_all(&vars->conf->sprites_texs);
 }
 
 /*
+** TODO: Переделать спрайты с нуля?
+** TODO: Аргумент --save
+** TODO: Буфер кнопок
 ** TODO: Чистое закрытие программы через крестик окна
 ** TODO: Показ спрайтов
 ** TODO: Управление мышкой
@@ -305,12 +345,12 @@ int		main(void)
 	t_config	conf;
 	t_vars		vars;
 
-	g_mlx = mlx_init();
-	conf = parse_cub("../maps/conf.cub");
+	vars.mlx = mlx_init();
+	conf = parse_cub(&vars, "../maps/conf.cub");
 	vars.conf = &conf;
 	print_conf(&conf);
-	vars.win = mlx_new_window(g_mlx, conf.w_res, conf.h_res, "Cub3d");
-	vars.img.img = mlx_new_image(g_mlx, conf.w_res, conf.h_res);
+	vars.win = mlx_new_window(vars.mlx, conf.w_res, conf.h_res, "Cub3d");
+	vars.img.img = mlx_new_image(vars.mlx, conf.w_res, conf.h_res);
 	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel, &vars.img.line_length,
 								&vars.img.endian);
 	vars.tim = 0;
@@ -319,12 +359,14 @@ int		main(void)
 	vars.sprites = cvec_new();
 	vars.texs = ft_calloc(vars.conf->blocks_texs.siz * 4
 			+ vars.conf->sprites_texs.siz + GUI_TEXES, sizeof(t_img));
+	vars.keybuff = keybuff_new();
 	load_texs(&vars);
 	vars.z_buf = ft_calloc(vars.conf->h_vres * vars.img.line_length, sizeof(double));
-	mlx_do_key_autorepeaton(g_mlx);
-	mlx_put_image_to_window(g_mlx, vars.win, vars.img.img, 0, 0);
-	mlx_hook(vars.win, 2, 1L << 0, key_handler, &vars);
-	mlx_loop_hook(g_mlx, next_render, &vars);
-	mlx_loop(g_mlx);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.img.img, 0, 0);
+	mlx_hook(vars.win, 2, 1L << 0, press_key_handler, &vars);
+	mlx_hook(vars.win, 3, 1L << 1, press_realease_handler, &vars);
+	mlx_hook(vars.win, 17, 1L << 17, exit_handler, &vars);
+	mlx_loop_hook(vars.mlx, next_render, &vars);
+	mlx_loop(vars.mlx);
 	return (0);
 }

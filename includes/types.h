@@ -52,6 +52,15 @@ enum			e_gui_tex {
 	GUI_CROSS = 0
 };
 
+typedef struct	s_keybuf {
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		q;
+	int		e;
+}				t_keybuf;
+
 typedef struct	s_tile {
 	enum e_tile_type	type;
 	int					num;
@@ -119,6 +128,7 @@ typedef struct	s_img {
 }				t_img;
 
 typedef struct	s_vars {
+	void		*mlx;
 	t_img		img;
 	t_player	player;
 	t_cvec		sprites;
@@ -129,6 +139,7 @@ typedef struct	s_vars {
 	int			sprite_offset;
 	int			gui_offset;
 	double		*z_buf;
+	t_keybuf	keybuff;
 }				t_vars;
 
 #endif

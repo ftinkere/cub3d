@@ -111,7 +111,7 @@ int			parse_map(t_map *map, t_lines_v *lines, int i)
 	return (1);
 }
 
-t_config	parse_cub(t_path conf_path)
+t_config	parse_cub(t_vars *vars, t_path conf_path)
 {
 	t_config	conf;
 	t_file		conf_file;
@@ -127,7 +127,7 @@ t_config	parse_cub(t_path conf_path)
 	param = 42;
 	while (i < lines.siz && param != P_M)
 	{
-		param = add_conf(&conf, lines.arr[i]);
+		param = add_conf(vars, &conf, lines.arr[i]);
 		i++;
 	}
 	conf.w_vres = conf.w_res;

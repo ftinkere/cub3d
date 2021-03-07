@@ -32,7 +32,7 @@ enum e_param	get_param(t_line line)
 	return (res);
 }
 
-int				add_conf(t_config *conf, t_line line)
+int				add_conf(t_vars *vars, t_config *conf, t_line line)
 {
 	t_lines			lines;
 	enum e_param	param;
@@ -44,7 +44,7 @@ int				add_conf(t_config *conf, t_line line)
 	else if (param == P_E)
 		return (P_E);
 	else if (param == P_R)
-		add_p_r(conf, lines);
+		add_p_r(vars, conf, lines);
 	else if (param >= P_NO && param <= P_UP)
 		add_p_side(conf, lines, param);
 	else if (param == P_L)

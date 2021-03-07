@@ -9,9 +9,7 @@
 #include "adders_p.h"
 #include "mlx.h"
 
-extern void *g_mlx;
-
-int			add_p_r(t_config *conf, t_lines sline)
+int			add_p_r(t_vars *vars, t_config *conf, t_lines sline)
 {
 	int screen_w;
 	int screen_h;
@@ -25,7 +23,7 @@ int			add_p_r(t_config *conf, t_lines sline)
 		errex(42, "Error resolution in config");
 	else if (conf->h_res <= 0)
 		errex(42, "Error resolution in config");
-	mlx_get_screen_size(g_mlx, &screen_w, &screen_h);
+	mlx_get_screen_size(vars->mlx, &screen_w, &screen_h);
 	if (conf->w_res > screen_w)
 		conf->w_res = screen_w;
 	if (conf->h_res > screen_h)

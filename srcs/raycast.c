@@ -102,14 +102,10 @@ double		sign(double a)
 
 double		normilize(t_vars *vars, double ang)
 {
-	if (ang > vars->conf->fov)
-		while (ang > vars->conf->fov)
-			ang = (ang - M_PI) * -1;
-	if (ang < -vars->conf->fov)
-		while (ang < -vars->conf->fov)
-			ang = (ang + M_PI) * -1;
-	if (ang > vars->conf->fov)
-		return (normilize(vars, ang));
+	while (ang > M_PI)
+		ang = (ang - M_PI) * -1;
+	while (ang < -M_PI)
+		ang = (ang + M_PI) * -1;
 	return (ang);
 }
 
@@ -128,18 +124,19 @@ void		add_sprite(t_caster *caster, t_vars *vars, t_ipoint pos, double ray)
 	angle = atan2((tmp.y - vars->player.cord.y), (tmp.x - vars->player.cord.x));
 	g = tan(angle + M_PI_2);
 	n = (pos.i + 0.5) - (pos.j + 0.5) * g;
-	if (angle == M_PI || angle == 0)
+	if (fabs(angle - M_PI) < 0.001 || fabs(angle) < 0.001)
 		sprite->cross.x = tmp.x;
 	else
 		sprite->cross.x = (n - caster->m) / (caster->k - g);
 //		sprite->cross.y = sprite->cross.x * g + n;
-	if (angle == M_PI_2 || angle == 3 * M_PI_2)
+	if (fabs(angle - M_PI_2) < 0.001 || fabs(angle - 3 * M_PI_2) < 0.001)
 		sprite->cross.y = tmp.y;
+	else if (fabs(angle) >= 0.01)
+		sprite->cross.y = g * sprite->cross.x + n;
 	else
 		sprite->cross.y = caster->k * sprite->cross.x + caster->m;
 	sprite->dist_tex = dist_points_ab(tmp, sprite->cross);
-	n = ray - angle;
-	sprite->dist_tex = sprite->dist_tex * sign(n) + 0.5;
+	sprite->dist_tex = sprite->dist_tex * sign(normilize(vars, ray - angle)) + 0.5;
 	if (sprite->dist_tex < 0 || sprite->dist_tex > 1)
 	{
 		free(sprite);
