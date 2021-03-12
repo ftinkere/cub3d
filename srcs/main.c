@@ -243,6 +243,9 @@ int		add_gui_img(t_vars *vars, enum e_gui_tex elem, int x, int y)
 					&vars->texs[vars->gui_offset + elem], x, y);
 }
 
+int		write_header(int fd, t_vars *vars);
+void	write_img(int fd, t_vars *vars);
+
 int		next_render(t_vars *vars)
 {
 	t_wall	wall;
@@ -271,6 +274,13 @@ int		next_render(t_vars *vars)
 	ft_bzero(vars->z_buf, vars->conf->h_vres * vars->img.line_length
 				* sizeof(double));
 	key_handler(vars);
+	///////
+//	int fd;
+//	fd = open("../screen.bmp", O_RDWR | O_CREAT);
+//	write_header(fd, vars);
+//	write_img(fd, vars);
+//	close(fd);
+//	exit_handler(vars);
 //	ft_printf("%d:a: %f\n", vars->tim, vars->player.angle);
 }
 
@@ -367,6 +377,8 @@ int		main(void)
 	vars.win = mlx_new_window(vars.mlx, conf.w_res, conf.h_res, "Cub3d");
 	closed_win(vars.mlx, vars.win);
 	vars.img.img = mlx_new_image(vars.mlx, conf.w_res, conf.h_res);
+	vars.img.w = conf.w_res;
+	vars.img.h = conf.h_vres;
 	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel, &vars.img.line_length,
 								&vars.img.endian);
 	vars.tim = 0;

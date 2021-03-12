@@ -1,7 +1,7 @@
 #ifndef TYPES_H
 # define TYPES_H
 # include "cvec.h"
-
+# include <stdlib.h>
 
 
 typedef unsigned int		t_u32;

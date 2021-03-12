@@ -4,8 +4,8 @@
 
 typedef struct	s_cveci {
 	int		*arr;
-	size_t	siz;
-	size_t	cap;
+	int 	siz;
+	int 	cap;
 }				t_cveci;
 
 typedef struct	s_cvec {
