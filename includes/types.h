@@ -3,12 +3,11 @@
 # include "cvec.h"
 # include <stdlib.h>
 
-
 typedef unsigned int		t_u32;
 typedef int					t_i32;
 typedef unsigned long long	t_u64;
 typedef long long			t_i64;
-typedef	unsigned char		t_byte;
+typedef unsigned char		t_byte;
 typedef char*				t_path;
 typedef t_u32				t_color;
 typedef char*				t_legend;
@@ -29,8 +28,7 @@ enum			e_param {
 	P_S,
 	P_F,
 	P_C,
-	P_L,
-	P_FOV
+	P_L
 };
 
 enum			e_tile_type {
@@ -49,49 +47,38 @@ enum			e_side {
 };
 
 enum			e_gui_tex {
-	GUI_CROSS = 0
+	G_CRS = 0
 };
 
-typedef struct	s_keybuf {
+typedef struct s_keybuf {
 	int		w;
 	int		a;
 	int		s;
 	int		d;
 	int		q;
 	int		e;
-}				t_keybuf;
+}	t_keybuf;
 
-typedef struct	s_tile {
+typedef struct s_tile {
 	enum e_tile_type	type;
 	int					num;
-}				t_tile;
+}	t_tile;
 
-typedef struct	s_map {
+typedef struct s_map {
 	t_legend	legend;
-	size_t		width;
-	size_t		height;
+	size_t		w;
+	size_t		h;
 	t_tile		*tiles;
-}				t_map;
+}	t_map;
 
-typedef struct	s_btexs {
-	t_path	north;
-	t_path	east;
-	t_path	south;
-	t_path	west;
-	t_path	up;
-}				t_btexs;
-
-typedef struct	s_config {
+typedef struct s_config {
 	int		w_res;
 	int		h_res;
 	int		w_vres;
 	int		h_vres;
-//	double	dw;
-//	double	dh;
-	double	scale;
 
-	t_cvec 	blocks_texs;
-	t_cvec 	sprites_texs;
+	t_cvec	blocks_texs;
+	t_cvec	sprites_texs;
 
 	t_color	floor_color;
 	t_color	ceil_color;
@@ -100,37 +87,37 @@ typedef struct	s_config {
 
 	double	dist_proj;
 	double	fov;
-}				t_config;
+}	t_config;
 
-typedef struct	s_point {
+typedef struct s_point {
 	double	x;
 	double	y;
-}				t_point;
+}	t_point;
 
-typedef struct	s_ipoint {
+typedef struct s_ipoint {
 	int		i;
 	int		j;
 }				t_ipoint;
 
-typedef struct	s_player {
+typedef struct s_player {
 	t_point	cord;
 	double	angle;
-}				t_player;
+}	t_player;
 
-typedef struct	s_img {
+typedef struct s_img {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
-	int		line_length;
+	int		line_len;
 	int		endian;
 	int		w;
 	int		h;
-}				t_img;
+}	t_img;
 
-typedef struct	s_vars {
+typedef struct s_vars {
 	void		*mlx;
 	t_img		img;
-	t_player	player;
+	t_player	pl;
 	t_cvec		sprites;
 	t_u64		tim;
 	void		*win;
@@ -140,8 +127,19 @@ typedef struct	s_vars {
 	int			gui_offset;
 	double		*z_buf;
 	t_keybuf	keybuff;
-}				t_vars;
+	int			is_save;
+}	t_vars;
 
-int				closed_win(void *mlx, void *win);
+int		closed_win(void *mlx, void *win);
+void	exit_handler(t_vars *vars);
+void	move_by_key(t_vars *vars);
+void	key_handler(t_vars *vars);
+int		press_key_handler(int key, t_vars *vars);
+int		press_realease_handler(int key, t_vars *vars);
+t_color	shadow_dist(t_color color, double dist);
+void	write_header(int fd, t_vars *vars); // BMP
+void	write_img(int fd, t_vars *vars); // BMP
+void	load_texs(t_vars *vars);
+int		next_render(t_vars *vars);
 
 #endif

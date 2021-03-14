@@ -1,15 +1,9 @@
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "libft.h"
 #include "parse.h"
 #include "cub3d_utils.h"
 #include "adders_p.h"
-#include "mlx.h"
 
-int			add_p_l(t_config *conf, t_line line)
+int	add_p_l(t_config *conf, t_line line)
 {
 	if (!line)
 		return (0);

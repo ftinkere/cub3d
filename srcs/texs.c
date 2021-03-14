@@ -28,7 +28,7 @@ t_color	get_pix_color(t_vars *vars, t_point	tex_p, t_wall wall)
 	if (side == SIDE_NORTH || side == SIDE_EAST)
 		tex_p.x = 1 - tex_p.x;
 	color = *img_pixel_get(img, (int)(tex_p.y * img->h),
-						   (int)(tex_p.x * img->w));
+			(int)(tex_p.x * img->w));
 	return (shadow_dist(color, wall.dist));
 }
 

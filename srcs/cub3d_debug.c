@@ -12,12 +12,12 @@ void	print_map(t_map *map)
 {
 	int	i = 0, j;
 
-	while (i < map->height)
+	while (i < map->h)
 	{
 		j = 0;
-		while (j < map->width)
+		while (j < map->w)
 		{
-			ft_printf("%d", map->tiles[i * map->width + j]);
+			ft_printf("%d", map->tiles[i * map->w + j]);
 			j++;
 		}
 		ft_printf("\n");

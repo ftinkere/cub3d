@@ -1,18 +1,13 @@
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "libft.h"
 #include "parse.h"
 #include "cub3d_utils.h"
 #include "adders_p.h"
 #include "mlx.h"
 
-int			add_p_r(t_vars *vars, t_config *conf, t_lines sline)
+int	add_p_r(t_vars *vars, t_config *conf, t_lines sline)
 {
-	int screen_w;
-	int screen_h;
+	int	screen_w;
+	int	screen_h;
 
 	if (sline == NULL || sline[0] == NULL || sline[1] == NULL
 		|| sline[2] == NULL)
@@ -31,11 +26,14 @@ int			add_p_r(t_vars *vars, t_config *conf, t_lines sline)
 	return (1);
 }
 
-int			add_p_s(t_config *conf, t_lines lines)
+int	add_p_s(t_config *conf, t_lines lines)
 {
 	size_t	index;
 
-	index = ft_isdigit(lines[0][1]) ? ft_atoi(lines[0] + 1) : 0;
+	if (ft_isdigit(lines[0][1]))
+		index = ft_atoi(lines[0] + 1);
+	else
+		index = 0;
 	if (index == conf->sprites_texs.siz)
 	{
 		cvec_push(&conf->sprites_texs, ft_strdup(lines[1]));
@@ -44,11 +42,11 @@ int			add_p_s(t_config *conf, t_lines lines)
 	return (0);
 }
 
-int			add_p_f(t_config *conf, t_lines lines)
+int	add_p_f(t_config *conf, t_lines lines)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	if (!lines || !lines[0] || !lines[1] || !lines[2] || !lines[3])
 		return (0);
@@ -61,11 +59,11 @@ int			add_p_f(t_config *conf, t_lines lines)
 	return (1);
 }
 
-int			add_p_c(t_config *conf, t_lines lines)
+int	add_p_c(t_config *conf, t_lines lines)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	if (!lines || !lines[0] || !lines[1] || !lines[2] || !lines[3])
 		return (0);
@@ -78,15 +76,18 @@ int			add_p_c(t_config *conf, t_lines lines)
 	return (1);
 }
 
-void		add_p_side(t_config *conf, t_lines lines, enum e_param param)
+void	add_p_side(t_config *conf, t_lines lines, enum e_param param)
 {
 	size_t	index;
 	char	**btexs;
 
-	index = ft_isdigit(lines[0][2]) ? ft_atoi(lines[0] + 2) : 0;
+	if (ft_isdigit(lines[0][2]))
+		index = ft_atoi(lines[0] + 2);
+	else
+		index = 0;
 	while (conf->blocks_texs.siz <= index)
 		cvec_push(&conf->blocks_texs, btexs_new());
-	btexs = (char**)conf->blocks_texs.arr[index];
+	btexs = (char **)conf->blocks_texs.arr[index];
 	if (param == P_NO)
 		btexs[SIDE_NORTH] = ft_strdup(lines[1]);
 	else if (param == P_SO)

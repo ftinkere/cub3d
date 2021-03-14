@@ -1,13 +1,8 @@
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include "libft.h"
 #include "parse.h"
-#include "mlx.h"
 
-int		find_spawn(t_map *map, size_t *i, size_t *j)
+int	find_spawn(t_map *map, size_t *i, size_t *j)
 {
 	size_t	u;
 	size_t	v;
@@ -15,12 +10,12 @@ int		find_spawn(t_map *map, size_t *i, size_t *j)
 
 	num = 0;
 	u = 0;
-	while (u < map->height)
+	while (u < map->h)
 	{
 		v = 0;
-		while (v < map->width)
+		while (v < map->w)
 		{
-			if (map->tiles[u * map->width + v].type == TILE_TYPE_SPAWN)
+			if (map->tiles[u * map->w + v].type == TILE_TYPE_SPAWN)
 			{
 				num++;
 				*i = u;
@@ -33,25 +28,25 @@ int		find_spawn(t_map *map, size_t *i, size_t *j)
 	return (num);
 }
 
-int		rec_circ(t_map *map, int *passed, size_t i, size_t j)
+int	rec_circ(t_map *map, int *passed, size_t i, size_t j)
 {
-	int u;
-	int v;
+	int	u;
+	int	v;
 
-	if (i < 0 || j < 0 || i >= map->height || j >= map->width)
+	if (i < 0 || j < 0 || i >= map->h || j >= map->w)
 		return (0);
-	passed[i * map->width + j] = 1;
+	passed[i * map->w + j] = 1;
 	u = -1;
 	while (u <= 1)
 	{
 		v = -1;
 		while (v <= 1)
 		{
-			if (!((passed[(i + u) * map->width + (j + v)] == 1 ||
-			abs(u) == abs(v) || map->tiles[(i + u) * map->width + (j + v)].type
-			== TILE_TYPE_WALL)) && !rec_circ(map, passed, i + u, j + v)
-			|| (i + u < 0 || j + v < 0 || i + u >= map->height
-			|| j + v >= map->width))
+			if (!((passed[(i + u) *map->w + (j + v)] == 1 || \
+			abs(u) == abs(v) || map->tiles[(i + u) *map->w + (j + v)].type
+						== TILE_TYPE_WALL)) && !rec_circ(map, passed, i + u,
+					j + v) || (i + u < 0 || j + v < 0 || i + u >= \
+					map->h || j + v >= map->w))
 				return (0);
 			v++;
 		}
@@ -60,15 +55,16 @@ int		rec_circ(t_map *map, int *passed, size_t i, size_t j)
 	return (1);
 }
 
-int		validate_circ(t_map *map)
+int	validate_circ(t_map *map)
 {
 	int		res;
 	int		*passed;
 	size_t	i;
 	size_t	j;
 
-	passed = ft_calloc(map->width * map->width, sizeof(int));
-	if ((res = find_spawn(map, &i, &j)) != 1)
+	passed = ft_calloc(map->w * map->w, sizeof(int));
+	res = find_spawn(map, &i, &j);
+	if (res != 1)
 	{
 		ft_printf("Spawn nums not equal 1. Its: %d\n", res);
 		exit(42);
@@ -78,13 +74,13 @@ int		validate_circ(t_map *map)
 	return (res);
 }
 
-int		validate_raw_map(t_lines_v *lines, int i)
+int	validate_raw_map(t_lines_v *lines, int i)
 {
 	if (i >= lines->siz)
 		return (0);
 	while (i < lines->siz)
 	{
-		if (((char*)lines->arr[i])[0] == '\0')
+		if (((char *)lines->arr[i])[0] == '\0')
 			return (0);
 		i++;
 	}
