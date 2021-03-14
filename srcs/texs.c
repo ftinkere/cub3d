@@ -1,5 +1,6 @@
 #include <raycast.h>
 #include <intmlx.h>
+#include "math.h"
 #include "types.h"
 
 enum e_side	get_side_cross(t_wall *obst)
@@ -12,7 +13,7 @@ enum e_side	get_side_cross(t_wall *obst)
 		return (SIDE_SOUTH);
 	if (obst->pos.j == obst->cross.x)
 		return (SIDE_WEST);
-	return (-1);
+	return (SIDE_NOT_FOUND);
 }
 
 t_color	get_pix_color(t_vars *vars, t_point	tex_p, t_wall wall)
@@ -22,7 +23,7 @@ t_color	get_pix_color(t_vars *vars, t_point	tex_p, t_wall wall)
 	enum e_side	side;
 
 	side = get_side_cross(&wall);
-	if (side == -1)
+	if (side == SIDE_NOT_FOUND)
 		return (shadow_dist(0x00FFFFFF, wall.dist));
 	img = &vars->texs[wall.tile->num * 4 + side];
 	if (side == SIDE_NORTH || side == SIDE_EAST)

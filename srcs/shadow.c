@@ -1,3 +1,4 @@
+#include <math.h>
 #include <intmlx.h>
 
 t_color	shadow_dist(t_color color, double dist)

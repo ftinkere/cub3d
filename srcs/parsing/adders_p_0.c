@@ -28,7 +28,7 @@ int	add_p_r(t_vars *vars, t_config *conf, t_lines sline)
 
 int	add_p_s(t_config *conf, t_lines lines)
 {
-	size_t	index;
+	int	index;
 
 	if (ft_isdigit(lines[0][1]))
 		index = ft_atoi(lines[0] + 1);
@@ -78,7 +78,7 @@ int	add_p_c(t_config *conf, t_lines lines)
 
 void	add_p_side(t_config *conf, t_lines lines, enum e_param param)
 {
-	size_t	index;
+	int		index;
 	char	**btexs;
 
 	if (ft_isdigit(lines[0][2]))

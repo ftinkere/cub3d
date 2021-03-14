@@ -15,10 +15,10 @@ t_point	get_hor_wall(t_caster *caster, t_vars *vars, double ray)
 	t_point	fir;
 	double	dx;
 
-	if (caster->y_to == 0)
-		return (ret(fir, caster->x_to, 0));
 	fir.y = angle_round(vars->pl.cord.y, caster->y_to);
 	fir.x = straight_x(caster, fir.y);
+	if (caster->y_to == 0)
+		return (ret(fir, caster->x_to, 0));
 	dx = straight_x(caster, fir.y + caster->y_to) - fir.x;
 	if (caster->x_to == 0)
 		fir.x = vars->pl.cord.x;
@@ -43,10 +43,10 @@ t_point	get_ver_wall(t_caster *caster, t_vars *vars, double ray)
 	t_point	fir;
 	double	dy;
 
-	if (caster->x_to == 0)
-		return (ret(fir, caster->y_to, 1));
 	fir.x = angle_round(vars->pl.cord.x, caster->x_to);
 	fir.y = straight_y(caster, fir.x);
+	if (caster->x_to == 0)
+		return (ret(fir, caster->y_to, 1));
 	dy = straight_y(caster, fir.x + caster->x_to) - fir.y;
 	if (caster->y_to == 0)
 		fir.y = vars->pl.cord.y;

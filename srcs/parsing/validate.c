@@ -2,11 +2,11 @@
 #include "libft.h"
 #include "parse.h"
 
-int	find_spawn(t_map *map, size_t *i, size_t *j)
+int	find_spawn(t_map *map, int *i, int *j)
 {
-	size_t	u;
-	size_t	v;
-	int		num;
+	int	u;
+	int	v;
+	int	num;
 
 	num = 0;
 	u = 0;
@@ -28,7 +28,7 @@ int	find_spawn(t_map *map, size_t *i, size_t *j)
 	return (num);
 }
 
-int	rec_circ(t_map *map, int *passed, size_t i, size_t j)
+int	rec_circ(t_map *map, int *passed, int i, int j)
 {
 	int	u;
 	int	v;
@@ -42,11 +42,11 @@ int	rec_circ(t_map *map, int *passed, size_t i, size_t j)
 		v = -1;
 		while (v <= 1)
 		{
-			if (!((passed[(i + u) *map->w + (j + v)] == 1 || \
-			abs(u) == abs(v) || map->tiles[(i + u) *map->w + (j + v)].type
-						== TILE_TYPE_WALL)) && !rec_circ(map, passed, i + u,
-					j + v) || (i + u < 0 || j + v < 0 || i + u >= \
-					map->h || j + v >= map->w))
+			if ((!((passed[(i + u) *map->w + (j + v)] == 1 || \
+					abs(u) == abs(v) || map->tiles[(i + u) *map->w + \
+					(j + v)].type == TILE_TYPE_WALL)) && !rec_circ(map, \
+						passed, i + u, j + v)) || (i + u < 0 || j + v < \
+						0 || i + u >= map->h || j + v >= map->w))
 				return (0);
 			v++;
 		}
@@ -59,8 +59,8 @@ int	validate_circ(t_map *map)
 {
 	int		res;
 	int		*passed;
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
 	passed = ft_calloc(map->w * map->w, sizeof(int));
 	res = find_spawn(map, &i, &j);

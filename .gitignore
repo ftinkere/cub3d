@@ -46,3 +46,4 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+/screen.bmp

@@ -40,7 +40,7 @@ void	*cvec_push(t_cvec *vec, void *e)
 
 void	cvec_free_all(t_cvec *vec)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < vec->siz)
@@ -50,7 +50,7 @@ void	cvec_free_all(t_cvec *vec)
 
 void	cvec_clear(t_cvec *vec)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < vec->siz)

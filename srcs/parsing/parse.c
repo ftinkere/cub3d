@@ -51,7 +51,7 @@ t_tile	get_tile_from(char c, t_lines leg)
 		tile_set(&tile, leg[i], c);
 		i++;
 	}
-	if (tile.type == -2)
+	if (tile.type == TILE_NOT_FOUND)
 		errex(42, "Tile type not found");
 	return (tile);
 }
@@ -71,8 +71,6 @@ int	set_dims_map(t_map *map, t_lines_v *lines, int i)
 			return (0);
 		if (temp > max)
 			max = temp;
-		else
-			max = max;
 		i++;
 	}
 	map->w = max;
@@ -97,7 +95,7 @@ int	parse_map(t_map *map, t_lines_v *lines, int i)
 	while (k < map->h)
 	{
 		j = 0;
-		while (j < ft_strlen(lines->arr[k + i]))
+		while (j < (int)ft_strlen(lines->arr[k + i]))
 		{
 			map->tiles[k * map->w + j] = \
 					get_tile_from(((char *)lines->arr[k + i])[j], leg);
