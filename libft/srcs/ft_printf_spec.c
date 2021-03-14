@@ -16,8 +16,7 @@
 t_spec	def_spec(void)
 {
 	t_spec	spec;
-
-	spec.vld = 1;
+	
 	spec.sp = 'd';
 	spec.sb = '\0';
 	spec.f_mn = 0;
