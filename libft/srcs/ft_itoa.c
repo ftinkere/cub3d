@@ -26,7 +26,7 @@ static int	quazi_abs(int *n)
 
 static int	digi_county(int n)
 {
-	int res;
+	int	res;
 
 	if (n == (-2147483647 - 1))
 		return (12);
@@ -70,7 +70,7 @@ static char	*strlcpy_ret(char *dst, const char *src, size_t dstsize)
 	return (dst);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*res;
 	char	*r;

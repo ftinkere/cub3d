@@ -13,40 +13,8 @@
 #include <stdlib.h>
 #include "libft_int.h"
 #include "libft.h"
-
 #include <string.h>
 #include <stdio.h>
-
-//char	*ft_memmove(char *dest, const char *src, size_t n)
-//{
-//	size_t i;
-//
-//	if (src == dest)
-//		return (dest);
-//	else if (src < dest)
-//	{
-//		i = n;
-//		while (i-- > 0)
-//			dest[i] = src[i];
-//	}
-//	else
-//	{
-//		i = 0;
-//		while (i++ < n)
-//			dest[i - 1] = src[i - 1];
-//	}
-//	return (dest);
-//}
-//
-//size_t	ft_strlen(const char *s)
-//{
-//	size_t i;
-//
-//	i = 0;
-//	while (s[i] != '\0')
-//		i++;
-//	return (i);
-//}
 
 char	*ft_strapp(char **dst, const char *src, int *ret)
 {
@@ -61,8 +29,8 @@ char	*ft_strapp(char **dst, const char *src, int *ret)
 		res = malloc(ft_strlen(d) + 1);
 	else
 		res = malloc(ft_strlen(src) + ft_strlen(d) + 1);
-	if (res == NULL && (*ret = -1))
-		return (NULL);
+	if (res == NULL)
+		return ((char *)((char)(*ret = -1) + (char *) 1));
 	r = res;
 	if (*dst != NULL)
 		while (*d != '\0')
@@ -74,4 +42,9 @@ char	*ft_strapp(char **dst, const char *src, int *ret)
 	if (*dst != NULL)
 		free(*dst);
 	return (*dst = res);
+}
+
+int	exif(int flag, int *ret)
+{
+	return (flag < 0 || (flag == 0 && *ret < BUFFER_SIZE && !(*ret = 0)));
 }

@@ -13,7 +13,7 @@
 #include "libft.h"
 #include <stddef.h>
 
-int			ft_strisstart(const char *src, const char *re, size_t n)
+int	ft_strisstart(const char *src, const char *re, size_t n)
 {
 	while (*re != '\0')
 		if (n-- == 0 || *src++ != *re++)
@@ -21,7 +21,7 @@ int			ft_strisstart(const char *src, const char *re, size_t n)
 	return (1);
 }
 
-char		*ft_strnstr(const char *src, const char *re, size_t siz)
+char	*ft_strnstr(const char *src, const char *re, size_t siz)
 {
 	size_t	i;
 

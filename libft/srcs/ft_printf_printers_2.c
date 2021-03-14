@@ -13,7 +13,7 @@
 #include "ft_printf_utils.h"
 #include "libft.h"
 
-int		print_infnan_(int sim, t_spec *spec, long double e)
+int	print_infnan_(int sim, t_spec *spec, long double e)
 {
 	int		ret;
 
@@ -29,13 +29,13 @@ int		print_infnan_(int sim, t_spec *spec, long double e)
 	if (spec->f_mn)
 	{
 		spec->f_zr = 0;
-		ret += print_width_(sim, spec, spec->w - (ret +
-				((sign_d(e) || spec->f_pl || spec->f_sp) ? 1 : 0)));
+		ret += print_width_(sim, spec, spec->w - (ret + \
+			!!(sign_d(e) || spec->f_pl || spec->f_sp)));
 	}
 	return (ret);
 }
 
-int		print_e_(int sim, t_spec *s, long double e)
+int	print_e_(int sim, t_spec *s, long double e)
 {
 	int		ret;
 
@@ -62,12 +62,13 @@ int		print_e_(int sim, t_spec *s, long double e)
 	return (ret);
 }
 
-int		print_f_(int sim, t_spec *s, long double e)
+int	print_f_(int sim, t_spec *s, long double e)
 {
 	int		ret;
 
 	ret = 0;
-	s->p = s->p == -1 ? 6 : s->p;
+	if (s->p == -1)
+		s->p = 6;
 	if (!s->f_zr && !s->f_mn && s->w > 0 && !is_infnan(e))
 		ret += print_width_(sim, s, s->w - cnt_f(s, e));
 	else if (!s->f_mn && s->w > 0 && is_infnan(e))
@@ -88,24 +89,22 @@ int		print_f_(int sim, t_spec *s, long double e)
 	return (ret);
 }
 
-int		print_g_(int sim, t_spec *spec, long double e)
+int	print_g_(int sim, t_spec *spec, long double e)
 {
 	int		ret;
-	char	fe;
 
 	ret = 0;
 	if (spec->p == -1)
 		spec->p = 6;
 	spec->p = cnt_g_prec(spec, e);
-	fe = cnt_e(spec, e) < cnt_f(spec, e) ? 'e' : 'f';
-	if (fe == 'e')
+	if (cnt_e(spec, e) < cnt_f(spec, e))
 		ret += print_e_(sim, spec, e);
-	else if (fe == 'f')
+	else
 		ret += print_f_(sim, spec, e);
 	return (ret);
 }
 
-int		print_route(int sim, t_spec *s, unsigned long long d)
+int	print_route(int sim, t_spec *s, unsigned long long d)
 {
 	if (d == 0 && s->f_oc && s->sp == 'o' && s->p <= prc_u(s, d))
 		return (0);

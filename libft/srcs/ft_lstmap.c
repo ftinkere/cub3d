@@ -27,7 +27,7 @@ static t_list	*free_mem(t_list *lst, void (*del)(void *))
 	return (NULL);
 }
 
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*res;
 	t_list	*r;

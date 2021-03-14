@@ -23,7 +23,9 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	if (s == NULL)
 	{
 		res = malloc(1);
-		return (res ? ft_memset(res, '\0', 1) : NULL);
+		if (res == NULL)
+			return (NULL);
+		return (ft_memset(res, '\0', 1));
 	}
 	len = ft_strlen(s);
 	res = malloc(len + 1);

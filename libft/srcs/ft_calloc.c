@@ -17,7 +17,7 @@
 void	*ft_calloc(size_t num, size_t siz)
 {
 	void	*res;
-	int		bytes;
+	size_t	bytes;
 
 	bytes = num * siz;
 	res = malloc(bytes);

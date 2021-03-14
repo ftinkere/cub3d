@@ -13,7 +13,7 @@
 #include "ft_printf_utils.h"
 #include "libft.h"
 
-t_i64		mround_even(long double x)
+t_i64	mround_even(long double x)
 {
 	t_i64	flord;
 
@@ -23,14 +23,14 @@ t_i64		mround_even(long double x)
 	return (flord);
 }
 
-t_u64		mflooru(long double x)
+t_u64	mflooru(long double x)
 {
 	if (x < 0)
 		return ((t_u64)x - 1);
 	return ((t_u64)x);
 }
 
-t_u64		mroundu_even(long double x)
+t_u64	mroundu_even(long double x)
 {
 	t_u64	flord;
 
@@ -40,7 +40,7 @@ t_u64		mroundu_even(long double x)
 	return (flord);
 }
 
-t_u64		sign_d(double x)
+t_u64	sign_d(double x)
 {
 	t_u64	i_e;
 

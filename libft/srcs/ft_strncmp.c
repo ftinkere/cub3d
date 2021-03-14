@@ -15,11 +15,8 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t len;
-
-	if (n == 0)
-		return (0);
-	len = (n < ft_strlen(s1) ? n : ft_strlen(s1) + 1);
-	len = (len < ft_strlen(s2) ? len : ft_strlen(s2) + 1);
-	return (ft_memcmp(s1, s2, len));
+	while ((*s1 || *s2) && n--)
+		if (*s1++ != *s2++)
+			return ((unsigned char)*--s1 - (unsigned char)* --s2);
+	return (0);
 }

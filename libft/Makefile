@@ -9,7 +9,7 @@ CC				=	clang
 AR				=	ar
 RANLIB			=	ranlib
 
-CFLAGS			= -Wall -Wextra -Werror -I. -I includes #-g
+CFLAGS			= -Wall -Wextra -Werror -I. -I includes -fPIC #-g
 ARFLAGS			= -rc
 
 # Dirs
@@ -25,7 +25,7 @@ SOURCES_RAW		= \
 	ft_strtrim ft_split ft_itoa ft_strmapi ft_putchar_fd ft_putstr_fd \
 	ft_putendl_fd ft_putnbr_fd ft_lstnew ft_lstadd_front ft_lstsize ft_lstlast \
 	ft_lstadd_back ft_lstdelone ft_lstclear ft_lstiter ft_lstmap \
-	get_next_line get_next_line_utils \
+	get_next_line get_next_line_utils ft_split_str\
 	ft_math_1 ft_math_2 ft_printf ft_printf_base_writers ft_printf_cnts \
 	ft_printf_isers ft_printf_printers_1 ft_printf_printers_2 \
 	ft_printf_printers_3 ft_printf_readers ft_printf_spec ft_printf_utils
@@ -41,6 +41,11 @@ OBJS			:= $(addprefix $(OBJS_DIR)/, $(OBJS_O))
 all: $(NAME)
 
 allc: all clean
+
+bonus: all
+
+so: $(OBJS)
+	clang -shared -o libft.so $(OBJS)
 
 fclean: clean
 	@rm -f $(NAME)

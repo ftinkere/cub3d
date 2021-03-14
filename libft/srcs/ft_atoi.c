@@ -27,7 +27,7 @@ static int	ft_pure_atoi(const char *s)
 	return (-res);
 }
 
-int			ft_atoi(const char *s)
+int	ft_atoi(const char *s)
 {
 	int	res;
 	int	neg;

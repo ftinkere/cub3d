@@ -33,7 +33,7 @@ const char	*get_block_end(const char *str)
 	return (s);
 }
 
-int			prc_u(t_spec *spec, unsigned long long d)
+int	prc_u(t_spec *spec, unsigned long long d)
 {
 	int			res;
 	int			base;
@@ -45,12 +45,16 @@ int			prc_u(t_spec *spec, unsigned long long d)
 		base = 16;
 	else
 		base = 10;
-	while ((d /= base) != 0)
+	d /= base;
+	while (d != 0)
+	{
 		++res;
+		d /= base;
+	}
 	return (res);
 }
 
-int			prc_i(t_spec *spec, long long d)
+int	prc_i(t_spec *spec, long long d)
 {
 	int			res;
 	int			base;
@@ -63,7 +67,11 @@ int			prc_i(t_spec *spec, long long d)
 		base = 16;
 	else
 		base = 10;
-	while ((d /= base) != 0)
+	d /= base;
+	while (d != 0)
+	{
 		++res;
+		d /= base;
+	}
 	return (res);
 }

@@ -13,7 +13,7 @@
 #include "ft_printf_utils.h"
 #include "libft.h"
 
-t_spec		def_spec(void)
+t_spec	def_spec(void)
 {
 	t_spec	spec;
 
@@ -30,7 +30,7 @@ t_spec		def_spec(void)
 	return (spec);
 }
 
-void		add_flag(t_spec *spec, char f)
+void	add_flag(t_spec *spec, char f)
 {
 	if (f == '-')
 		spec->f_mn = 1;
@@ -44,56 +44,80 @@ void		add_flag(t_spec *spec, char f)
 		spec->f_zr = 1;
 }
 
-int			add_subspec(t_spec *spec, const char *f)
+int	add_subspec(t_spec *spec, const char *f)
 {
-	if ((*f == 'l' && f[1] == 'l' && (spec->sb = 'L'))
-		|| (*f == 'h' && f[1] == 'h' && (spec->sb = 'H')))
+	if (*f == 'l' && f[1] == 'l')
+	{
+		spec->sb = 'L';
 		return (2);
-	else if ((*f == 'l' && (spec->sb = 'l'))
-			|| (*f == 'h' && (spec->sb = 'h')))
+	}
+	if (*f == 'h' && f[1] == 'h')
+	{
+		spec->sb = 'H';
+		return (2);
+	}
+	if (*f == 'l')
+	{
+		spec->sb = 'l';
 		return (1);
+	}
+	if (*f == 'h')
+	{
+		spec->sb = 'h';
+		return (1);
+	}
 	return (0);
 }
 
-void		parse_prec(const char **fmt, t_spec *spec)
+void	parse_prec(const char **fmt, t_spec *spec)
 {
-	const char *f;
+	const char	*f;
 
 	f = *fmt;
-	if (*f == '.' && f[1] == '*' && (f += 2))
+	if (*f == '.' && f[1] == '*')
+	{
+		f += 2;
 		spec->p = -2;
-	else if (*f == '.' && ft_isdigit(f[1]) && (spec->p = ft_atoi(++f)))
+	}
+	else if (*f == '.' && ft_isdigit(f[1]))
+	{
+		spec->p = ft_atoi(++f);
 		while (ft_isdigit(*f))
 			f++;
-	else if (*f == '.' && !ft_isdigit(f[1]) && (spec->p = 0))
+	}
+	else if (*f == '.' && !ft_isdigit(f[1]))
+	{
+		spec->p = 0;
 		f++;
+	}
 	*fmt = f;
 }
 
-t_spec		parse_spec(const char **fmt)
+t_spec	parse_spec(const char **fmt)
 {
 	t_spec		spec;
 	const char	*f;
 
 	spec = def_spec();
-	if ((*fmt == NULL || **fmt != '%') && !(spec.vld = 0))
+	if ((*fmt == NULL || **fmt != '%'))
 		return (spec);
 	f = *fmt + 1;
 	while (is_flag(*f))
 		add_flag(&spec, *f++);
 	if (*f == '*' && ++f)
 		spec.w = -2;
-	else if (ft_isdigit(*f) && (spec.w = ft_atoi(f)))
+	else if (ft_isdigit(*f))
+	{
+		spec.w = ft_atoi(f);
 		while (ft_isdigit(*f))
 			f++;
+	}
 	parse_prec(&f, &spec);
 	f += add_subspec(&spec, f);
 	while (!(is_specc(*f) || *f == '\0'))
 		f++;
 	if (is_specc(*f))
 		spec.sp = *f;
-	else
-		spec.vld = 0;
 	*fmt = f + 1;
 	return (spec);
 }

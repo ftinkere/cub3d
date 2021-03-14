@@ -29,19 +29,18 @@
 ** w		указанная ширина
 ** p		указанная точность
 */
-typedef struct				s_spec
+typedef struct s_spec
 {
-	char					vld;
-	char					sp;
-	char					sb;
-	char					f_mn;
-	char					f_pl;
-	char					f_sp;
-	char					f_oc;
-	char					f_zr;
-	int						w;
-	int						p;
-}							t_spec;
+	char	sp;
+	char	sb;
+	char	f_mn;
+	char	f_pl;
+	char	f_sp;
+	char	f_oc;
+	char	f_zr;
+	int		w;
+	int		p;
+}	t_spec;
 
 typedef unsigned long long	t_u64;
 typedef long long			t_i64;
@@ -87,14 +86,13 @@ int							is_infnan(double e);
 */
 int							print_char_(int sim, int c);
 int							print_str_(int sim, const char *s, int siz);
-int							pr_2str_(int sim, const char *start,
-												const char *end);
+int							pr_2str_(int sim, const char *st, const char *end);
 
 /*
 ** SPEC
 */
 t_spec						parse_spec(const char **fmt);
-t_spec						def_spec();
+t_spec						def_spec(void);
 
 /*
 ** UTILS

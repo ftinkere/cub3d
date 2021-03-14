@@ -14,46 +14,46 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-static int	count_words(const char *s, char c)
+static int	count_words(const char *s, char *c)
 {
 	int		res;
 
-	while (*s == c && *s != '\0')
+	while (ft_strchr(c, *s) && *s != '\0')
 		s++;
 	if (ft_strlen(s) == 0)
 		return (0);
 	res = 1;
 	while (*s)
 	{
-		if (*s == c)
+		if (ft_strchr(c, *s))
 		{
 			res++;
-			while (*s == c)
+			while (ft_strchr(c, *s))
 				s++;
 		}
 		else
 			s++;
 	}
-	if (*s == '\0' && s[-1] == c)
+	if (*s == '\0' && ft_strchr(c, *(s - 1)))
 		res--;
 	return (res);
 }
 
-static int	get_n_word_index(const char *s, char c, int n)
+static int	get_n_word_index(const char *s, char *c, int n)
 {
 	int			i;
 	const char	*start;
 
 	start = s;
-	while (*s == c && *s != '\0')
+	while (!!ft_strchr(c, *s) && *s != '\0')
 		s++;
 	i = 0;
 	while (i < n && *s)
 	{
-		if (*s == c)
+		if (!!ft_strchr(c, *s))
 		{
 			i++;
-			while (*s == c)
+			while (!!ft_strchr(c, *s))
 				s++;
 		}
 		else
@@ -62,14 +62,14 @@ static int	get_n_word_index(const char *s, char c, int n)
 	return ((int)(s - start));
 }
 
-static int	strclen(const char *s, char c)
+static int	strclen(const char *s, char *c)
 {
 	int		res;
 
 	res = 0;
-	while (*s == c)
+	while (ft_strchr(c, *s))
 		s++;
-	while (s[res] && s[res] != c)
+	while (s[res] && !ft_strchr(c, s[res]))
 		res++;
 	return (res);
 }
@@ -88,7 +88,7 @@ static char	**free_mem(char **s)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split_str(char const *s, char *c)
 {
 	char	**res;
 	int		words;

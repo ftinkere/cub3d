@@ -15,11 +15,12 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t siz)
 {
-	size_t dlen;
+	size_t	dlen;
 
 	if (src == NULL || dst == NULL)
 		return (0);
 	dlen = ft_strlen(dst);
-	dlen = (dlen < siz) ? dlen : siz;
+	if (dlen > siz)
+		dlen = siz;
 	return (dlen + ft_strlcpy(dst + dlen, src, siz - dlen));
 }

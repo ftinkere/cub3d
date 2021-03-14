@@ -14,7 +14,7 @@
 #include "ft_printf_utils.h"
 #include "libft.h"
 
-int					print_by_spec_(int sim, t_spec *spec, va_list p_args)
+int	print_by_spec_(int sim, t_spec *spec, va_list p_args)
 {
 	int		ret;
 
@@ -38,7 +38,7 @@ int					print_by_spec_(int sim, t_spec *spec, va_list p_args)
 	return (ret);
 }
 
-void				spec_n(t_spec *spec, int ret, va_list p_args)
+void	spec_n(t_spec *spec, int ret, va_list p_args)
 {
 	int		*n;
 
@@ -53,11 +53,11 @@ void				spec_n(t_spec *spec, int ret, va_list p_args)
 	}
 	if (spec->p < 0)
 		spec->p = -1;
-	n = va_arg(p_args, int*);
+	n = va_arg(p_args, int *);
 	*n = ret;
 }
 
-int					ft_printf_bs(int sim, const char *format, va_list args)
+int	ft_printf_bs(int sim, const char *format, va_list args)
 {
 	int			ret;
 	t_spec		spec;
@@ -86,7 +86,7 @@ int					ft_printf_bs(int sim, const char *format, va_list args)
 	return (ret);
 }
 
-int					ft_printf_(int sim, const char *format, ...)
+int	ft_printf_(int sim, const char *format, ...)
 {
 	int			ret;
 	va_list		args;
@@ -97,7 +97,7 @@ int					ft_printf_(int sim, const char *format, ...)
 	return (ret);
 }
 
-int					ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
 	int			ret;
 	va_list		args;

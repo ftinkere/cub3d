@@ -12,7 +12,7 @@
 
 #include <stddef.h>
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	size_t	i;
 	int		delta;
@@ -20,7 +20,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n)
 	i = 0;
 	while (i < n)
 	{
-		delta = ((unsigned char*)s1)[i] - ((unsigned char*)s2)[i];
+		delta = ((unsigned char *)s1)[i] - ((unsigned char *)s2)[i];
 		if (delta != 0)
 			return ((int)delta);
 		i++;

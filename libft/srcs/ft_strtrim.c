@@ -22,7 +22,7 @@ static int	is_inset(char c, const char *set)
 	return (0);
 }
 
-char		*ft_strtrim(const char *src, const char *set)
+char	*ft_strtrim(const char *src, const char *set)
 {
 	char	*res;
 	size_t	len;

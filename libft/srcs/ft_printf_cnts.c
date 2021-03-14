@@ -12,7 +12,7 @@
 
 #include "ft_printf_utils.h"
 
-int		cnt_u(t_spec *spec, unsigned long long d)
+int	cnt_u(t_spec *spec, unsigned long long d)
 {
 	int		w;
 	int		ret;
@@ -24,7 +24,7 @@ int		cnt_u(t_spec *spec, unsigned long long d)
 	return (ret);
 }
 
-int		cnt_d(t_spec *spec, long long d)
+int	cnt_d(t_spec *spec, long long d)
 {
 	int		w;
 	int		ret;
@@ -36,7 +36,7 @@ int		cnt_d(t_spec *spec, long long d)
 	return (ret);
 }
 
-int		cnt_e(t_spec *spec, long double e)
+int	cnt_e(t_spec *spec, long double e)
 {
 	int		w;
 	char	s;
@@ -52,7 +52,7 @@ int		cnt_e(t_spec *spec, long double e)
 	return (ret);
 }
 
-int		cnt_f(t_spec *spec, long double e)
+int	cnt_f(t_spec *spec, long double e)
 {
 	int		w;
 	char	s;
@@ -68,7 +68,7 @@ int		cnt_f(t_spec *spec, long double e)
 	return (ret);
 }
 
-int		cnt_g_prec(t_spec *spec, long double e)
+int	cnt_g_prec(t_spec *spec, long double e)
 {
 	int		res;
 	t_u64	adig;

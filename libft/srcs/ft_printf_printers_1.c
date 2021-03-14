@@ -14,7 +14,7 @@
 #include "ft_printf_utils.h"
 #include "libft.h"
 
-int		print_unsign_base_(int sim, t_spec *spec, unsigned long long d)
+int	print_unsign_base_(int sim, t_spec *spec, unsigned long long d)
 {
 	char	*base_str;
 	char	*base_str_up;
@@ -42,16 +42,27 @@ int		print_unsign_base_(int sim, t_spec *spec, unsigned long long d)
 	return (ret);
 }
 
-int		print_u_(int sim, t_spec *s, unsigned long long d)
+int	u_inter(t_spec *s, unsigned long long d)
+{
+	if (s->p != -1)
+		s->f_zr = 0;
+	if (s->sp == 'p')
+	{
+		s->sb = 'L';
+		s->f_oc = 1;
+	}
+	if (s->w > 0)
+		return (cnt_u(s, d));
+	return (-1);
+}
+
+int	print_u_(int sim, t_spec *s, unsigned long long d)
 {
 	int		ret;
 	int		be_pr;
 
 	ret = 0;
-	be_pr = s->w > 0 ? cnt_u(s, d) : -1;
-	s->f_zr = s->p != -1 ? 0 : s->f_zr;
-	s->sb = s->sp == 'p' ? 'L' : s->sb;
-	s->f_oc = s->sp == 'p' ? 1 : s->f_oc;
+	be_pr = u_inter(s, d);
 	if (s->w > 0 && !s->f_zr && !s->f_mn)
 		ret += print_width_(sim, s, s->w - be_pr);
 	if ((d != 0 && s->f_oc && ft_strchr("x", s->sp)) || (s->sp == 'p'))
@@ -71,14 +82,22 @@ int		print_u_(int sim, t_spec *s, unsigned long long d)
 	return (ret);
 }
 
-int		print_d_(int sim, t_spec *s, long long d)
+int	d_inter(t_spec *s, long long d)
+{
+	if (s->p != -1)
+		s->f_zr = 0;
+	if (s->w > 0)
+		return (cnt_d(s, d));
+	return (-1);
+}
+
+int	print_d_(int sim, t_spec *s, long long d)
 {
 	int		ret;
 	int		be_pr;
 
 	ret = 0;
-	be_pr = s->w > 0 ? cnt_d(s, d) : -1;
-	s->f_zr = s->p != -1 ? 0 : s->f_zr;
+	be_pr = d_inter(s, d);
 	if (s->w > 0 && !s->f_zr && !s->f_mn)
 		ret += print_width_(sim, s, s->w - be_pr);
 	if (d < 0)
@@ -97,38 +116,5 @@ int		print_d_(int sim, t_spec *s, long long d)
 		ret += print_route(sim, s, mabs_i(d));
 	if (s->w > 0 && s->f_mn)
 		ret += print_width_with_(sim, ' ', s->w - be_pr);
-	return (ret);
-}
-
-int		print_c_(int sim, t_spec *spec, int c)
-{
-	int		ret;
-
-	ret = 0;
-	if (spec->w > 1 && !spec->f_mn)
-		ret += print_width_(sim, spec, spec->w - 1);
-	ret += print_char_(sim, c);
-	if (spec->w > 1 && spec->f_mn)
-		ret += print_width_with_(sim, ' ', spec->w - 1);
-	return (ret);
-}
-
-int		print_s_(int sim, t_spec *spec, const char *s)
-{
-	int		ret;
-	int		len;
-
-	ret = 0;
-	if (s == NULL)
-		s = "(null)";
-	len = ft_strlen(s);
-	if (spec->p != -1)
-		len = len <= spec->p ? len : spec->p;
-	if (spec->w > len && !spec->f_mn)
-		ret += print_width_(sim, spec, spec->w - len);
-	ret += print_str_(sim, s, len);
-	spec->f_zr = 0;
-	if (spec->w > len && spec->f_mn)
-		ret += print_width_(sim, spec, spec->w - len);
 	return (ret);
 }

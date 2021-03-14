@@ -14,7 +14,7 @@
 #include "ft_printf_utils.h"
 #include "libft.h"
 
-t_u64				read_var_u(t_spec *spec, va_list p_args)
+t_u64	read_var_u(t_spec *spec, va_list p_args)
 {
 	long long	d;
 	int			w;
@@ -41,7 +41,7 @@ t_u64				read_var_u(t_spec *spec, va_list p_args)
 	return (d);
 }
 
-long long			read_var_int(t_spec *spec, va_list p_args)
+long long	read_var_int(t_spec *spec, va_list p_args)
 {
 	long long	d;
 	int			w;
@@ -68,9 +68,9 @@ long long			read_var_int(t_spec *spec, va_list p_args)
 	return (d);
 }
 
-int					read_var_char(t_spec *spec, va_list p_args)
+int	read_var_char(t_spec *spec, va_list p_args)
 {
-	int w;
+	int	w;
 
 	w = spec->w;
 	if (spec->w == -2)
@@ -87,9 +87,9 @@ int					read_var_char(t_spec *spec, va_list p_args)
 	return (va_arg(p_args, int));
 }
 
-double				read_var_double(t_spec *spec, va_list p_args)
+double	read_var_double(t_spec *spec, va_list p_args)
 {
-	int w;
+	int	w;
 
 	w = spec->w;
 	if (spec->w == -2)
@@ -106,9 +106,9 @@ double				read_var_double(t_spec *spec, va_list p_args)
 	return (va_arg(p_args, double));
 }
 
-char				*read_var_s(t_spec *spec, va_list p_args)
+char	*read_var_s(t_spec *spec, va_list p_args)
 {
-	int w;
+	int	w;
 
 	w = spec->w;
 	if (spec->w == -2)

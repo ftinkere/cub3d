@@ -13,28 +13,28 @@
 #include <unistd.h>
 #include "ft_printf_utils.h"
 
-int		print_char_(int sim, int c)
+int	print_char_(int sim, int c)
 {
 	if (sim)
 		return (1);
 	return (write(1, &c, 1));
 }
 
-int		pr_2str_(int sim, const char *start, const char *end)
+int	pr_2str_(int sim, const char *start, const char *end)
 {
 	if (sim)
 		return (end - start);
 	return (write(1, start, end - start));
 }
 
-int		print_str_(int sim, const char *s, int siz)
+int	print_str_(int sim, const char *s, int siz)
 {
 	if (sim)
 		return (siz);
 	return (write(1, s, siz));
 }
 
-int		print_width_with_(int sim, char c, int be_pr)
+int	print_width_with_(int sim, char c, int be_pr)
 {
 	int	ret;
 
@@ -44,7 +44,7 @@ int		print_width_with_(int sim, char c, int be_pr)
 	return (ret);
 }
 
-int		print_width_(int sim, t_spec *spec, int be_pr)
+int	print_width_(int sim, t_spec *spec, int be_pr)
 {
 	if (spec->f_zr)
 		return (print_width_with_(sim, '0', be_pr));
