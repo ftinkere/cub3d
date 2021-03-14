@@ -36,10 +36,12 @@ enum			e_tile_type {
 	TILE_TYPE_WALL,
 	TILE_TYPE_DOOR,
 	TILE_TYPE_SPRITE,
-	TILE_TYPE_SPAWN
+	TILE_TYPE_SPAWN,
+	TILE_NOT_FOUND = -2
 };
 
 enum			e_side {
+	SIDE_NOT_FOUND = -1,
 	SIDE_NORTH,
 	SIDE_EAST,
 	SIDE_SOUTH,
@@ -66,8 +68,8 @@ typedef struct s_tile {
 
 typedef struct s_map {
 	t_legend	legend;
-	size_t		w;
-	size_t		h;
+	int			w;
+	int 		h;
 	t_tile		*tiles;
 }	t_map;
 
@@ -131,7 +133,7 @@ typedef struct s_vars {
 }	t_vars;
 
 int		closed_win(void *mlx, void *win);
-void	exit_handler(t_vars *vars);
+int 	exit_handler(t_vars *vars);
 void	move_by_key(t_vars *vars);
 void	key_handler(t_vars *vars);
 int		press_key_handler(int key, t_vars *vars);

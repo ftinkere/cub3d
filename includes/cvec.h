@@ -1,12 +1,6 @@
 #ifndef CVEC_H
 # define CVEC_H
 
-typedef struct s_cveci {
-	int		*arr;
-	int		siz;
-	int		cap;
-}	t_cveci;
-
 typedef struct s_cvec {
 	void	**arr;
 	int		siz;

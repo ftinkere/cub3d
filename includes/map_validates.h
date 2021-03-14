@@ -4,6 +4,6 @@
 
 int		validate_raw_map(t_lines_v *lines, int i);
 int		validate_circ(t_map *map);
-int		find_spawn(t_map *map, size_t *i, size_t *j);
+int		find_spawn(t_map *map, int *i, int *j);
 
 #endif
