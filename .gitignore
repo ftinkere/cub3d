@@ -12,6 +12,8 @@ cmake-build*
 *.obj
 *.elf
 
+libft.so
+
 # Linker output
 *.ilk
 *.map
