@@ -16,10 +16,11 @@ SOURCES	= srcs/main.c srcs/parsing/parse.c srcs/cvec_0.c srcs/sprite.c \
 	srcs/parsing/validate.c srcs/parsing/utils_0.c srcs/parsing/adders_p_0.c \
 	srcs/parsing/newers.c srcs/parsing/adders_p_1.c srcs/parsing/conf.c \
 	srcs/cub3d_debug.c srcs/img_0.c srcs/raycast.c srcs/keybuff.c \
-	srcs/win.c srcs/bmp.c srcs/move.c srcs/shadow.c srcs/texs.c srcs/render.c \
+	srcs/bmp.c srcs/move.c srcs/shadow.c srcs/texs.c srcs/render.c \
 	srcs/load.c srcs/raycast_1.c srcs/straight.c srcs/tiles.c srcs/tiny_math.c \
+# srcs/win.c
 
-all: $(NAME) clean
+all: $(NAME)
 
 allc: all clean
 
@@ -39,5 +40,6 @@ beep:
 	@echo -e "\07"
 
 $(NAME): $(SOURCES) libft
-	@$(CC) $(CFLAGS) $(SOURCES) -o $(NAME)
+	clang -Werror -Wall -Wextra $(SOURCES) -I. -I includes -I minilibx_mac -I libft -L libft -L minilibx_mac -lmlx -lft -lm -framework AppKit -framework OpenGL -o cub3D \
+		-g
 	@echo -e "\x1b[38;5;6m""Maked $@""\x1b[0m"

@@ -12,31 +12,64 @@ double	*get_z_buf(t_vars *vars, int j, int i)
 	return (&vars->z_buf[j * vars->img.line_len + i]);
 }
 
+//void	render_spite_ray(t_vars *vars, t_sprite *sprite, int i)
+//{
+//	t_img		*img;
+//	int			j;
+//	double		pr_h;
+//	t_color		color;
+//
+//	img = &vars->texs[vars->sprite_offset + sprite->tile->num];
+//	pr_h = vars->conf->dist_proj / sprite->dist;
+//	j = 0;
+//	while (j < vars->conf->h_vres)
+//	{
+//		if (j > vars->conf->h_vres / 2. - pr_h / 2.
+//			&& j < vars->conf->h_vres / 2. + pr_h / 2.)
+//		{
+//			color = *img_pixel_get(img,
+//					(int)round(img->h * ((j + (pr_h - \
+//					(double)(vars->conf->h_vres) / 2)) / pr_h - 0.5)),
+//					(int)round(img->w * sprite->texp));
+////			if (color != 0
+//			if (((color >> 24) & 0xFF) == 0
+//				&& (*get_z_buf(vars, j, i) >= sprite->dist || *get_z_buf(vars,
+//						j, i) == 0) && (*get_z_buf(vars, j, i) = sprite->dist))
+//				img_pixel_put(&vars->img, j, i, shadow_dist(color,
+//						sprite->dist / 2.));
+//		}
+//		j++;
+//	}
+//}
+
 void	render_spite_ray(t_vars *vars, t_sprite *sprite, int i)
 {
 	t_img		*img;
 	int			j;
-	double		pr_h;
+	int			down;
+	int			pr_h;
 	t_color		color;
 
 	img = &vars->texs[vars->sprite_offset + sprite->tile->num];
-	pr_h = vars->conf->dist_proj / sprite->dist;
-	j = 0;
-	while (j < vars->conf->h_vres)
+	pr_h = floor(vars->conf->dist_proj / sprite->dist);
+	j = (int)floor((vars->img.h - pr_h)) / 2;
+	down = j + (int)floor(pr_h);
+	while (j < down)
 	{
-		if (j > vars->conf->h_vres / 2. - pr_h / 2.
-			&& j < vars->conf->h_vres / 2. + pr_h / 2.)
+		color = *img_pixel_get(img,
+				(int)floor(img->h * ((j + (pr_h - \
+				(double)(vars->conf->h_vres) / 2)) / pr_h - 0.5)),
+				(int)floor(img->w * sprite->texp));
+//			if (color != 0
+		if (((color >> 24) & 0xFF) == 0 && \
+			(*get_z_buf(vars, j, i) == 0 || \
+			*get_z_buf(vars, j, i) >= sprite->dist))
 		{
-			color = *img_pixel_get(img,
-					(int)round(img->h * ((j + (pr_h - \
-					(double)(vars->conf->h_vres) / 2)) / pr_h - 0.5)),
-					(int)round(img->w * sprite->texp));
-			if (color != 0
-				&& (*get_z_buf(vars, j, i) >= sprite->dist || *get_z_buf(vars,
-						j, i) == 0) && (*get_z_buf(vars, j, i) = sprite->dist))
-				img_pixel_put(&vars->img, j, i, shadow_dist(color,
-						sprite->dist / 2.));
+			*get_z_buf(vars, j, i) = sprite->dist;
+			img_pixel_put(&vars->img, j, i, shadow_dist(color,
+														sprite->dist / 2.));
 		}
+
 		j++;
 	}
 }

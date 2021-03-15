@@ -23,7 +23,7 @@ void	add_sprite(t_caster *caster, t_vars *vars, t_ipoint pos, double ray)
 	else
 		sprt->cross.y = caster->k * sprt->cross.x + caster->m;
 	sprt->texp = dist_ab(tmp, sprt->cross) * sign(anrm(ray - h.p)) + 0.5;
-	if (sprt->texp < 0 || sprt->texp > 1)
+	if (sprt->texp <= 0 || sprt->texp >= 1)
 		return (free(sprt));
 	sprt->dist = dist_ab(tmp, vars->pl.cord) * cos(vars->pl.angle - ray);
 	sprt->tile = &vars->conf->map.tiles[pos.i * vars->conf->map.w + pos.j];

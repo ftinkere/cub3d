@@ -4,6 +4,8 @@
 #include "adders_p.h"
 #include "mlx.h"
 
+int mlx_get_screen_size(void *, int *, int *);
+
 int	add_p_r(t_vars *vars, t_config *conf, t_lines sline)
 {
 	int	screen_w;

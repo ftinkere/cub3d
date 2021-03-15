@@ -1,4 +1,5 @@
 #include <math.h>
+#include <libft.h>
 #include "types.h"
 
 void	move_by_key_1(t_vars *vars, double dist, t_point *new)
@@ -65,38 +66,77 @@ void	key_handler(t_vars *vars)
 
 int	press_key_handler(int key, t_vars *vars)
 {
-	if (key == 65307) // ESC
+	ft_printf("key: %d\n", key);
+	if (key == 53) // ESC
 		exit_handler(vars);
-	else if (key == 101) // E
+	else if (key == 14) // E
 		vars->keybuff.e = 1;
-	else if (key == 113) // Q
+	else if (key == 12) // Q
 		vars->keybuff.q = 1;
-	else if (key == 119) // W
+	else if (key == 13) // W
 		vars->keybuff.w = 1;
-	else if (key == 97) // A
+	else if (key == 0) // A
 		vars->keybuff.a = 1;
-	else if (key == 115) // S
+	else if (key == 1) // S
 		vars->keybuff.s = 1;
-	else if (key == 100) // D
+	else if (key == 2) // D
 		vars->keybuff.d = 1;
 	return (0);
 }
 
 int	press_realease_handler(int key, t_vars *vars)
 {
-	if (key == 65307) // ESC
+	if (key == 53) // ESC
 		exit_handler(vars);
-	else if (key == 101) // E
+	else if (key == 14) // E
 		vars->keybuff.e = 0;
-	else if (key == 113) // Q
+	else if (key == 12) // Q
 		vars->keybuff.q = 0;
-	else if (key == 119) // W
+	else if (key == 13) // W
 		vars->keybuff.w = 0;
-	else if (key == 97) // A
+	else if (key == 0) // A
 		vars->keybuff.a = 0;
-	else if (key == 115) // S
+	else if (key == 1) // S
 		vars->keybuff.s = 0;
-	else if (key == 100) // D
+	else if (key == 2) // D
 		vars->keybuff.d = 0;
 	return (0);
 }
+
+//int	press_key_handler(int key, t_vars *vars)
+//{
+//	if (key == 65307) // ESC
+//		exit_handler(vars);
+//	else if (key == 101) // E
+//		vars->keybuff.e = 1;
+//	else if (key == 113) // Q
+//		vars->keybuff.q = 1;
+//	else if (key == 119) // W
+//		vars->keybuff.w = 1;
+//	else if (key == 97) // A
+//		vars->keybuff.a = 1;
+//	else if (key == 115) // S
+//		vars->keybuff.s = 1;
+//	else if (key == 100) // D
+//		vars->keybuff.d = 1;
+//	return (0);
+//}
+//
+//int	press_realease_handler(int key, t_vars *vars)
+//{
+//	if (key == 65307) // ESC
+//		exit_handler(vars);
+//	else if (key == 101) // E
+//		vars->keybuff.e = 0;
+//	else if (key == 113) // Q
+//		vars->keybuff.q = 0;
+//	else if (key == 119) // W
+//		vars->keybuff.w = 0;
+//	else if (key == 97) // A
+//		vars->keybuff.a = 0;
+//	else if (key == 115) // S
+//		vars->keybuff.s = 0;
+//	else if (key == 100) // D
+//		vars->keybuff.d = 0;
+//	return (0);
+//}

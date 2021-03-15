@@ -48,7 +48,7 @@ void	vars_init(t_vars *vars, t_path to_conf, t_config *conf)
 		vars->win = mlx_new_window(vars->mlx, conf->w_res, conf->h_res,
 				"Cub3d");
 		// MACOS TEST NEED. MUST DELETED. Без неё не закрывается на лини
-		closed_win(vars->mlx, vars->win); //
+//		closed_win(vars->mlx, vars->win); //
 	}
 	vars->img.img = mlx_new_image(vars->mlx, conf->w_res, conf->h_res);
 	vars->img.w = conf->w_res;
@@ -105,8 +105,8 @@ int	main(int argc, char *argv[])
 	{
 		mlx_hook(vars.win, 2, 1L << 0, press_key_handler, &vars);
 		mlx_hook(vars.win, 3, 1L << 1, press_realease_handler, &vars);
-		mlx_hook(vars.win, 33, 0, exit_handler, &vars);
-//		mlx_hook(vars.win, 17, 1L << 17, exit_handler, &vars);
+//		mlx_hook(vars.win, 33, 0, exit_handler, &vars);
+		mlx_hook(vars.win, 17, 1L << 17, exit_handler, &vars);
 	}
 	mlx_loop_hook(vars.mlx, next_render, &vars);
 	mlx_loop(vars.mlx);

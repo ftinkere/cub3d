@@ -1,17 +1,17 @@
 R 1200 600
 
-NO ../texs/no0.xpm
-SO ../texs/so0.xpm
-WE ../texs/we0.xpm
-EA ../texs/ea0.xpm
+NO ./texs/no0.xpm
+SO ./texs/so0.xpm
+WE ./texs/we0.xpm
+EA ./texs/ea0.xpm
 
-NO1 ../texs/no1.xpm
-SO1 ../texs/so1.xpm
-WE1 ../texs/we1.xpm
-EA1 ../texs/ea1.xpm
+NO1 ./texs/no1.xpm
+SO1 ./texs/so1.xpm
+WE1 ./texs/we1.xpm
+EA1 ./texs/ea1.xpm
 
-S  ../texs/s0.xpm
-S1 ../texs/s1.xpm
+S  ./texs/s0.xpm
+S1 ./texs/s1.xpm
 
 F 100,100,100
 C 0,128,200
