@@ -3,6 +3,7 @@
 #include <debug.h>
 #include <raycast.h>
 #include <glob.h>
+#include <cub3d_utils.h>
 #include "mlx.h"
 #include "libft.h"
 #include "cvec.h"
@@ -72,8 +73,8 @@ void	vars_init(t_vars *vars, t_path to_conf, t_config *conf)
 ** TODO: Коллизии +-
 ** TODO: Затемнение пола с расстоянием -
 ** TODO: Чуть-чуть оптимизации отображения
-** TODO: Пофиксить баг R 1080720
-** TODO: Пофиксить баг R
+** TODO: Пофиксить баг R 1080720 +
+** TODO: Пофиксить баг R +
 ** TODO: Пофиксить баг отсутствия параметра конфига
 ** TODO: Пофиксить баг RNO 1 1
 ** TODO: Пофиксить баг R ./wolftex/WALL54.xpm
@@ -85,19 +86,33 @@ void	vars_init(t_vars *vars, t_path to_conf, t_config *conf)
 ** TODO: Пофиксить баг EA \n EA
 ** TODO: Пофиксить баг NULL tex
 ** TODO: Пофиксить баг valid_maps/valid_map_area_001.cub segfault // Или нет...
+** TODO: Проверка на суффикс .cub +
 */
 int	main(int argc, char *argv[])
 {
 	t_config	conf;
 	t_vars		vars;
 	t_path		to_conf;
+	int			i;
 
 	vars.is_save = 0;
-	to_conf = "../maps/conf.cub";
-	if (argc > 1 && ft_strncmp("--save", argv[1], 7) == 0)
-		vars.is_save = 1;
-	if ((argc == 2 && vars.is_save == 0 )|| argc == 3)
-		to_conf = argv[argc - 1];
+	to_conf = NULL;
+	i = 1;
+	if (argc < 2 || argc > 3)
+		errex(42, "Arguments is wrong");
+	while (i < argc)
+	{
+		if (ft_strncmp("--save", argv[i], 7) == 0)
+			vars.is_save = 1;
+		else if (ft_strlen(argv[i]) > 4 && \
+		ft_strncmp(".cub", argv[i] + (int)ft_strlen(argv[i]) - 4, 5) == 0)
+			to_conf = argv[i];
+		else
+			errex(42, "Strange argument found");
+		i++;
+	}
+	if (to_conf == NULL)
+		errex(42, "Map not set or doesn't end with .cub");
 	vars.mlx = mlx_init();
 	vars_init(&vars, to_conf, &conf);
 	mlx_do_key_autorepeaton(vars.mlx);

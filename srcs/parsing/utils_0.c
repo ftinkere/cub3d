@@ -4,8 +4,9 @@
 
 void	errex(int e, const char *message)
 {
-	ft_printf("Exit: %d: %s\n", e, message);
-	exit(e);
+	ft_printf("Error\n");
+	ft_printf("%d: %s\n", e, message);
+	exit(0);
 }
 
 t_lines_v	read_file(t_file file)
@@ -39,4 +40,22 @@ void	free_split(t_lines lines)
 		i++;
 	}
 	free(lines);
+}
+
+void	free_btexs(t_cvec *btexs_cvec)
+{
+	int		i;
+	char	**btexs;
+
+	i = 0;
+	while (i < btexs_cvec->siz)
+	{
+		btexs = btexs_cvec->arr[i];
+		free(btexs[SIDE_NORTH]);
+		free(btexs[SIDE_EAST]);
+		free(btexs[SIDE_WEST]);
+		free(btexs[SIDE_SOUTH]);
+		i++;
+	}
+	cvec_free_all(btexs_cvec);
 }

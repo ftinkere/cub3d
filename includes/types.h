@@ -132,7 +132,6 @@ typedef struct s_vars {
 	int			is_save;
 }	t_vars;
 
-int		closed_win(void *mlx, void *win);
 int 	exit_handler(t_vars *vars);
 void	move_by_key(t_vars *vars);
 void	key_handler(t_vars *vars);
@@ -143,5 +142,6 @@ void	write_header(int fd, t_vars *vars); // BMP
 void	write_img(int fd, t_vars *vars); // BMP
 void	load_texs(t_vars *vars);
 int		next_render(t_vars *vars);
+void	free_btexs(t_cvec *btexs_cvec);
 
 #endif

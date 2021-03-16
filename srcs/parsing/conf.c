@@ -41,6 +41,8 @@ int	add_conf(t_vars *vars, t_config *conf, t_line line)
 
 	lines = ft_split_str(line, " ,");
 	get_param(lines[0], &param);
+	if (param == P_M || param == P_E)
+		free_split(lines);
 	if (param == P_M)
 		return (P_M);
 	else if (param == P_E)
@@ -63,8 +65,8 @@ int	add_conf(t_vars *vars, t_config *conf, t_line line)
 
 void	conf_init(t_config *conf)
 {
-	conf->h_res = 42;
-	conf->w_res = 42;
+	conf->h_res = -1;
+	conf->w_res = -1;
 	conf->w_vres = 800;
 	conf->h_vres = 600;
 	conf->blocks_texs = cvec_new();
@@ -72,11 +74,16 @@ void	conf_init(t_config *conf)
 	conf->ceil_color = 0x00000000;
 	conf->floor_color = 0x00000000;
 	conf->map.tiles = NULL;
-	conf->map.h = 0;
-	conf->map.w = 0;
+	conf->map.h = -1;
+	conf->map.w = -1;
 	conf->map.legend = "0E 1W0 2S0 DD0 NNS0 EES1 SSS2 WWS3";
-	conf->fov = M_PI / 2.5;
-	conf->dist_proj = (double)conf->w_vres / (2 * tan(conf->fov / 2));
+	conf->fov = M_PI_2;
+}
+
+void		test_conf(t_config *conf)
+{
+	if (conf->w_res <= 0 || conf->h_res <= 0)
+		errex(42, "Error, R not found in config");
 }
 
 t_config	parse_cub(t_vars *vars, t_path conf_path)
@@ -95,14 +102,16 @@ t_config	parse_cub(t_vars *vars, t_path conf_path)
 	param = 42;
 	while (i < lines.siz && param != P_M)
 		param = add_conf(vars, &conf, lines.arr[i++]);
+	test_conf(&conf);
 	conf.w_vres = conf.w_res;
 	conf.h_vres = conf.h_res;
+	conf.dist_proj = (double)conf.w_vres / (2 * tan(conf.fov / 2));
 	if (param == P_M)
 		parse_map(&conf.map, &lines, i - 1);
 	else
 		errex(42, "Map not found in .cub");
 	if (!validate_circ(&conf.map))
 		errex(42, "Map not valid. Player can go to end of map");
-	free(lines.arr);
+	cvec_free_all(&lines);
 	return (conf);
 }

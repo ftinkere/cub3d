@@ -39,8 +39,7 @@ void	load_texs(t_vars *vars)
 		img_load(vars, &vars->texs[vars->sprite_offset + i],
 			((char*)vars->conf->sprites_texs.arr[i]));
 	vars->gui_offset = vars->sprite_offset + i;
-	// TODO: ВЫНЕСТИ ПУТЬ
-	img_load(vars, &vars->texs[vars->gui_offset + 0], "./texs/gui/cross.xpm");
-	cvec_free_all(&vars->conf->blocks_texs);
+	img_load(vars, &vars->texs[vars->gui_offset + 0], "../texs/gui/cross.xpm");
+	free_btexs(&vars->conf->blocks_texs);
 	cvec_free_all(&vars->conf->sprites_texs);
 }

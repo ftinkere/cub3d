@@ -10,15 +10,22 @@ int	add_p_r(t_vars *vars, t_config *conf, t_lines sline)
 {
 	int	screen_w;
 	int	screen_h;
+	int	i;
 
 	if (sline == NULL || sline[0] == NULL || sline[1] == NULL
 		|| sline[2] == NULL)
-		return (0);
+		errex(42, "Error resolution in config");
+	i = 0;
+	while (sline[1][i])
+		if (!ft_isdigit(sline[1][i++]))
+			errex(42, "Error resolution in config");
+	i = 0;
+	while (sline[2][i])
+		if (!ft_isdigit(sline[1][i++]))
+			errex(42, "Error resolution in config");
 	conf->w_res = ft_atoi(sline[1]);
 	conf->h_res = ft_atoi(sline[2]);
-	if (conf->w_res <= 0)
-		errex(42, "Error resolution in config");
-	else if (conf->h_res <= 0)
+	if (conf->w_res <= 0 || conf->h_res <= 0)
 		errex(42, "Error resolution in config");
 	mlx_get_screen_size(vars->mlx, &screen_w, &screen_h);
 	if (conf->w_res > screen_w)
