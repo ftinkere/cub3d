@@ -4,8 +4,6 @@
 #include "adders_p.h"
 #include "mlx.h"
 
-int mlx_get_screen_size(void *, int *, int *);
-
 int	add_p_r(t_vars *vars, t_config *conf, t_lines sline)
 {
 	int	screen_w;
@@ -58,12 +56,13 @@ int	add_p_f(t_config *conf, t_lines lines)
 	int	b;
 
 	if (!lines || !lines[0] || !lines[1] || !lines[2] || !lines[3])
-		return (0);
+		errex(42, "Error floor color style");
+	check_color(lines);
 	r = ft_atoi(lines[1]);
 	g = ft_atoi(lines[2]);
 	b = ft_atoi(lines[3]);
 	if (r > 255 || r < 0 || g > 255 || g < 0 || b > 255 || b < 0)
-		return (0);
+		errex(42, "Error floor color");
 	conf->floor_color = 0 | (r << 16) | (g << 8) | b;
 	return (1);
 }
@@ -75,12 +74,13 @@ int	add_p_c(t_config *conf, t_lines lines)
 	int	b;
 
 	if (!lines || !lines[0] || !lines[1] || !lines[2] || !lines[3])
-		return (0);
+		errex(42, "Error ceil color style");
+	check_color(lines);
 	r = ft_atoi(lines[1]);
 	g = ft_atoi(lines[2]);
 	b = ft_atoi(lines[3]);
 	if (r > 255 || r < 0 || g > 255 || g < 0 || b > 255 || b < 0)
-		return (0);
+		errex(42, "Error ceil color");
 	conf->ceil_color = 0 | (r << 16) | (g << 8) | b;
 	return (1);
 }
@@ -97,12 +97,14 @@ void	add_p_side(t_config *conf, t_lines lines, enum e_param param)
 	while (conf->blocks_texs.siz <= index)
 		cvec_push(&conf->blocks_texs, btexs_new());
 	btexs = (char **)conf->blocks_texs.arr[index];
-	if (param == P_NO)
+	if (param == P_NO && btexs[SIDE_NORTH] == NULL)
 		btexs[SIDE_NORTH] = ft_strdup(lines[1]);
-	else if (param == P_SO)
+	else if (param == P_SO && btexs[SIDE_SOUTH] == NULL)
 		btexs[SIDE_SOUTH] = ft_strdup(lines[1]);
-	else if (param == P_WE)
+	else if (param == P_WE && btexs[SIDE_WEST] == NULL)
 		btexs[SIDE_WEST] = ft_strdup(lines[1]);
-	else if (param == P_EA)
+	else if (param == P_EA && btexs[SIDE_EAST] == NULL)
 		btexs[SIDE_EAST] = ft_strdup(lines[1]);
+	else
+		errex(42, "Error in texture path load");
 }

@@ -7,7 +7,7 @@ int	offset(int y, int x, t_img *img)
 
 unsigned int	*img_pixel_get(t_img *img, int y, int x)
 {
-	return ((unsigned int*)(img->addr + offset(y, x, img)));
+	return ((unsigned int *)(img->addr + offset(y, x, img)));
 }
 
 void	img_pixel_put(t_img *img, int y, int x, unsigned int color)

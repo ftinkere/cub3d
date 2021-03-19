@@ -59,3 +59,23 @@ void	free_btexs(t_cvec *btexs_cvec)
 	}
 	cvec_free_all(btexs_cvec);
 }
+
+void	check_color(t_lines lines)
+{
+	int	i;
+
+	i = 0;
+	if (lines[1][0] == '\0' || lines[2][0] == '\0' || lines[3][0] == '\0')
+		errex(42, "Error color style, empty");
+	while (lines[1][i])
+		if (!ft_isdigit(lines[1][i++]))
+			errex(42, "Error color style red");
+	i = 0;
+	while (lines[2][i])
+		if (!ft_isdigit(lines[2][i++]))
+			errex(42, "Error color style green");
+	i = 0;
+	while (lines[3][i])
+		if (!ft_isdigit(lines[3][i++]))
+			errex(42, "Error color style blue");
+}

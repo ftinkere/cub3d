@@ -12,7 +12,7 @@ void	get_param(t_line line, enum e_param *res)
 	if ((line == NULL || line[0] == '\0'))
 		return ;
 	*res = P_M;
-	if (!ft_memcmp(line, "R", 1))
+	if (!ft_memcmp(line, "R", 2))
 		*res = P_R;
 	if (!ft_memcmp(line, "S", 1))
 		*res = P_S;
@@ -24,13 +24,11 @@ void	get_param(t_line line, enum e_param *res)
 		*res = P_WE;
 	if (!ft_memcmp(line, "EA", 2))
 		*res = P_EA;
-	if (!ft_memcmp(line, "UP", 2))
-		*res = P_UP;
-	if (!ft_memcmp(line, "F", 1))
+	if (!ft_memcmp(line, "F", 2))
 		*res = P_F;
-	if (!ft_memcmp(line, "C", 1))
+	if (!ft_memcmp(line, "C", 2))
 		*res = P_C;
-	if (!ft_memcmp(line, "L", 1))
+	if (!ft_memcmp(line, "L", 2))
 		*res = P_L;
 }
 
@@ -49,7 +47,7 @@ int	add_conf(t_vars *vars, t_config *conf, t_line line)
 		return (P_E);
 	else if (param == P_R)
 		add_p_r(vars, conf, lines);
-	else if (param >= P_NO && param <= P_UP)
+	else if (param >= P_NO && param <= P_EA)
 		add_p_side(conf, lines, param);
 	else if (param == P_L)
 		add_p_l(conf, line);
@@ -77,13 +75,14 @@ void	conf_init(t_config *conf)
 	conf->map.h = -1;
 	conf->map.w = -1;
 	conf->map.legend = "0E 1W0 2S0 DD0 NNS0 EES1 SSS2 WWS3";
-	conf->fov = M_PI_2;
+	conf->fov = M_PI / 1.9;
 }
 
-void		test_conf(t_config *conf)
+void	doconfing(t_config *conf)
 {
-	if (conf->w_res <= 0 || conf->h_res <= 0)
-		errex(42, "Error, R not found in config");
+	conf->w_vres = conf->w_res;
+	conf->h_vres = conf->h_res;
+	conf->dist_proj = (double)conf->w_vres / (2 * tan(conf->fov / 2));
 }
 
 t_config	parse_cub(t_vars *vars, t_path conf_path)
@@ -97,15 +96,14 @@ t_config	parse_cub(t_vars *vars, t_path conf_path)
 	conf_init(&conf);
 	conf_file = open(conf_path, O_RDONLY);
 	lines = read_file(conf_file);
+	tester_raw(lines);
 	close(conf_file);
 	i = 0;
 	param = 42;
 	while (i < lines.siz && param != P_M)
 		param = add_conf(vars, &conf, lines.arr[i++]);
 	test_conf(&conf);
-	conf.w_vres = conf.w_res;
-	conf.h_vres = conf.h_res;
-	conf.dist_proj = (double)conf.w_vres / (2 * tan(conf.fov / 2));
+	doconfing(&conf);
 	if (param == P_M)
 		parse_map(&conf.map, &lines, i - 1);
 	else

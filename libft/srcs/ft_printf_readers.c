@@ -122,5 +122,5 @@ char	*read_var_s(t_spec *spec, va_list p_args)
 	}
 	if (spec->p < 0)
 		spec->p = -1;
-	return (va_arg(p_args, char*));
+	return (va_arg(p_args, char *));
 }
