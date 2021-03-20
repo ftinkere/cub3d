@@ -7,9 +7,7 @@ void	tester_step(enum e_param *param, int *i, int tester[10], t_lines_v lin)
 
 	spl = ft_split_str(lin.arr[*i], " ,");
 	get_param(spl[0], param);
-	if ((*param >= P_NO && *param <= P_EA) || *param == P_S)
-		tester[(int)*param] = 1;
-	else if (*param != P_E)
+	if (*param != P_E)
 		tester[(int)*param]++;
 	(*i)++;
 	free_split(spl);
@@ -29,10 +27,13 @@ void	tester_raw(t_lines_v lines)
 	i = 1;
 	while (i < (int)P_L)
 	{
-		if (tester[i] != 1)
-			errex(42, "In config many or not one of param");
+		if (!(i >= P_NO && i <= P_S) && tester[i] != 1)
+			errex(i, "In config many or not one of param");
 		i++;
 	}
+	if (tester[P_NO] != tester[P_SO] || tester[P_SO] != tester[P_WE] || \
+	tester[P_WE] != tester[P_EA])
+		errex(42, "Textures count not equal");
 }
 
 void	test_conf(t_config *conf)

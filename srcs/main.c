@@ -39,16 +39,21 @@ void	player_init(t_player *player, t_map *map)
 		player->angle = M_PI;
 }
 
+void	img_init(t_vars *vars, t_config *conf)
+{
+	vars->img.img = mlx_new_image(vars->mlx, conf->w_vres, conf->h_vres);
+	vars->img.w = conf->w_vres;
+	vars->img.h = conf->h_vres;
+}
+
 void	vars_init(t_vars *vars, t_path to_conf, t_config *conf)
 {
 	*conf = parse_cub(vars, to_conf);
 	vars->conf = conf;
 	if (vars->is_save != 1)
-		vars->win = mlx_new_window(vars->mlx, conf->w_res, conf->h_res,
+		vars->win = mlx_new_window(vars->mlx, conf->w_vres, conf->h_vres,
 				"Cub3d");
-	vars->img.img = mlx_new_image(vars->mlx, conf->w_res, conf->h_res);
-	vars->img.w = conf->w_res;
-	vars->img.h = conf->h_vres;
+	img_init(vars, conf);
 	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel,
 			&vars->img.line_len, &vars->img.endian);
 	vars->tim = 0;
@@ -86,27 +91,6 @@ void	args_load(t_vars *vars, t_path *to_conf, int argc, char **argv)
 		errex(42, "Map not set or doesn't end with .cub");
 }
 
-/*
-** TODO: Чистое закрытие программы через крестик окна +-
-** TODO: Управление мышкой -
-** TODO: Коллизии +-
-** TODO: Затемнение пола с расстоянием -
-** TODO: Чуть-чуть оптимизации отображения
-** TODO: Пофиксить баг R 1080720 +
-** TODO: Пофиксить баг R +
-** TODO: Пофиксить баг отсутствия параметра конфига +
-** TODO: Пофиксить баг RNO 1 1 +
-** TODO: Пофиксить баг R ./wolftex/WALL54.xpm +
-** TODO: Пофиксить баг C 255,200, +
-** TODO: Пофиксить баг C 255,200,-100 +
-** TODO: Пофиксить баг F +
-** TODO: Пофиксить баг f 122,122,122 +
-** TODO: Пофиксить баг EA segfault ???
-** TODO: Пофиксить баг EA \n EA +
-** TODO: Пофиксить баг NULL tex ?
-** TODO: Пофиксить баг valid_maps/valid_map_area_001.cub segfault // Или нет...
-** TODO: Проверка на суффикс .cub +
-*/
 int	main(int argc, char *argv[])
 {
 	t_config	conf;

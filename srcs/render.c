@@ -72,7 +72,7 @@ void	next_renderer_1(t_vars *vars)
 
 	if (vars->is_save)
 	{
-		fd = open("../screen.bmp", O_RDWR | O_CREAT);
+		fd = open("./screen.bmp", O_RDWR | O_CREAT);
 		write_header(fd, vars);
 		write_img(fd, vars);
 		close(fd);

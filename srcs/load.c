@@ -9,7 +9,7 @@ void	img_load(t_vars *vars, t_img *img, t_path path)
 	if (!img->img)
 	{
 		ft_printf("Error\nCannot load texture by path %s\n", path);
-		exit(42);
+		exit(0);
 	}
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_len, &img->endian);

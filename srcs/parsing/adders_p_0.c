@@ -4,6 +4,18 @@
 #include "adders_p.h"
 #include "mlx.h"
 
+void	add_p_r_1(t_vars *vars, t_config *conf, int screen_w, int screen_h)
+{
+	if (conf->w_res > screen_w && vars->is_save == 0)
+		conf->w_vres = screen_w;
+	else
+		conf->w_vres = conf->w_res;
+	if (conf->h_res > screen_h && vars->is_save == 0)
+		conf->h_vres = screen_h;
+	else
+		conf->h_vres = conf->h_res;
+}
+
 int	add_p_r(t_vars *vars, t_config *conf, t_lines sline)
 {
 	int	screen_w;
@@ -26,10 +38,7 @@ int	add_p_r(t_vars *vars, t_config *conf, t_lines sline)
 	if (conf->w_res <= 0 || conf->h_res <= 0)
 		errex(42, "Error resolution in config");
 	mlx_get_screen_size(vars->mlx, &screen_w, &screen_h);
-	if (conf->w_res > screen_w)
-		conf->w_res = screen_w;
-	if (conf->h_res > screen_h)
-		conf->h_res = screen_h;
+	add_p_r_1(vars, conf, screen_w, screen_h);
 	return (1);
 }
 

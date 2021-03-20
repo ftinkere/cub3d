@@ -78,13 +78,6 @@ void	conf_init(t_config *conf)
 	conf->fov = M_PI / 1.9;
 }
 
-void	doconfing(t_config *conf)
-{
-	conf->w_vres = conf->w_res;
-	conf->h_vres = conf->h_res;
-	conf->dist_proj = (double)conf->w_vres / (2 * tan(conf->fov / 2));
-}
-
 t_config	parse_cub(t_vars *vars, t_path conf_path)
 {
 	t_config	conf;
@@ -103,7 +96,7 @@ t_config	parse_cub(t_vars *vars, t_path conf_path)
 	while (i < lines.siz && param != P_M)
 		param = add_conf(vars, &conf, lines.arr[i++]);
 	test_conf(&conf);
-	doconfing(&conf);
+	conf.dist_proj = (double)conf.w_vres / (2 * tan(conf.fov / 2));
 	if (param == P_M)
 		parse_map(&conf.map, &lines, i - 1);
 	else
