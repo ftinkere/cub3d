@@ -75,6 +75,8 @@ int	set_dims_map(t_map *map, t_lines_v *lines, int i)
 	}
 	map->w = max;
 	map->h = lines->siz - j;
+	if (map->w < 3 || map->h < 3)
+		errex(42, "Map too small, you cant do it good");
 	return (1);
 }
 

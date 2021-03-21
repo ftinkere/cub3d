@@ -42,11 +42,10 @@ int	rec_circ(t_map *map, int *passed, int i, int j)
 		v = -1;
 		while (v <= 1)
 		{
-			if ((!((passed[(i + u) *map->w + (j + v)] == 1 || \
-					abs(u) == abs(v) || map->tiles[(i + u) *map->w + \
-					(j + v)].type == TILE_TYPE_WALL)) && !rec_circ(map, \
-						passed, i + u, j + v)) || (i + u < 0 || j + v < \
-						0 || i + u >= map->h || j + v >= map->w))
+			if ((i + u < 0 || j + v < 0 || i + u >= map->h || j + v >= map->w)
+			|| (!((passed[(i + u) *map->w + (j + v)] == 1 || abs(u) == abs(v)
+			|| map->tiles[(i + u) *map->w + (j + v)].type == TILE_TYPE_WALL))
+			&& !rec_circ(map, passed, i + u, j + v)))
 				return (0);
 			v++;
 		}
