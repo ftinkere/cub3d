@@ -39,13 +39,6 @@ void	player_init(t_player *player, t_map *map)
 		player->angle = M_PI;
 }
 
-void	img_init(t_vars *vars, t_config *conf)
-{
-	vars->img.img = mlx_new_image(vars->mlx, conf->w_vres, conf->h_vres);
-	vars->img.w = conf->w_vres;
-	vars->img.h = conf->h_vres;
-}
-
 void	vars_init(t_vars *vars, t_path to_conf, t_config *conf)
 {
 	*conf = parse_cub(vars, to_conf);
@@ -53,7 +46,9 @@ void	vars_init(t_vars *vars, t_path to_conf, t_config *conf)
 	if (vars->is_save != 1)
 		vars->win = mlx_new_window(vars->mlx, conf->w_vres, conf->h_vres,
 				"Cub3d");
-	img_init(vars, conf);
+	vars->img.img = mlx_new_image(vars->mlx, conf->w_vres, conf->h_vres);
+	vars->img.w = conf->w_vres;
+	vars->img.h = conf->h_vres;
 	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel,
 			&vars->img.line_len, &vars->img.endian);
 	vars->tim = 0;

@@ -93,27 +93,3 @@ int	add_p_c(t_config *conf, t_lines lines)
 	conf->ceil_color = 0 | (r << 16) | (g << 8) | b;
 	return (1);
 }
-
-void	add_p_side(t_config *conf, t_lines lines, enum e_param param)
-{
-	int		index;
-	char	**btexs;
-
-	if (ft_isdigit(lines[0][2]))
-		index = ft_atoi(lines[0] + 2);
-	else
-		index = 0;
-	while (conf->blocks_texs.siz <= index)
-		cvec_push(&conf->blocks_texs, btexs_new());
-	btexs = (char **)conf->blocks_texs.arr[index];
-	if (param == P_NO && btexs[SIDE_NORTH] == NULL)
-		btexs[SIDE_NORTH] = ft_strdup(lines[1]);
-	else if (param == P_SO && btexs[SIDE_SOUTH] == NULL)
-		btexs[SIDE_SOUTH] = ft_strdup(lines[1]);
-	else if (param == P_WE && btexs[SIDE_WEST] == NULL)
-		btexs[SIDE_WEST] = ft_strdup(lines[1]);
-	else if (param == P_EA && btexs[SIDE_EAST] == NULL)
-		btexs[SIDE_EAST] = ft_strdup(lines[1]);
-	else
-		errex(42, "Error in texture path load");
-}
